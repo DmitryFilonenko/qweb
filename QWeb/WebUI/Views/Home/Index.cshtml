@@ -2,30 +2,34 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
+@*<div class="jumbotron">    
     <p class="lead">ASP.NET is a free web framework.</p>
 
-</div>
+</div>*@
 
 <div class="row">
     @using (Html.BeginForm())
     {
 
-        @:Раскрывающийся список
+        @:Таблицы:
         @Html.DropDownList("list", new SelectList(new[] { "dima_imp", "yurko_imp", "import_clnt_example" }))
 
         <br />
 
         @*@:Список с множественным выбором
-        @Html.ListBox("list2", new MultiSelectList(new[] { "a", "b", "c", "d" }), new { style = "width:100px;" })*@
+            @Html.ListBox("list2", new MultiSelectList(new[] { "a", "b", "c", "d" }), new { style = "width:100px;" })*@
 
         <br />
 
-        <input type="submit" name="button" value="Отправить" />
+        <input type="submit" name="button" value="Количество записей в таблице" />
+
     }
 
+    <br />
 
     @ViewBag.Message
+
+
+
 
 </div>
