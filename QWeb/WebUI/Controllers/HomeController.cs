@@ -23,8 +23,8 @@ namespace WebUI.Controllers
                 //{
                 //    strList.Add(item.NAME);
                 //}
-                SelectList selectList = new SelectList(taskList);
-                ViewBag.Tasks = selectList;
+                //SelectList selectList = new SelectList(taskList);
+                ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
             }
             
             return View();
