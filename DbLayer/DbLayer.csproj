@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ManagerDb.cs" />
-    <Compile Include="Properties.cs" />
+    <Compile Include="Connect\DbConnect.cs" />
+    <Compile Include="Managers\ManagerDb.cs" />
+    <Compile Include="Prop\Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Managers\AppTaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -5,25 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DbLayer
+namespace DbLayer.Connect
 {
-    public class ManagerDb
+    class DbConnect
     {
         #region connectSupport
-        private static readonly ManagerDb instance = new ManagerDb();
+        private static readonly DbConnect instance = new DbConnect();
         private static readonly OracleConnection _con = new OracleConnection(Properties.ConnectionString);
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
-        static ManagerDb()
+        static DbConnect()
         {
         }
 
-        private ManagerDb()
+        private DbConnect()
         {
         }
 
-        public static ManagerDb Instance
+        public static DbConnect Instance
         {
             get
             {
@@ -31,14 +31,14 @@ namespace DbLayer
             }
         }
 
-        public OracleConnection GetDBConnection()
+        public static OracleConnection GetDBConnection()
         {
             return _con;
         }
 
         static OracleCommand _cmd;
 
-        static void ExecCommand(string query)
+        public static void ExecCommand(string query)
         {
             try
             {
@@ -63,23 +63,10 @@ namespace DbLayer
             }
             catch (Exception)
             {
+
                 throw;
             }
         }
         #endregion
-
-        public static int GetCount(string tableName)
-        {
-            _con.Open();
-            int count = -1;
-            string query = "select count(*) from " + tableName + " t";
-            OracleDataReader reader = GetReader(query);
-            while (reader.Read())
-            {
-                count = Convert.ToInt32(reader[0]);
-            }
-            _con.Close();
-            return count;
-        }
     }
 }

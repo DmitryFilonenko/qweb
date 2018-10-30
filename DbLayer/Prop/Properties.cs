@@ -8,7 +8,7 @@ namespace DbLayer
 {
     public static class Properties
     {
-        static string _connectionString = "User ID = import_user; password=sT7hk9Lm;Data Source = CD_WORK";
+        static string _connectionString = "User ID = qira; password=eadrqf; Data Source = CD_WORK";
         public static string ConnectionString { get { return _connectionString; } } 
     }
 }

@@ -8,11 +8,50 @@
 </div>*@
 
 <div class="row">
+
+    <ul class="nav navbar-nav side-nav">
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Задачи <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+
+                @if (ViewBag.Tasks != null)
+                 {
+                    foreach (var item in ViewBag.Tasks as SelectList)
+                    {
+                        <li> @Html.ActionLink(item.Text, item.Text, "Home") </li>
+                    }                     
+                 }
+            </ul>
+        </li>
+
+        <li>
+            <ul>
+               @*@if (ViewBag.SubTasks != null)
+               {
+                    @foreach (string item in ViewBag.SubTasks)
+                    {
+                        <li> @Html.ActionLink(item, item, "Home") </li>
+                    }
+               }*@
+            </ul>
+        </li>
+            
+        
+
+
+    </ul>
+
+
+
+
+
+
     @using (Html.BeginForm())
     {
 
         @:Таблицы:
-        @Html.DropDownList("list", new SelectList(new[] { "dima_imp", "yurko_imp", "import_clnt_example" }))
+        @Html.DropDownList("list", new SelectList(new[] { "import_user.dima_imp", "import_user.yurko_imp", "import_user.import_clnt_example" }))
 
         <br />
 
