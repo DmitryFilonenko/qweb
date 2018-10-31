@@ -1,0 +1,11 @@
+﻿<ul >
+    @if (ViewBag.SubTasks != null)
+    {
+        foreach (var item in ViewBag.SubTasks as SelectList)
+        {
+            <li>
+                @Ajax.ActionLink(item.Text, "ConcretTask", new { subTaskId = item.Value }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+            </li>
+        }
+    }
+</ul>

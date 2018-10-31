@@ -158,6 +158,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Models\Home\AppSubTask.cs" />
     <Compile Include="Models\Home\AppTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,6 +207,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ConcretTask.cshtml" />
+    <Content Include="Views\Home\SubTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,8 +19,6 @@
         OnComplete = "OnCompleteJs",
     };*@
 
-
-
 @*@using (Ajax.BeginForm())
     {
     }*@
@@ -35,32 +33,24 @@
                 {
                     foreach (var item in ViewBag.Tasks as SelectList)
                     {
-                        <li> @Html.ActionLink(item.Text, item.Text, "Home") </li>
+                        <li>
+                            @Ajax.ActionLink(item.Text, "SubTasks", new { id = item.Value },  new AjaxOptions(){ UpdateTargetId = "subtasks" })
+                        </li>
                     }
-                }
+                 }
             </ul>
         </li>
 
         <li>
-            <ul>
-
-                @*@if (ViewBag.SubTasks != null)
-                    {
-                         @foreach (string item in ViewBag.SubTasks)
-                         {
-                             <li> @Html.ActionLink(item, item, "Home") </li>
-                         }
-                    }*@
-            </ul>
+               <div id="subtasks"></div> 
         </li>
-    </ul>
+    </ul>  
+    
+
+    @*@Html.Partial("ConcretTask")*@
 
 
-
-
-
-
-    @using (Html.BeginForm())
+    @*@using (Html.BeginForm())
     {
 
         @:Таблицы:
@@ -68,8 +58,8 @@
 
         <br />
 
-        @*@:Список с множественным выбором
-            @Html.ListBox("list2", new MultiSelectList(new[] { "a", "b", "c", "d" }), new { style = "width:100px;" })*@
+        @:Список с множественным выбором
+            @Html.ListBox("list2", new MultiSelectList(new[] { "a", "b", "c", "d" }), new { style = "width:100px;" })
 
         <br />
 
@@ -79,18 +69,20 @@
 
     <br />
 
-    @ViewBag.Message
+    @ViewBag.Message*@
 
 </div>
 
-@Ajax.ActionLink("ErrorLink", "About",
+<div id="concret_task"></div>
+
+@*@Ajax.ActionLink("ErrorLink", "SubTasks",
         new AjaxOptions()
         {
-            OnBegin = "OnBeginJs",
+            //OnBegin = "OnBeginJs",
             OnSuccess = "OnSuccessJs",
-            OnFailure = "OnFailureJs",
-            OnComplete = "OnCompleteJs",
-        })
+            //OnFailure = "OnFailureJs",
+            //OnComplete = "OnCompleteJs",
+        })*@
 
 
 

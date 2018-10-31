@@ -17,18 +17,56 @@ namespace WebUI.Controllers
             using (var context = new DBContext())
             {
                 List<TASK> taskList = context.TASKS.ToList();                
-                //List<string> strList = new List<string>();
-
-                //foreach (var item in taskList)
-                //{
-                //    strList.Add(item.NAME);
-                //}
-                //SelectList selectList = new SelectList(taskList);
                 ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
             }
             
             return View();
         }
+
+
+        //public MvcHtmlString SubTasks(int id)
+        //{
+        //    MvcHtmlString str;
+        //    using (var context = new DBContext())
+        //    {
+        //        List<SUBTASK> subTasklist = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();                
+        //        str = CreateHtml(subTasklist);
+        //    }
+        //    return str;
+        //}
+
+        public ActionResult SubTasks(int? id)
+        {            
+            using (var context = new DBContext())
+            {
+                List<SUBTASK> subTasklist = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
+                ViewBag.SubTasks = new SelectList(subTasklist, "ID", "NAME");
+            }
+            return PartialView();
+        }
+
+        //private MvcHtmlString CreateHtml(List<SUBTASK> subTasklist)
+        //{
+        //    TagBuilder ulTag = new TagBuilder("ul");
+        //    foreach (var item in subTasklist)
+        //    {
+        //        TagBuilder liTag = new TagBuilder("li");
+        //        TagBuilder aTeg = new TagBuilder("a");
+        //        aTeg.MergeAttribute("href", "Home/ConcretTask");
+        //        aTeg.MergeAttribute("subTaskId", item.ID.ToString());
+        //        aTeg.InnerHtml = item.NAME.ToString();
+        //        liTag.InnerHtml+=aTeg.ToString();
+        //        ulTag.InnerHtml += liTag.ToString();
+        //    }
+        //    return new MvcHtmlString(ulTag.ToString());
+        //}
+
+
+        public string ConcretTask(string subTaskId)
+        {
+            return "ID подзадачи - " + subTaskId;
+        }
+
 
         [HttpPost]
         public ActionResult Index(string list)
