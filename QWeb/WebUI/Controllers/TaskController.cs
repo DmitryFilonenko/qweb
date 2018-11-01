@@ -11,24 +11,27 @@ namespace WebUI.Controllers
         
         public ActionResult Priority( int prior)
         {
-            //using (var context = new DBContext())
-            //{
-            //    List<TASK> taskList = context.TASKS.ToList();
-            //    ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
-            //}
             ViewBag.Prior = prior;
 
             return View();
         }
-        //Priority
-        //Priority
-        //Priority
-        //Experiment
-        //Draft
-        //Stop
-        //LetterPinList
-        //LetterRegs
-        //LetterOther
 
+        [HttpPost]
+        public ActionResult Priority(string priorityValue, HttpPostedFileBase uploadfile)
+        {            
+            uploadfile.SaveAs(Server.MapPath("/Uploads/" + uploadfile.FileName));
+            return View();
+        }
     }
+
+
+    //Priority
+    //Priority
+    //Priority
+    //Experiment
+    //Draft
+    //Stop
+    //LetterPinList
+    //LetterRegs
+    //LetterOther
 }
