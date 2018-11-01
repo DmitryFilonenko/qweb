@@ -27,30 +27,50 @@
     <ul class="nav navbar-nav side-nav">
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Задачи <b class="caret"></b></a>
-            <ul class="dropdown-menu">
+            <br />
+            <a href="#" class="dropdown-toggle text-center" style="font-size:18px" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Задачи <b class="caret"></b></a>
+            <ul class="dropdown-menu">               
+
                 @if (ViewBag.Tasks != null)
                 {
                     foreach (var item in ViewBag.Tasks as SelectList)
                     {
                         <li>
-                            @Ajax.ActionLink(item.Text, "SubTasks", new { id = item.Value },  new AjaxOptions(){ UpdateTargetId = "subtasks" })
+                            @Ajax.ActionLink(item.Text, "SubTasks", new { id = item.Value }, new AjaxOptions() { UpdateTargetId = "subtasks" })
                         </li>
                     }
-                 }
+                }
+
             </ul>
         </li>
 
         <li>
-               <div id="subtasks"></div> 
+            <div id="subtasks"></div>
         </li>
-    </ul>  
-    
-
-    @*@Html.Partial("ConcretTask")*@
+    </ul>
+</div>
 
 
-    @*@using (Html.BeginForm())
+<div id="concret_task"></div>
+
+
+
+<hr />
+<hr />
+<hr />
+
+<footer>
+    <p class="panel-footer" style="text-align:center">&copy; @DateTime.Now.Year -  Европейское агентство по возврату долгов.</p>
+</footer>
+
+
+
+
+
+@*@Html.Partial("ConcretTask")*@
+
+
+@*@using (Html.BeginForm())
     {
 
         @:Таблицы:
@@ -71,18 +91,16 @@
 
     @ViewBag.Message*@
 
-</div>
 
-<div id="concret_task"></div>
 
 @*@Ajax.ActionLink("ErrorLink", "SubTasks",
-        new AjaxOptions()
-        {
-            //OnBegin = "OnBeginJs",
-            OnSuccess = "OnSuccessJs",
-            //OnFailure = "OnFailureJs",
-            //OnComplete = "OnCompleteJs",
-        })*@
+    new AjaxOptions()
+    {
+        //OnBegin = "OnBeginJs",
+        OnSuccess = "OnSuccessJs",
+        //OnFailure = "OnFailureJs",
+        //OnComplete = "OnCompleteJs",
+    })*@
 
 
 
@@ -93,21 +111,21 @@
     @*Ненавязивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-    <script type="text/javascript">
-        function OnBeginJs() {
-            alert("OnBegin Callback");
-        }
+    @*<script type="text/javascript">
+            function OnBeginJs() {
+                alert("OnBegin Callback");
+            }
 
-        function OnSuccessJs(data) {
-            alert("OnSuccess Callback: " + data);
-        }
+            function OnSuccessJs(data) {
+                alert("OnSuccess Callback: " + data);
+            }
 
-        function OnFailureJs(request, error) {
-            alert("OnFailure Callback: " + error);
-        }
+            function OnFailureJs(request, error) {
+                alert("OnFailure Callback: " + error);
+            }
 
-        function OnCompleteJs(request, status) {
-            alert("OnComplete Callback: " + status);
-        }
-    </script>
+            function OnCompleteJs(request, status) {
+                alert("OnComplete Callback: " + status);
+            }
+        </script>*@
 }

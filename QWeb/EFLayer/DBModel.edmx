@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="SUBTASKS">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,6 +12,8 @@
           <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="TASK_ID" Type="number" Precision="38" Scale="0" />
           <Property Name="NAME" Type="varchar2" MaxLength="3999" />
+          <Property Name="ACTION" Type="varchar2" MaxLength="3999" />
+          <Property Name="PARAM" Type="varchar2" MaxLength="3999" />
         </EntityType>
         <EntityType Name="TASKS">
           <Key>
@@ -40,8 +42,7 @@
             <End Role="SUBTASKS" EntitySet="SUBTASKS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -53,6 +54,8 @@
           <Property Name="TASK_ID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="NAME" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TASK" Relationship="Self.T_ID" FromRole="SUBTASKS" ToRole="TASKS" />
+          <Property Name="ACTION" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
+          <Property Name="PARAM" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TASK">
           <Key>
@@ -91,6 +94,8 @@
           <EntitySetMapping Name="SUBTASKS">
             <EntityTypeMapping TypeName="Model.SUBTASK">
               <MappingFragment StoreEntitySet="SUBTASKS">
+                <ScalarProperty Name="PARAM" ColumnName="PARAM" />
+                <ScalarProperty Name="ACTION" ColumnName="ACTION" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TASK_ID" ColumnName="TASK_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />

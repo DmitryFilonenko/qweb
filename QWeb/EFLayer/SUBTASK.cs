@@ -17,6 +17,8 @@ namespace EFLayer
         public decimal ID { get; set; }
         public Nullable<decimal> TASK_ID { get; set; }
         public string NAME { get; set; }
+        public string ACTION { get; set; }
+        public string PARAM { get; set; }
     
         public virtual TASK TASK { get; set; }
     }

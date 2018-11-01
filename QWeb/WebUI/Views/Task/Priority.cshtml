@@ -1,0 +1,8 @@
+﻿<h3>Приоритет - @ViewBag.Prior</h3>
+
+@using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="FileUpload" />
+    <br />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}

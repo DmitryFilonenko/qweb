@@ -24,25 +24,16 @@ namespace WebUI.Controllers
         }
 
 
-        //public MvcHtmlString SubTasks(int id)
-        //{
-        //    MvcHtmlString str;
-        //    using (var context = new DBContext())
-        //    {
-        //        List<SUBTASK> subTasklist = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();                
-        //        str = CreateHtml(subTasklist);
-        //    }
-        //    return str;
-        //}
-
         public ActionResult SubTasks(int? id)
-        {            
+        {
+            List<SUBTASK> subTaskList = new List<SUBTASK>();
+
             using (var context = new DBContext())
             {
-                List<SUBTASK> subTasklist = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
-                ViewBag.SubTasks = new SelectList(subTasklist, "ID", "NAME");
+                subTaskList = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
+                ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
             }
-            return PartialView();
+            return PartialView(subTaskList);
         }
 
         //private MvcHtmlString CreateHtml(List<SUBTASK> subTasklist)
