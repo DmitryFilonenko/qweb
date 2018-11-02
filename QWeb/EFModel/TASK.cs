@@ -7,19 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EFLayer
+namespace EFModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SUBTASK
+    public partial class TASK
     {
-        public decimal ID { get; set; }
-        public Nullable<decimal> TASK_ID { get; set; }
-        public string NAME { get; set; }
-        public string ACTION { get; set; }
-        public string PARAM { get; set; }
+        public TASK()
+        {
+            this.SUBTASKS = new HashSet<SUBTASK>();
+        }
     
-        public virtual TASK TASK { get; set; }
+        public decimal ID { get; set; }
+        public string NAME { get; set; }
+    
+        public virtual ICollection<SUBTASK> SUBTASKS { get; set; }
     }
 }

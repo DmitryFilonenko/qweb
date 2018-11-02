@@ -10,10 +10,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="TASK_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASK_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NAME" Type="varchar2" MaxLength="3999" />
           <Property Name="ACTION" Type="varchar2" MaxLength="3999" />
           <Property Name="PARAM" Type="varchar2" MaxLength="3999" />
+          <Property Name="TABLE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TABLE_ACCESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="TABLE_NAME" Type="varchar2" MaxLength="3999" Nullable="false" />
+          <Property Name="IS_FREE" Type="number" Precision="1" Scale="0" />
+          <Property Name="DT" Type="varchar2" MaxLength="3999" />
+          <Property Name="USER_NAME" Type="varchar2" MaxLength="3999" />
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="TASKS">
           <Key>
@@ -23,7 +34,7 @@
           <Property Name="NAME" Type="varchar2" MaxLength="3999" />
         </EntityType>
         <Association Name="T_ID">
-          <End Role="TASKS" Type="Self.TASKS" Multiplicity="0..1" />
+          <End Role="TASKS" Type="Self.TASKS" Multiplicity="1" />
           <End Role="SUBTASKS" Type="Self.SUBTASKS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TASKS">
@@ -34,11 +45,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="TBL_ID">
+          <End Role="TABLE_ACCESS" Type="Self.TABLE_ACCESS" Multiplicity="1" />
+          <End Role="SUBTASKS" Type="Self.SUBTASKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TABLE_ACCESS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SUBTASKS">
+              <PropertyRef Name="TABLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="SUBTASKS" EntityType="Self.SUBTASKS" Schema="QIRA" store:Type="Tables" />
+          <EntitySet Name="TABLE_ACCESS" EntityType="Self.TABLE_ACCESS" Schema="QIRA" store:Type="Tables" />
           <EntitySet Name="TASKS" EntityType="Self.TASKS" Schema="QIRA" store:Type="Tables" />
           <AssociationSet Name="T_ID" Association="Self.T_ID">
             <End Role="TASKS" EntitySet="TASKS" />
+            <End Role="SUBTASKS" EntitySet="SUBTASKS" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_ID" Association="Self.TBL_ID">
+            <End Role="TABLE_ACCESS" EntitySet="TABLE_ACCESS" />
             <End Role="SUBTASKS" EntitySet="SUBTASKS" />
           </AssociationSet>
         </EntityContainer>
@@ -46,45 +74,75 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SUBTASKS" EntityType="Model.SUBTASK" />
+          <EntitySet Name="TABLE_ACCESS" EntityType="Model.TABLE_ACCESS" />
+          <EntitySet Name="TASKS" EntityType="Model.TASK" />
+          <AssociationSet Name="T_ID" Association="Model.T_ID">
+            <End Role="TASK" EntitySet="TASKS" />
+            <End Role="SUBTASK" EntitySet="SUBTASKS" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_ID" Association="Model.TBL_ID">
+            <End Role="TABLE_ACCESS" EntitySet="TABLE_ACCESS" />
+            <End Role="SUBTASK" EntitySet="SUBTASKS" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="SUBTASK">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="TASK_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="TASK_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="NAME" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TASK" Relationship="Self.T_ID" FromRole="SUBTASKS" ToRole="TASKS" />
           <Property Name="ACTION" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
           <Property Name="PARAM" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
+          <Property Name="TABLE_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <NavigationProperty Name="TASK" Relationship="Model.T_ID" FromRole="SUBTASK" ToRole="TASK" />
+          <NavigationProperty Name="TABLE_ACCESS" Relationship="Model.TBL_ID" FromRole="SUBTASK" ToRole="TABLE_ACCESS" />
+        </EntityType>
+        <EntityType Name="TABLE_ACCESS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="TABLE_NAME" Type="String" Nullable="false" MaxLength="3999" FixedLength="false" Unicode="false" />
+          <Property Name="IS_FREE" Type="Int16" />
+          <Property Name="DT" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <NavigationProperty Name="SUBTASKS" Relationship="Model.TBL_ID" FromRole="TABLE_ACCESS" ToRole="SUBTASK" />
         </EntityType>
         <EntityType Name="TASK">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="NAME" Type="String" MaxLength="3999" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SUBTASKS" Relationship="Self.T_ID" FromRole="TASKS" ToRole="SUBTASKS" />
+          <NavigationProperty Name="SUBTASKS" Relationship="Model.T_ID" FromRole="TASK" ToRole="SUBTASK" />
         </EntityType>
         <Association Name="T_ID">
-          <End Role="TASKS" Type="Self.TASK" Multiplicity="0..1" />
-          <End Role="SUBTASKS" Type="Self.SUBTASK" Multiplicity="*" />
+          <End Type="Model.TASK" Role="TASK" Multiplicity="1" />
+          <End Type="Model.SUBTASK" Role="SUBTASK" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TASKS">
+            <Principal Role="TASK">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="SUBTASKS">
+            <Dependent Role="SUBTASK">
               <PropertyRef Name="TASK_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SUBTASKS" EntityType="Self.SUBTASK" />
-          <EntitySet Name="TASKS" EntityType="Self.TASK" />
-          <AssociationSet Name="T_ID" Association="Self.T_ID">
-            <End Role="TASKS" EntitySet="TASKS" />
-            <End Role="SUBTASKS" EntitySet="SUBTASKS" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="TBL_ID">
+          <End Type="Model.TABLE_ACCESS" Role="TABLE_ACCESS" Multiplicity="1" />
+          <End Type="Model.SUBTASK" Role="SUBTASK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TABLE_ACCESS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SUBTASK">
+              <PropertyRef Name="TABLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -94,19 +152,31 @@
           <EntitySetMapping Name="SUBTASKS">
             <EntityTypeMapping TypeName="Model.SUBTASK">
               <MappingFragment StoreEntitySet="SUBTASKS">
+                <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
                 <ScalarProperty Name="PARAM" ColumnName="PARAM" />
                 <ScalarProperty Name="ACTION" ColumnName="ACTION" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TASK_ID" ColumnName="TASK_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TASK_ID" ColumnName="TASK_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TABLE_ACCESS">
+            <EntityTypeMapping TypeName="Model.TABLE_ACCESS">
+              <MappingFragment StoreEntitySet="TABLE_ACCESS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="DT" ColumnName="DT" />
+                <ScalarProperty Name="IS_FREE" ColumnName="IS_FREE" />
+                <ScalarProperty Name="TABLE_NAME" ColumnName="TABLE_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TASKS">
             <EntityTypeMapping TypeName="Model.TASK">
               <MappingFragment StoreEntitySet="TASKS">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

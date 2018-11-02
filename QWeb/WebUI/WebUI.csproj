@@ -235,9 +235,9 @@
       <Project>{aef17436-2fc0-49ef-838d-00a3b713f682}</Project>
       <Name>DbLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EFLayer\EFLayer.csproj">
-      <Project>{94fb3b6d-f4d2-4d81-b2c8-6c812e49bcf7}</Project>
-      <Name>EFLayer</Name>
+    <ProjectReference Include="..\EFModel\EFModel.csproj">
+      <Project>{983d0ae5-a6e6-4767-b2b7-492c3d2416cf}</Project>
+      <Name>EFModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EFLayer")]
+[assembly: AssemblyTitle("EFModel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EFLayer")]
+[assembly: AssemblyProduct("EFModel")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("94fb3b6d-f4d2-4d81-b2c8-6c812e49bcf7")]
+[assembly: Guid("983d0ae5-a6e6-4767-b2b7-492c3d2416cf")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,8 +1,56 @@
 ﻿<h3>Приоритет - @ViewBag.Prior</h3>
 
-@using (Html.BeginForm("Priority", "Task", new { priorityValue = @ViewBag.Prior }, FormMethod.Post,  new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Priority", "Task", new { priorityValue = @ViewBag.Prior }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="uploadfile" />
+    <input type="file" id="file_id" name="uploadfile" accept=".txt" />
+    <label id="label_id"></label>
     <br />
     <input type="submit" id="submit" value="Загрузить" />
 }
+
+
+
+
+@*@using (Html.BeginForm("Priority", "Task", new { priorityValue = @ViewBag.Prior }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <input type="file" name="dossier" accept=".rar , .zip" />
+        <br />
+        @Html.Label("Date d'expiration")
+
+        <input type="text" id="datepicker" name="duree" />
+        <br />
+        <input type="submit" value="OK" />
+    }*@
+
+
+
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var validFilesTypes = ["txt"];
+        function ValidateFile() {
+            var file = document.getElementById("file_id");
+            var label = document.getElementById("label_id");
+            var path = file.value;
+            var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+            var isValidFile = false;
+            for (var i = 0; i < validFilesTypes.length; i++) {
+                if (ext == validFilesTypes[i]) {
+                    isValidFile = true;
+                    break;
+                }
+            }
+            if (!isValidFile) {
+                label.style.color = "red";
+                label.innerHTML = "Invalid File. Please upload a File with extension:\n\n" + validFilesTypes.join(", ");
+            }
+            return isValidFile;
+        }
+    </script>
+}
+
+

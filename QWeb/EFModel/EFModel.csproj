@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94FB3B6D-F4D2-4D81-B2C8-6C812E49BCF7}</ProjectGuid>
+    <ProjectGuid>{983D0AE5-A6E6-4767-B2B7-492C3D2416CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EFLayer</RootNamespace>
-    <AssemblyName>EFLayer</AssemblyName>
+    <RootNamespace>EFModel</RootNamespace>
+    <AssemblyName>EFModel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -64,6 +64,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SUBTASK.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TABLE_ACCESS.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TASK.cs">

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EFLayer
+namespace EFModel
 {
     using System;
     using System.Data.Entity;
@@ -26,6 +26,7 @@ namespace EFLayer
         }
     
         public DbSet<SUBTASK> SUBTASKS { get; set; }
+        public DbSet<TABLE_ACCESS> TABLE_ACCESS { get; set; }
         public DbSet<TASK> TASKS { get; set; }
     }
 }
