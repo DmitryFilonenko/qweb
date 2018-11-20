@@ -1,5 +1,4 @@
 ﻿using DbLayer;
-using EFLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +13,34 @@ namespace WebUI.Controllers
         public ActionResult Index()
         {
 
-            using (var context = new DBContext())
-            {
-                List<TASK> taskList = context.TASKS.ToList();                
-                ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
-            }
-            
+            //using (var context = new DBContext())
+            //{
+            //    List<TASK> taskList = context.TASKS.ToList();                
+            //    ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
+            //}
+   
+            List<AppTask> taskList = AppTaskManager.GetTaskList();
+            ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
+
+
+
             return View();
         }
 
 
-        public ActionResult SubTasks(int? id)
+        public ActionResult SubTasks(string id)
         {
-            List<SUBTASK> subTaskList = new List<SUBTASK>();
+            //List<SUBTASK> subTaskList = new List<SUBTASK>();
 
-            using (var context = new DBContext())
-            {
-                subTaskList = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
-                ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
-            }
+            //using (var context = new DBContext())
+            //{
+            //    subTaskList = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
+            //    ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
+            //}
+            List<AppSubTask> subTaskList = AppTaskManager.GetSubTaskList().Where(s => s.Task_id == id).OrderBy(a => a.Id).ToList();
+
+            //ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
+
             return PartialView(subTaskList);
         }
 

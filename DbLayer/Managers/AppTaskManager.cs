@@ -8,6 +8,49 @@ namespace DbLayer
 {
     public class AppTaskManager : ManagerDb
     {
-        
+        public static List<AppTask> GetTaskList()
+        {
+            List<AppTask> taskList = new List<AppTask>();
+            string[] fields = new string[] { "Id", "Name" };
+            List<string> resultlist = GetFieldsList("tasks", fields);
+            foreach (var item in resultlist)
+            {
+                string[] arr = item.Split('#');
+                AppTask task = new AppTask { Id = arr[0], Name = arr[1] };
+                taskList.Add(task);
+            }
+            return taskList;
+        }
+
+        public static List<AppSubTask> GetSubTaskList()
+        {
+            List<AppSubTask> subTaskList = new List<AppSubTask>();
+            string[] fields = new string[] { "Id", "Task_id", "Name", "Action", "Param", "Table_id" };
+            List<string> resultlist = GetFieldsList("subtasks", fields);
+            foreach (var item in resultlist)
+            {
+                string[] arr = item.Split('#');
+                AppSubTask subTask = new AppSubTask { Id = arr[0], Task_id = arr[1], Name = arr[2], Action = arr[3], Param = arr[4], Table_id =arr[5] };
+                subTaskList.Add(subTask);
+            }
+            return subTaskList;
+        }
+    }
+
+
+    public class AppTask
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class AppSubTask
+    {   
+        public string Id { get; set; }
+        public string Task_id { get; set; }
+        public string Name { get; set; }
+        public string Action { get; set; }
+        public string Param { get; set; }
+        public string Table_id { get; set; }
     }
 }

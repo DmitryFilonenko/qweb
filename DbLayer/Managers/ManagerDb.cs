@@ -19,7 +19,7 @@ namespace DbLayer
             {
                 _con.Open();
                 int count = -1;
-                string query = "select count(*) from " + tableName + " t";
+                string query = String.Format("select count(*) from {0}", tableName);
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
@@ -32,17 +32,18 @@ namespace DbLayer
                 throw;
             }
             finally { _con.Close(); }            
-        }
+        }              
 
-        public static List<string> GetDataById(string tableName, string fieldName, int id, string idName = "id")
+        public static List<string> GetDataById(string tableName, string[] fieldNameArr, int id, string idName = "id")
         {
             try
             {
                 _con.Open();
 
                 List<string> list = new List<string>();
+                string fields = ArrToString(fieldNameArr);
 
-                string query = "select " + fieldName + " from " + tableName + " where " + idName + " = " + id;
+                string query = String.Format("select {0} from {1} where {2} = {3}", fields, tableName, idName, id);
 
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
@@ -58,20 +59,27 @@ namespace DbLayer
             finally { _con.Close(); }
         }
 
-        public static List<string> GetFieldList(string tableName, string fieldName)
+        public static List<string> GetFieldsList(string tableName, string[] fieldNameArr)
         {
             try
             {
                 _con.Open();
 
+                int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
+                string fields = ArrToString(fieldNameArr);
 
-                string query = "select " + fieldName + " from " + tableName;
+                string query = String.Format("select {0} from {1} ", fields, tableName);
 
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
-                    list.Add(reader[0].ToString());
+                    string record = "";
+                    for (int i = 0; i < countOfFields; i++)
+                    {
+                        record += (reader[i].ToString() + "#");
+                    }
+                    list.Add(record.TrimEnd('#'));
                 }
                 return list;
             }
@@ -82,6 +90,14 @@ namespace DbLayer
             finally { _con.Close(); }
         }
 
-
+        static string ArrToString(string[] strArr)
+        {
+            string fields = "";
+            foreach (var item in strArr)
+            {
+                fields += item + ",";
+            }            
+            return fields.TrimEnd(',');
+        }
     }
 }
