@@ -1,10 +1,12 @@
 ﻿using DbLayer;
+using DbLayer.Infrsrt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebUI.Models.Home;
+using WebUI.Models.QEntities;
 
 namespace WebUI.Controllers
 {
@@ -12,60 +14,30 @@ namespace WebUI.Controllers
     {
         public ActionResult Index()
         {
-
-            //using (var context = new DBContext())
-            //{
-            //    List<TASK> taskList = context.TASKS.ToList();                
-            //    ViewBag.Tasks = new SelectList(taskList, "ID", "NAME");
-            //}
-   
-            List<AppTask> taskList = AppTaskManager.GetTaskList();
+            QTask task = new QTask();
+            List<IDbEntity> taskList = task.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-
-
-
             return View();
         }
 
 
         public ActionResult SubTasks(string id)
         {
-            //List<SUBTASK> subTaskList = new List<SUBTASK>();
 
-            //using (var context = new DBContext())
-            //{
-            //    subTaskList = context.SUBTASKS.Where(s => s.TASK_ID == id).OrderBy(a => a.ID).ToList();
-            //    ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
-            //}
-            List<AppSubTask> subTaskList = AppTaskManager.GetSubTaskList().Where(s => s.Task_id == id).OrderBy(a => a.Id).ToList();
+            //List<AppSubTask> subTaskList = AppTaskManager.GetSubTaskListById(id);
 
-            //ViewBag.TaskName = context.TASKS.Where(t => t.ID == id).First().NAME;
+            //List<AppTask> taskList = AppTaskManager.GetFieldsListById("tasks", new string[] { "name" }, id);
 
-            return PartialView(subTaskList);
+            //ViewBag.TaskName = AppTaskManager.GetFieldsListById  //  context.TASKS.Where(t => t.ID == id).First().NAME;
+
+            return PartialView(/*subTaskList*/);
         }
-
-        //private MvcHtmlString CreateHtml(List<SUBTASK> subTasklist)
-        //{
-        //    TagBuilder ulTag = new TagBuilder("ul");
-        //    foreach (var item in subTasklist)
-        //    {
-        //        TagBuilder liTag = new TagBuilder("li");
-        //        TagBuilder aTeg = new TagBuilder("a");
-        //        aTeg.MergeAttribute("href", "Home/ConcretTask");
-        //        aTeg.MergeAttribute("subTaskId", item.ID.ToString());
-        //        aTeg.InnerHtml = item.NAME.ToString();
-        //        liTag.InnerHtml+=aTeg.ToString();
-        //        ulTag.InnerHtml += liTag.ToString();
-        //    }
-        //    return new MvcHtmlString(ulTag.ToString());
-        //}
 
 
         public string ConcretTask(string subTaskId)
         {
             return "ID подзадачи - " + subTaskId;
         }
-
 
         [HttpPost]
         public ActionResult Index(string list)

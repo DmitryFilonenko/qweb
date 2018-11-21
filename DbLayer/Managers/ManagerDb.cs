@@ -34,21 +34,26 @@ namespace DbLayer
             finally { _con.Close(); }            
         }              
 
-        public static List<string> GetDataById(string tableName, string[] fieldNameArr, int id, string idName = "id")
+        public static List<string> GetFieldsListById(string tableName, string[] fieldNameArr, string idValue, string idName = "id")
         {
             try
             {
                 _con.Open();
-
+                int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
                 string fields = ArrToString(fieldNameArr);
 
-                string query = String.Format("select {0} from {1} where {2} = {3}", fields, tableName, idName, id);
+                string query = String.Format("select {0} from {1} where {2} = {3}", fields, tableName, idName, idValue);
 
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
-                    list.Add(reader[0].ToString());
+                    string record = "";
+                    for (int i = 0; i < countOfFields; i++)
+                    {
+                        record += (reader[i].ToString() + "#");
+                    }
+                    list.Add(record.TrimEnd('#'));
                 }
                 return list;
             }
