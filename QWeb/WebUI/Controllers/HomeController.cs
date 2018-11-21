@@ -23,14 +23,14 @@ namespace WebUI.Controllers
 
         public ActionResult SubTasks(string id)
         {
+            QSubTask q = new QSubTask();
+            List<IDbEntity> subTaskList = q.GetFieldsListById(id);
 
-            //List<AppSubTask> subTaskList = AppTaskManager.GetSubTaskListById(id);
+            QTask task = new QTask();
+            QTask curTask = (QTask)task.GetSingleRecordById(id);
+            ViewBag.TaskName = curTask.Name; 
 
-            //List<AppTask> taskList = AppTaskManager.GetFieldsListById("tasks", new string[] { "name" }, id);
-
-            //ViewBag.TaskName = AppTaskManager.GetFieldsListById  //  context.TASKS.Where(t => t.ID == id).First().NAME;
-
-            return PartialView(/*subTaskList*/);
+            return PartialView(subTaskList);
         }
 
 

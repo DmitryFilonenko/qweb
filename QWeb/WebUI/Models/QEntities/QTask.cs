@@ -8,7 +8,7 @@ using System.Web;
 namespace WebUI.Models.QEntities
 {
     public class QTask : ISelectable, IDbEntity
-    {
+    {        
         public string Id { get; set; }
         public string Name { get; set; }
 
@@ -38,7 +38,11 @@ namespace WebUI.Models.QEntities
 
         public IDbEntity GetSingleRecordById(string idValue)
         {
-            throw new NotImplementedException();
+            string[] fields = new string[] { "Id", "Name" };
+            string taskRecord = ManagerDb.GetSingleRecordById("tasks", fields, idValue);
+            string[] resArr = taskRecord.Split('#');
+            QTask task = new QTask { Id = resArr[0], Name = resArr[1] };
+            return task;
         }
     }
 }

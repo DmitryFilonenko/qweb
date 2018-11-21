@@ -64,6 +64,36 @@ namespace DbLayer
             finally { _con.Close(); }
         }
 
+        public static string GetSingleRecordById(string tableName, string[] fieldNameArr, string idValue, string idName = "id")
+        {
+            try
+            {
+                _con.Open();
+                int countOfFields = fieldNameArr.Length;
+                List<string> list = new List<string>();
+                string fields = ArrToString(fieldNameArr);
+
+                string query = String.Format("select {0} from {1} where {2} = {3}", fields, tableName, idName, idValue);
+
+                OracleDataReader reader = DbConnect.GetReader(query);
+                while (reader.Read())
+                {
+                    string record = "";
+                    for (int i = 0; i < countOfFields; i++)
+                    {
+                        record += (reader[i].ToString() + "#");
+                    }
+                    list.Add(record.TrimEnd('#'));
+                }
+                return list[0];
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
+        }
+
         public static List<string> GetFieldsList(string tableName, string[] fieldNameArr)
         {
             try

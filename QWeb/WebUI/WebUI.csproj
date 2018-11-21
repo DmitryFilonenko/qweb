@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
+    <Compile Include="Models\QEntities\QSubTask.cs" />
     <Compile Include="Models\QEntities\QTask.cs" />
     <Compile Include="Models\Home\AppSubTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

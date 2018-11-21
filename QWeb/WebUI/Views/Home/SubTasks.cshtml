@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EFLayer.SUBTASK>
+﻿@model IEnumerable<WebUI.Models.QEntities.QSubTask>
 
 <br />
 <p style="padding-left:30px" class="text-muted">@ViewBag.TaskName:</p>
@@ -8,7 +8,7 @@
     @foreach (var item in Model)
     {
         <li>
-            @Ajax.ActionLink(item.NAME, item.ACTION, "Task", new { prior = item.PARAM }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+            @Ajax.ActionLink(item.Name, item.Action, "Task", new { prior = item.Param }, new AjaxOptions() { UpdateTargetId = "concret_task" })
         </li>
     }
 </ul>

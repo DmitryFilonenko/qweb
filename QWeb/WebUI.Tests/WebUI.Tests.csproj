@@ -99,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DbLayer\DbLayer.csproj">
+      <Project>{aef17436-2fc0-49ef-838d-00a3b713f682}</Project>
+      <Name>DbLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
       <Project>{3FD4F869-73AE-43D6-BC97-B9491A78C004}</Project>
       <Name>WebUI</Name>
