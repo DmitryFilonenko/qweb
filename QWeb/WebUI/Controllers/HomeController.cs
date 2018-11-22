@@ -12,27 +12,32 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        ISelectable _entity = null; 
+
         public ActionResult Index()
         {
-            QTask task = new QTask();
-            List<IDbEntity> taskList = task.GetAllFieldsList(); 
+            _entity = new QTask();
+            List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
             return View();
         }
-
-
+        
         public ActionResult SubTasks(string id)
         {
-            QSubTask q = new QSubTask();
-            List<IDbEntity> subTaskList = q.GetFieldsListById(id);
+            _entity = new QTask();
+            IDbEntity curTask = _entity.GetSingleRecordById(id);
+            QTask task = (QTask)curTask;
+            ViewBag.TaskName = task.Name;
 
-            QTask task = new QTask();
-            QTask curTask = (QTask)task.GetSingleRecordById(id);
-            ViewBag.TaskName = curTask.Name; 
-
-            return PartialView(subTaskList);
+            _entity = new QSubTask();
+            List<IDbEntity> sTaskList = _entity.GetFieldsListById(id);
+            List<QSubTask> subTaskList = new List<QSubTask>(); 
+            foreach (var item in sTaskList)
+            {
+                subTaskList.Add((QSubTask)item);
+            }
+            return PartialView(subTaskList.OrderBy(s => s.Name).ToList()); 
         }
-
 
         public string ConcretTask(string subTaskId)
         {
@@ -46,7 +51,6 @@ namespace WebUI.Controllers
             ViewBag.Message = "В таблице " + list + " содержится " + count + " записей.";
             return View();
         }
-
 
         public ActionResult About()
         {
