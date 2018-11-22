@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<WebUI.Models.QEntities.ActualCreditor>
+
+
+@{
     ViewBag.Title = "EADR";
 }
 
@@ -29,7 +32,7 @@
         <li class="dropdown">
             <br />
             <a href="#" class="dropdown-toggle text-center" style="font-size:18px" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Задачи <b class="caret"></b></a>
-            <ul class="dropdown-menu">               
+            <ul class="dropdown-menu">
 
                 @if (ViewBag.Tasks != null)
                 {
@@ -45,19 +48,68 @@
         </li>
 
         <li class="text-info text-center">
-            <div id="subtasks">subtasks</div>
+            <div id="subtasks"></div>
         </li>
     </ul>
 </div>
 
 
-<div id="concret_task">concret_task</div>
+<div id="concret_task">
+
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <p class="text-center">Актуальные кредиторы:</p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgIdLong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgIdShorty)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgIdLong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgIdShorty)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Реестры", "Regs", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
 
 
 
+@*<hr />
 <hr />
-<hr />
-<hr />
+<hr />*@
 
 <footer>
     <p class="panel-footer" style="text-align:center">&copy; @DateTime.Now.Year -  Европейское агентство по возврату долгов.</p>
@@ -129,3 +181,13 @@
             }
         </script>*@
 }
+
+
+
+
+
+
+
+
+
+

@@ -14,7 +14,7 @@ namespace WebUI.Models.QEntities
 
         public int GetCount()
         {
-            return ManagerDb.GetCount("tasks");
+            return ManagerDbQuery.GetCount("tasks");
         }
 
         public List<IDbEntity> GetFieldsListById(string idValue)
@@ -26,7 +26,7 @@ namespace WebUI.Models.QEntities
         {
             List<IDbEntity> taskList = new List<IDbEntity>();
             string[] fields = new string[] { "Id", "Name" };
-            List<string> resultlist = ManagerDb.GetFieldsList("tasks", fields);
+            List<string> resultlist = ManagerDbQuery.GetFieldsList("tasks", fields);
             foreach (var item in resultlist)
             {
                 string[] arr = item.Split('#');
@@ -39,7 +39,7 @@ namespace WebUI.Models.QEntities
         public IDbEntity GetSingleRecordById(string idValue)
         {
             string[] fields = new string[] { "Id", "Name" };
-            string taskRecord = ManagerDb.GetSingleRecordById("tasks", fields, idValue);
+            string taskRecord = ManagerDbQuery.GetSingleRecordById("tasks", fields, idValue);
             string[] resArr = taskRecord.Split('#');
             QTask task = new QTask { Id = resArr[0], Name = resArr[1] };
             return task;
@@ -54,7 +54,7 @@ namespace WebUI.Models.QEntities
         {
             List<IDbEntity> taskList = new List<IDbEntity>();
             string[] fields = new string[] { "Id", "Name" };
-            List<string> resultlist = ManagerDb.GetFieldsList("tasks", fields);
+            List<string> resultlist = ManagerDbQuery.GetFieldsList("tasks", fields);
             foreach (var item in resultlist)
             {
                 string[] arr = item.Split('#');
@@ -67,7 +67,7 @@ namespace WebUI.Models.QEntities
         IDbEntity ISelectable.GetSingleRecordById(string idValue)
         {
             string[] fields = new string[] { "Id", "Name" };
-            string taskRecord = ManagerDb.GetSingleRecordById("tasks", fields, idValue);
+            string taskRecord = ManagerDbQuery.GetSingleRecordById("tasks", fields, idValue);
             string[] resArr = taskRecord.Split('#');
             QTask task = new QTask { Id = resArr[0], Name = resArr[1] };
             return task;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DbLayer
 {
-    public class ManagerDb
+    public class ManagerDbQuery
     {        
         static OracleConnection _con = DbConnect.GetDBConnection();
 
@@ -134,5 +134,18 @@ namespace DbLayer
             }            
             return fields.TrimEnd(',');
         }
+
+        //public static List<string> CompositeQuery(string[] tables, string[] fieldNameArr, string[] conditions )
+        //{
+        //    List<string> res = new List<string>();
+
+
+
+        //    return res;
+        //}
+
+
+
+
     }
 }

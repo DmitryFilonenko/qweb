@@ -19,7 +19,13 @@ namespace WebUI.Controllers
             _entity = new QTask();
             List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-            return View();
+
+
+            ActualCreditor actualCreditor = new ActualCreditor(Server.MapPath("App_Data/Sql_files/actual_creditors.sql"));
+            var model = actualCreditor.ActualCreditorsList;
+
+
+            return View(model);
         }
         
         public ActionResult SubTasks(string id)
@@ -47,7 +53,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Index(string list)
         {
-            int count = ManagerDb.GetCount(list);
+            int count = ManagerDbQuery.GetCount(list);
             ViewBag.Message = "В таблице " + list + " содержится " + count + " записей.";
             return View();
         }
