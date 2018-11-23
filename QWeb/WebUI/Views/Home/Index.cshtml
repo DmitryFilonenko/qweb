@@ -59,21 +59,18 @@
     @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-    <p class="text-center">Актуальные кредиторы:</p>
+    <h4 class="text-center">Актуальные кредиторы:</h4>
 
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.OrgName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alias)
-            </th>
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => model.OrgIdLong)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrgIdShorty)
+                @Html.DisplayNameFor(model => model.OrgIdShort)
             </th>
             <th></th>
         </tr>
@@ -83,20 +80,17 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrgName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Alias)
-                </td>
+                </td>                
                 <td>
                     @Html.DisplayFor(modelItem => item.OrgIdLong)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.OrgIdShorty)
+                    @Html.DisplayFor(modelItem => item.OrgIdShort)
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Реестры", "Regs", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Реестры", "Regs", new { id=item.OrgIdLong })
                 </td>
             </tr>
         }

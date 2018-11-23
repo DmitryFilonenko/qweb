@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebUI.Models.Home;
+//using WebUI.Models.Home;
 using WebUI.Models.QEntities;
 
 namespace WebUI.Controllers
@@ -21,8 +21,8 @@ namespace WebUI.Controllers
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
 
 
-            ActualCreditor actualCreditor = new ActualCreditor(Server.MapPath("App_Data/Sql_files/actual_creditors.sql"));
-            var model = actualCreditor.ActualCreditorsList;
+            //ActualCreditor actualCreditor = new ActualCreditor();
+            var model = ActualCreditor.GetCreditorList();//actualCreditor.ActualCreditorsList;
 
 
             return View(model);
@@ -57,6 +57,18 @@ namespace WebUI.Controllers
             ViewBag.Message = "В таблице " + list + " содержится " + count + " записей.";
             return View();
         }
+
+
+        public ActionResult Regs(string OrgIdLong)
+        {
+            ViewBag.Message = "creditorId - " + OrgIdLong;
+            var model = CreditorReg.GetRegList(OrgIdLong);
+
+
+            return PartialView(model);
+        }
+
+
 
         public ActionResult About()
         {

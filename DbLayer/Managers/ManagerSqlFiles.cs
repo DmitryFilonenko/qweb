@@ -13,13 +13,13 @@ namespace DbLayer.Managers
     {
         static OracleConnection _con = DbConnect.GetDBConnection();
 
-        public static List<string> GetDataByFilePath(string path, int fieldsCount)
+        public static List<string> GetCountedFieldData(string query, int fieldsCount)
         {
             List<string> list = new List<string>();
             try
             {
                 _con.Open();
-                string query = File.ReadAllText(path, Encoding.Default);
+                //string query = File.ReadAllText(path, Encoding.Default);
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
@@ -29,8 +29,7 @@ namespace DbLayer.Managers
                         record += (reader[i].ToString() + "#");
                     }
                     list.Add(record.TrimEnd('#'));
-                }
-                
+                }                
             }
             catch (Exception)
             {
