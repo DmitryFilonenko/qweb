@@ -90,7 +90,10 @@
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Реестры", "Regs", new { id=item.OrgIdLong })
+
+                    @Ajax.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+
+                    @*@Html.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong })*@
                 </td>
             </tr>
         }

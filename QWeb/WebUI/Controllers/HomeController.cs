@@ -19,10 +19,7 @@ namespace WebUI.Controllers
             _entity = new QTask();
             List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-
-
-            //ActualCreditor actualCreditor = new ActualCreditor();
-            var model = ActualCreditor.GetCreditorList();//actualCreditor.ActualCreditorsList;
+            var model = ActualCreditor.GetCreditorList();
 
 
             return View(model);
@@ -59,13 +56,11 @@ namespace WebUI.Controllers
         }
 
 
-        public ActionResult Regs(string OrgIdLong)
+        public ActionResult Regs(string creditorId)
         {
-            ViewBag.Message = "creditorId - " + OrgIdLong;
-            var model = CreditorReg.GetRegList(OrgIdLong);
-
-
-            return PartialView(model);
+            ViewBag.Message = "creditorId - " + creditorId;
+            var model = CreditorReg.GetRegList(creditorId);
+            return PartialView(model.OrderByDescending(r=>r.IsActive).ToList());
         }
 
 

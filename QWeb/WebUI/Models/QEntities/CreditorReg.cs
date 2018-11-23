@@ -20,10 +20,10 @@ namespace WebUI.Models.QEntities
         [Display(Name = "Дата договора")]
         public string ActDate { get; set; }
 
-        [Display(Name = "Дата начала работы")]
+        [Display(Name = "Дата начала")]
         public string StartDate { get; set; }
 
-        [Display(Name = "Дата окончания работы")]
+        [Display(Name = "Дата окончанияы")]
         public string StopDate { get; set; }
 
         [Display(Name = "В работе")]
@@ -41,7 +41,8 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                CreditorReg reg = new CreditorReg { RegName = arr[0], RegId = arr[1], ActDate = arr[2], StartDate = arr[3], StopDate = arr[4], IsActive = arr[5] };
+                CreditorReg reg = new CreditorReg { RegName = arr[0], RegId = arr[1], ActDate = arr[2].Substring(0, 10), StartDate = arr[3].Substring(0, 10), StopDate = arr[4].Substring(0, 10), IsActive = arr[5] == "1"? "+" : "-" };
+
                 regs.Add(reg);
             }
             return regs;

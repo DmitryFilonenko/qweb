@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebUI.Models.QEntities.CreditorReg>
+
+<p>
+    @Html.ActionLink("К списку контрагентов", "Index")
+</p>
+<table class="table" style="border-bottom:medium">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StopDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StopDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        @*<td>
+            @Html.ActionLink("Дела", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>*@
+    </tr>
+}
+
+</table>

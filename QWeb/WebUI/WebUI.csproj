@@ -162,6 +162,7 @@
     <Content Include="App_Data\Sql_files\regs_by_creditor_id.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\my.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -206,6 +207,7 @@
     <Content Include="Views\Home\ConcretTask.cshtml" />
     <Content Include="Views\Home\SubTasks.cshtml" />
     <Content Include="Views\Task\Priority.cshtml" />
+    <Content Include="Views\Home\Regs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Home\" />
