@@ -28,24 +28,83 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StopDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.RegName)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.RegName)
+            </td>
+        }
+
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.RegId)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.RegId)
+            </td>
+        }
+
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.ActDate)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.ActDate)
+            </td>
+        }
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+        }
+
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.StopDate)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.StopDate)
+            </td>
+        }
+
+        @if (item.IsActive == "+")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+        }
+
         @*<td>
             @Html.ActionLink("Дела", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
