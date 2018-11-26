@@ -105,12 +105,13 @@
             </td>
         }
 
-        @*<td>
-            @Html.ActionLink("Дела", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>*@
-    </tr>
+        <td>
+            @Ajax.ActionLink("Дела", "Pins", new { regId = item.RegId }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+        
+            @* @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        </td>
+</tr>
 }
 
 </table>

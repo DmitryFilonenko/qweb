@@ -153,6 +153,7 @@
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Models\QEntities\ActualCreditors.cs" />
     <Compile Include="Models\QEntities\CreditorReg.cs" />
+    <Compile Include="Models\QEntities\Pin.cs" />
     <Compile Include="Models\QEntities\QSubTask.cs" />
     <Compile Include="Models\QEntities\QTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,6 +169,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\ajax-loader.gif" />
     <Content Include="Img\Icon1.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -208,6 +210,9 @@
     <Content Include="Views\Home\SubTasks.cshtml" />
     <Content Include="Views\Task\Priority.cshtml" />
     <Content Include="Views\Home\Regs.cshtml" />
+    <Content Include="Views\Home\Pins.cshtml" />
+    <Content Include="Views\Home\PinDetails.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Home\" />

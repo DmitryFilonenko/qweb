@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WebUI.Models.QEntities.Pin>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NameF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NameO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inn)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DebtDogovorN)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.DebtRest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalRest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArchiveFlag)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.NameF)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.NameF)
+            </td>
+        }
+
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.NameI)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.NameI)
+            </td>
+        }
+
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.NameO)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.NameO)
+            </td>
+        }
+
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.Inn)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.Inn)
+            </td>
+        }
+
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">
+                @Html.DisplayFor(modelItem => item.BusinessN)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.BusinessN)
+            </td>
+        }
+
+        @if (item.ArchiveFlag == "-")
+        {
+            <td class="alert-success">    
+                @Html.DisplayFor(modelItem => item.DebtDogovorN)
+            </td>
+        }
+        else
+        {
+            <td class="alert-warning">
+                @Html.DisplayFor(modelItem => item.DebtDogovorN)
+            </td>
+        }
+
+
+
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ProjectId)
+        </td>*@
+
+        
+        @*<td>
+            @Html.DisplayFor(modelItem => item.DebtRest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalRest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArchiveFlag)
+        </td>*@
+            <td>
+                @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+  
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+    </tr>
+}
+
+</table>

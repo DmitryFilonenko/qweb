@@ -1,0 +1,102 @@
+﻿@model WebUI.Models.QEntities.Pin
+
+<div >
+
+    <hr />
+
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DebtDogovorN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DebtDogovorN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DebtRest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DebtRest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalRest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalRest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArchiveFlag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArchiveFlag)
+        </dd>
+
+    </dl>
+
+</div>
+
+<hr />
+<div class="text-center">
+    @Html.ActionLink("На главную", "Index")
+</div>
+<br/>
+
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

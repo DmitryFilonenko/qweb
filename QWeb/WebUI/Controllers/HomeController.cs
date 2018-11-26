@@ -16,12 +16,14 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {
+            Pin pinToSeach = new Pin();
+            ViewBag.PinToSeach = pinToSeach;
+
             _entity = new QTask();
             List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
             var model = ActualCreditor.GetCreditorList();
-
-
+            
             return View(model);
         }
         
@@ -62,6 +64,32 @@ namespace WebUI.Controllers
             var model = CreditorReg.GetRegList(creditorId);
             return PartialView(model.OrderByDescending(r=>r.IsActive).ToList());
         }
+
+        public ActionResult Pins(string regId)
+        {
+            var model = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
+            return PartialView(model.OrderByDescending(p => p.BusinessN).ToList());
+        }
+
+        public ActionResult PinDetails(string pin)
+        {
+            var model = Pin.GetPinsByKey(PinSearhKey.Pin, pin);
+            return PartialView(model[0]);
+        }
+
+        public ActionResult Search(Pin pin)
+        {
+            string valuePin = pin.BusinessN;
+            string valueDog = pin.DebtDogovorN;
+            List<Pin> model = new List<Pin>();
+            if (valuePin.Length > 0)
+                model = Pin.GetPinsByKey(PinSearhKey.Pin, valuePin);
+            else
+                model = Pin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
+
+            return PartialView(model);
+        }
+
 
 
 

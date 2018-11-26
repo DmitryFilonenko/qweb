@@ -19,7 +19,6 @@ namespace DbLayer.Managers
             try
             {
                 _con.Open();
-                //string query = File.ReadAllText(path, Encoding.Default);
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
@@ -39,5 +38,38 @@ namespace DbLayer.Managers
 
             return list;
         }
+
+        #region Pin
+
+        public static List<string> GetPins(string query, int fieldsCount)
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                _con.Open();
+                OracleDataReader reader = DbConnect.GetReader(query);
+                while (reader.Read())
+                {
+                    string record = "";
+                    for (int i = 0; i < fieldsCount; i++)
+                    {
+                        record += (reader[i].ToString() + "#");
+                    }
+                    list.Add(record.TrimEnd('#'));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
+
+            return list;
+        }
+
+        #endregion
+
+
+
     }
 }

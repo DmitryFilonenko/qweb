@@ -1,30 +1,9 @@
 ﻿@model IEnumerable<WebUI.Models.QEntities.ActualCreditor>
 
-
 @{
     ViewBag.Title = "EADR";
 }
 
-@*<div class="jumbotron">
-        <p class="lead">ASP.NET is a free web framework.</p>
-
-    </div>*@
-
-@*var options = new AjaxOptions()
-    {
-        UpdateTargetId = "tabledata",
-        Url = Url.Action("OrdersData"),
-        LoadingElementId = "loadingIndicator",
-
-        OnBegin = "OnBeginJs",
-        OnSuccess = "OnSuccessJs",
-        OnFailure = "OnFailureJs",
-        OnComplete = "OnCompleteJs",
-    };*@
-
-@*@using (Ajax.BeginForm())
-    {
-    }*@
 <div class="row">
 
     <ul class="nav navbar-nav side-nav">
@@ -56,16 +35,65 @@
 
 <div id="concret_task">
 
-    @*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
+    @*@using (Html.BeginForm("Search", "Home"))
+    {
+        <fieldset>
+            <legend class="text-center">Поиск:</legend>
+
+            <div class="text-center">
+                <label>Пин</label>
+                @Html.TextBox("BusinessN")
+
+                <label style="padding-left:30px">  Договор</label>
+                @Html.TextBox("DebtDogovorN")
+
+                <input type="submit" value="Найти" />
+            </div>
+        </fieldset>
+
+    }*@
+
+
+
+    @using (Ajax.BeginForm("Search", "Home", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "concret_task",
+       // LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }))
+    {
+        <fieldset>
+            <legend class="text-center">Поиск:</legend>
+
+            <div class="text-center">
+
+                <label>Пин</label>
+                @Html.TextBox("BusinessN")
+                <input type="submit" value="Найти" />
+
+                <label style="padding-left:70px">Договор</label>
+                @Html.TextBox("DebtDogovorN")
+                <input type="submit" value="Найти" />
+
+            </div>
+        </fieldset>
+    }
+
+
+    @*<div id="loader" class="aletr" style="display:none">
+        Поиск...<img src="~/Img/ajax-loader.gif" />
+    </div>*@
+
+    <hr />
+
+
     <h4 class="text-center">Актуальные кредиторы:</h4>
 
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.OrgName)
-            </th>            
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrgIdLong)
             </th>
@@ -80,7 +108,7 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrgName)
-                </td>                
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrgIdLong)
                 </td>
@@ -88,12 +116,7 @@
                     @Html.DisplayFor(modelItem => item.OrgIdShort)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-
                     @Ajax.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task" })
-
-                    @*@Html.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong })*@
                 </td>
             </tr>
         }
@@ -103,20 +126,9 @@
 </div>
 
 
-
-@*<hr />
-<hr />
-<hr />*@
-
 <footer>
     <p class="panel-footer" style="text-align:center">&copy; @DateTime.Now.Year -  Европейское агентство по возврату долгов.</p>
 </footer>
-
-
-
-
-
-@*@Html.Partial("ConcretTask")*@
 
 
 @*@using (Html.BeginForm())
