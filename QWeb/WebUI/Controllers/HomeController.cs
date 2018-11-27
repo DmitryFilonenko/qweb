@@ -82,16 +82,13 @@ namespace WebUI.Controllers
             string valuePin = pin.BusinessN;
             string valueDog = pin.DebtDogovorN;
             List<Pin> model = new List<Pin>();
-            if (valuePin.Length > 0)
+            if (valuePin != null)
                 model = Pin.GetPinsByKey(PinSearhKey.Pin, valuePin);
             else
                 model = Pin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
 
             return PartialView(model);
         }
-
-
-
 
         public ActionResult About()
         {

@@ -1,102 +1,249 @@
 ﻿@model WebUI.Models.QEntities.Pin
 
-<div >
+<div class="text-center">
 
+    <fieldset>
+        @Html.DisplayNameFor(model => model.CreditorName)<span>:</span>
+        @Html.DisplayFor(model => model.CreditorName)<span>&nbsp; | &nbsp;</span>
+        @Html.DisplayNameFor(model => model.CreditorId)<span>:</span>
+        @Html.DisplayFor(model => model.CreditorId)
+
+    </fieldset>
+    <hr />
+    <fieldset>
+        @Html.DisplayNameFor(model => model.RegName)<span>:</span>
+        @Html.DisplayFor(model => model.RegName)<span>&nbsp; | &nbsp;</span>
+
+        @Html.DisplayNameFor(model => model.IdShort)<span>:</span>
+        @Html.DisplayFor(model => model.IdShort)<span>&nbsp; | &nbsp;</span>
+
+        @Html.DisplayNameFor(model => model.IdLong)<span>:</span>
+        @Html.DisplayFor(model => model.IdLong)<span>&nbsp; | &nbsp;</span>
+
+        @Html.DisplayNameFor(model => model.Start)<span>:</span>
+        @Html.DisplayFor(model => model.Start)<span>&nbsp; | &nbsp;</span>
+
+        @Html.DisplayNameFor(model => model.Stop)<span>:</span>
+        @Html.DisplayFor(model => model.Stop)
+    </fieldset>
     <hr />
 
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NameF)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameF)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NameI)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameI)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NameO)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameO)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Inn)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Inn)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectId)
-        </dd>
+    @*<h4>Pin</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NameF)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessN)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NameF)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BusinessN)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NameI)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DebtDogovorN)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NameI)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DebtDogovorN)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NameO)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DebtRest)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NameO)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DebtRest)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Inn)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalRest)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Inn)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalRest)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectId)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ArchiveFlag)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProjectId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ArchiveFlag)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessN)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.BusinessN)
+            </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.DebtDogovorN)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DebtDogovorN)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DebtRest)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DebtRest)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalRest)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalRest)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ArchiveFlag)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ArchiveFlag)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ap)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ap)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Avr)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Avr)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Af)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Af)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Aw)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aw)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Marker1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Marker1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Period1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Period1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Marker2)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Marker2)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Period2)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Period2)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreditorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreditorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreditorId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreditorId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RegName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RegName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdLong)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdLong)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdShort)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdShort)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Start)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Start)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Stop)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Stop)
+            </dd>
+
+        </dl>*@
 </div>
-
-<hr />
-<div class="text-center">
-    @Html.ActionLink("На главную", "Index")
-</div>
-<br/>
-
 @*<p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>*@
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

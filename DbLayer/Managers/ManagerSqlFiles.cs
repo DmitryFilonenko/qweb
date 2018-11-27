@@ -53,7 +53,11 @@ namespace DbLayer.Managers
                     string record = "";
                     for (int i = 0; i < fieldsCount; i++)
                     {
-                        record += (reader[i].ToString() + "#");
+                       // record += ((reader[i] == null? " " :  reader[i].ToString()) + "#");
+                        if (reader[i] is System.DBNull)
+                            record += " #";
+                        else
+                            record += reader[i].ToString() + "#"; 
                     }
                     list.Add(record.TrimEnd('#'));
                 }
