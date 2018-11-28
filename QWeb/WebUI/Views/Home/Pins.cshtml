@@ -5,7 +5,9 @@
 </p>*@
 <table class="table">
     <tr>
-
+        <th>
+            @Html.DisplayNameFor(model => model.CreditorName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.NameF)
         </th>
@@ -28,7 +30,7 @@
             @Html.DisplayNameFor(model => model.DebtDogovorN)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.DebtRest)
+            @Html.DisplayNameFor(model => model.DebtRest
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TotalRest)
@@ -44,80 +46,93 @@
         @if (item.ArchiveFlag == "-")
         {
             <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.NameF)
+                @Html.DisplayFor(modelItem => item.CreditorName)
             </td>
         }
         else
         {
             <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameF)
+                @Html.DisplayFor(modelItem => item.CreditorName)
             </td>
         }
 
         @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.NameI)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameI)
-            </td>
-        }
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.NameF)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.NameF)
+    </td>
+}
 
         @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.NameO)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameO)
-            </td>
-        }
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.NameI)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.NameI)
+    </td>
+}
 
         @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.Inn)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.Inn)
-            </td>
-        }
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.NameO)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.NameO)
+    </td>
+}
 
         @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.BusinessN)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.BusinessN)
-            </td>
-        }
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.Inn)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.Inn)
+    </td>
+}
 
         @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">    
-                @Html.DisplayFor(modelItem => item.DebtDogovorN)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.DebtDogovorN)
-            </td>
-        }
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.BusinessN)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.BusinessN)
+    </td>
+}
+
+        @if (item.ArchiveFlag == "-")
+    {
+        <td class="alert-success">
+            @Html.DisplayFor(modelItem => item.DebtDogovorN)
+        </td>
+}
+else
+{
+    <td class="alert-warning">
+        @Html.DisplayFor(modelItem => item.DebtDogovorN)
+    </td>
+}
 
 
 
@@ -125,7 +140,7 @@
             @Html.DisplayFor(modelItem => item.ProjectId)
         </td>*@
 
-        
+
         @*<td>
             @Html.DisplayFor(modelItem => item.DebtRest)
         </td>
@@ -135,12 +150,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.ArchiveFlag)
         </td>*@
-            <td>
-                @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task" })
-  
-                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-            </td>
+        <td>
+            @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        </td>
     </tr>
 }
 

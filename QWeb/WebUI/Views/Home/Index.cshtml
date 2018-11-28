@@ -35,57 +35,35 @@
 
 <div id="concret_task">
 
-    @*@using (Html.BeginForm("Search", "Home"))
-    {
-        <fieldset>
-            <legend class="text-center">Поиск:</legend>
-
-            <div class="text-center">
-                <label>Пин</label>
-                @Html.TextBox("BusinessN")
-
-                <label style="padding-left:30px">  Договор</label>
-                @Html.TextBox("DebtDogovorN")
-
-                <input type="submit" value="Найти" />
-            </div>
-        </fieldset>
-
-    }*@
-
-
-
     @using (Ajax.BeginForm("Search", "Home", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
         UpdateTargetId = "concret_task",
-       // LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
     }))
     {
         <fieldset>
-            <legend class="text-center">Поиск:</legend>
 
             <div class="text-center">
 
                 <label>Пин</label>
                 @Html.TextBox("BusinessN")
-                <input type="submit" value="Найти" />
+                
 
-                <label style="padding-left:70px">Договор</label>
+                <label style="padding-left:50px">Договор</label>
                 @Html.TextBox("DebtDogovorN")
-                <input type="submit" value="Найти" />
+               
+
+                <label style="padding-left:50px">Инн</label>
+                @Html.TextBox("Inn")
+                <input type="submit" style="margin-left:50px" value="Найти" />
+                <br />
 
             </div>
         </fieldset>
     }
-
-
-    @*<div id="loader" class="aletr" style="display:none">
-        Поиск...<img src="~/Img/ajax-loader.gif" />
-    </div>*@
-
+   
     <hr />
-
 
     <h4 class="text-center">Актуальные кредиторы:</h4>
 
@@ -116,7 +94,7 @@
                     @Html.DisplayFor(modelItem => item.OrgIdShort)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+                    @Ajax.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
                 </td>
             </tr>
         }

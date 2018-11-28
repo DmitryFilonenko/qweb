@@ -14,79 +14,82 @@ namespace WebUI.Models.QEntities
     public class Pin
     {
         #region Fields
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Фамилия:")]
         public string NameF { get; set; }
 
-        [Display(Name = "Имя")]
+        [Display(Name = "Имя:")]
         public string NameI { get; set; }
 
-        [Display(Name = "Отчество")]
+        [Display(Name = "Отчество:")]
         public string NameO { get; set; }
 
-        [Display(Name = "Инн")]
+        [Display(Name = "Инн:")]
         public string Inn { get; set; }
 
-        [Display(Name = "Project ID")]
+        [Display(Name = "Project ID:")]
         public string ProjectId { get; set; }
 
-        [Display(Name = "Пин")]
+        [Display(Name = "Пин:")]
         public string BusinessN { get; set; }
 
-        [Display(Name = "Номер договора")]
+        [Display(Name = "Договор:")]
         public string DebtDogovorN { get; set; }
 
-        [Display(Name = "Просроченная задолженность")]
+        [Display(Name = "Просроченная задолженность:")]
         public string DebtRest { get; set; }
 
-        [Display(Name = "Общая задолженность")]
+        [Display(Name = "Общая задолженность:")]
         public string TotalRest { get; set; }
 
-        [Display(Name = "Архив")]
+        [Display(Name = "Архив:")]
         public string ArchiveFlag { get; set; }
 
-        [Display(Name = "АП")]
+        [Display(Name = "АП:")]
         public string Ap { get; set; }
 
-        [Display(Name = "АВР")]
+        [Display(Name = "АВР:")]
         public string Avr { get; set; }
 
-        [Display(Name = "АФ")]
+        [Display(Name = "АФ:")]
         public string Af { get; set; }
 
-        [Display(Name = "АР")]
+        [Display(Name = "АР:")]
         public string Aw { get; set; }
 
-        [Display(Name = "Маркер 1")]
+        [Display(Name = "Маркер1:")]
         public string Marker1 { get; set; }
 
-        [Display(Name = "Период")]
+        [Display(Name = "Период:")]
         public string Period1 { get; set; }
 
-        [Display(Name = "Маркер 2")]
+        [Display(Name = "Маркер2:")]
         public string Marker2 { get; set; }
 
-        [Display(Name = "Период")]
+        [Display(Name = "Период:")]
         public string Period2 { get; set; }
 
-        [Display(Name = "Кредитор")]
+        [Display(Name = "Кредитор:")]
         public string CreditorName { get; set; }
 
-        [Display(Name = "ID")]
-        public string CreditorId { get; set; }
+        [Display(Name = "suvd ID:")]
+        public string CreditorIdLong { get; set; }
 
-        [Display(Name = "Реестр")]
+        [Display(Name = "eadr ID:")]
+        public string CreditorIdShort { get; set; }
+
+        [Display(Name = "Реестр:")]
         public string RegName { get; set; }
 
-        [Display(Name = "suvd ID")]
+        [Display(Name = "suvd ID:")]
         public string IdLong { get; set; }
 
-        [Display(Name = "eadr ID")]
+        [Display(Name = "eadr ID:")]
         public string IdShort { get; set; }
 
-        [Display(Name = "Начало работы")]
+        [Display(Name = "Начало:")]
         public string Start { get; set; }
 
-        [Display(Name = "Конец работы")]
+        [Display(Name = "Окончание:")]
         public string Stop { get; set; }
 
 
@@ -115,7 +118,7 @@ namespace WebUI.Models.QEntities
             }
             string query = String.Format("{0} {1}", text, cond);
 
-            List<string> list = ManagerSqlFiles.GetPins(query, 25);
+            List<string> list = ManagerSqlFiles.GetPins(query, 26);
 
             foreach (var item in list)
             {
@@ -123,8 +126,8 @@ namespace WebUI.Models.QEntities
                 Pin p = new Pin { NameF = arr[0], NameI = arr[1], NameO = arr[2], Inn = arr[3], ProjectId = arr[4], BusinessN = arr[5],
                                   DebtDogovorN = arr[6], DebtRest = arr[7], TotalRest = arr[8], ArchiveFlag = arr[9] == "1"? "+" : "-",
                                   Ap = arr[10], Avr = arr[11], Af = arr[12], Aw = arr[13], Marker1 = arr[14], Period1 = arr[15], Marker2 = arr[16],
-                                  Period2 = arr[17], CreditorName = arr[18], CreditorId = arr[19], RegName = arr[20], IdLong = arr[21], IdShort = arr[22],
-                                  Start = arr[23].Substring(0, 10), Stop = arr[24].Substring(0, 10)
+                                  Period2 = arr[17], CreditorName = arr[18], CreditorIdLong = arr[19], CreditorIdShort = arr[20], RegName = arr[21],
+                                  IdLong = arr[22], IdShort = arr[23], Start = arr[24].Substring(0, 10), Stop = arr[25].Substring(0, 10)
                 };
                 if (p.Period1 == "c  no ")
                     p.Period1 = "";

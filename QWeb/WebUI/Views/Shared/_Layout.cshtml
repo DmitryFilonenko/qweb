@@ -20,12 +20,21 @@
             <div class="navbar-header">
                 @*@Html.ActionLink("EADR", "Index", "Home", new { @class = "navbar-brand" })*@
                 @*< class="navbar-brand" style="padding-left:75px">&copy; Qira</>*@
-                @Html.ActionLink("© Qira", "Index", null, new { @class = "navbar-brand", @style = "padding-left:75px" })
+
+                <span>@Html.ActionLink("© Qira", "Index", null, new { @class = "navbar-brand", @style = "padding-left:75px" })</span>
+                <span id="loader" style="display:none;">
+                    <img src="~/Img/ajax-loader.gif"  />
+                </span>
+
             </div>
+
+            
+
+
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                
+
 
                 <ul class="nav navbar-nav navbar-right navbar-user">
                     <li class="nav navbar-text navbar-right" style="padding-right:30px">
@@ -37,6 +46,7 @@
 
         <div id="page-wrapper" class="container body-content">
 
+            
 
             @RenderBody()
 
