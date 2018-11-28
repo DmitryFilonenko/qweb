@@ -58,14 +58,16 @@ namespace WebUI.Controllers
         }
 
         public ActionResult Regs(string creditorId)
-        {
+        {            
             ViewBag.Message = "creditorId - " + creditorId;
             var model = CreditorReg.GetRegList(creditorId);
+            Session["currentCreditorId"] = creditorId;
             return PartialView(model.OrderByDescending(r=>r.RegId).ToList());
         }
 
         public ActionResult Pins(string regId)
         {
+            Session["currentRegId"] = regId;
             var model = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
             return PartialView(model.OrderByDescending(p => p.BusinessN).ToList());
         }

@@ -18,7 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Inn)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.BusinessN)
         </th>
@@ -32,96 +31,35 @@
     @foreach (var item in Model)
     {
     <tr>
-        @if (item.ArchiveFlag == "-")
-    {
-        <td class="alert-success">
+       
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
             @Html.DisplayFor(modelItem => item.CreditorName)
         </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.CreditorName)
-            </td>
-        }
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+       
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.NameF)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameF)
-            </td>
-        }
-
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+       
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.NameI)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameI)
-            </td>
-        }
-
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+        
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.NameO)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.NameO)
-            </td>
-        }
-
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+        
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.Inn)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.Inn)
-            </td>
-        }
-
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+        
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.BusinessN)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.BusinessN)
-            </td>
-        }
-
-        @if (item.ArchiveFlag == "-")
-        {
-            <td class="alert-success">
+               
+            <td class=@Html.GetAlertType(item.ArchiveFlag)>
                 @Html.DisplayFor(modelItem => item.DebtDogovorN)
             </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.DebtDogovorN)
-            </td>
-        }
-
+       
         <td>
             @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
         </td>
