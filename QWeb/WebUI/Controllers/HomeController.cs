@@ -57,12 +57,11 @@ namespace WebUI.Controllers
             return View();
         }
 
-
         public ActionResult Regs(string creditorId)
         {
             ViewBag.Message = "creditorId - " + creditorId;
             var model = CreditorReg.GetRegList(creditorId);
-            return PartialView(model.OrderByDescending(r=>r.IsActive).ToList());
+            return PartialView(model.OrderByDescending(r=>r.RegId).ToList());
         }
 
         public ActionResult Pins(string regId)

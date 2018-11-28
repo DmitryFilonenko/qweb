@@ -1,4 +1,5 @@
-﻿using DbLayer.Managers;
+﻿using DbLayer;
+using DbLayer.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,8 @@ namespace WebUI.Models.QEntities
         [Display(Name = "В работе")]
         public string IsActive { get; set; }
 
+        [Display(Name = "Количество дел")]
+        public int Count { get; set; }
 
         public static List<CreditorReg> GetRegList(string creditorId)
         {
@@ -41,8 +44,8 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                CreditorReg reg = new CreditorReg { RegName = arr[0], RegId = arr[1], ActDate = arr[2].Substring(0, 10), StartDate = arr[3].Substring(0, 10), StopDate = arr[4].Substring(0, 10), IsActive = arr[5] == "1"? "+" : "-" };
-
+                CreditorReg reg = new CreditorReg { RegName = arr[0], RegId = arr[1], ActDate = arr[2].Substring(0, 10), StartDate = arr[3].Substring(0, 10), StopDate = arr[4].Substring(0, 10), IsActive = arr[5] == "1"? "-" : "+" };
+                reg.Count = ManagerDbQuery.GetCountWhere("suvd.projects", "dogovor_id", reg.RegId);
                 regs.Add(reg);
             }
             return regs;

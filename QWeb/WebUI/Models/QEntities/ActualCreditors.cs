@@ -1,4 +1,5 @@
-﻿using DbLayer.Managers;
+﻿using DbLayer;
+using DbLayer.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,8 @@ namespace WebUI.Models.QEntities
         public string OrgIdLong { get; set; }
         [Display(Name = "ID eadr")]
         public string OrgIdShort { get; set; }
+        [Display(Name = "Количество реестров")]
+        public int Count { get; set; }
 
         public static List<ActualCreditor> GetCreditorList()
         {
@@ -29,7 +32,8 @@ namespace WebUI.Models.QEntities
             {
                 string[] arr = item.Split('#');
                 ActualCreditor creditor = new ActualCreditor { OrgName = arr[0], OrgIdLong = arr[1], OrgIdShort = arr[2] };
-                actualCreditorsList.Add(creditor);
+                creditor.Count = ManagerDbQuery.GetCountWhere("suvd.creditor_dogovors", "creditor_id", creditor.OrgIdLong.ToString());
+                 actualCreditorsList.Add(creditor);
             }
             return actualCreditorsList;
         }

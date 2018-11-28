@@ -94,7 +94,7 @@
                     @Html.DisplayFor(modelItem => item.OrgIdShort)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Реестры", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                    @Ajax.ActionLink("Реестры (" + item.Count + ")", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
                 </td>
             </tr>
         }

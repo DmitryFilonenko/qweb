@@ -20,93 +20,34 @@
         <th>
             @Html.DisplayNameFor(model => model.StopDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.RegName)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.RegName)
-            </td>
-        }
-
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.RegId)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.RegId)
-            </td>
-        }
-
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.ActDate)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.ActDate)
-            </td>
-        }
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-        }
-
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.StopDate)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.StopDate)
-            </td>
-        }
-
-        @if (item.IsActive == "+")
-        {
-            <td class="alert-success">
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-        }
-        else
-        {
-            <td class="alert-warning">
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-        }
+        
+        <td class=@Html.GetAlertType(item.IsActive)>
+            @Html.DisplayFor(modelItem => item.RegName)
+        </td>
+        
+        <td class=@Html.GetAlertType(item.IsActive)>
+            @Html.DisplayFor(modelItem => item.RegId)
+        </td>
+        
+        <td class=@Html.GetAlertType(item.IsActive)>
+            @Html.DisplayFor(modelItem => item.ActDate)
+        </td>
+       
+        <td class=@Html.GetAlertType(item.IsActive)>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+       
+        <td class=@Html.GetAlertType(item.IsActive)>
+            @Html.DisplayFor(modelItem => item.StopDate)
+        </td>        
 
         <td>
-            @Ajax.ActionLink("Дела", "Pins", new { regId = item.RegId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+            @Ajax.ActionLink("Дела (" + item.Count + ")", "Pins", new { regId = item.RegId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
         </td>
 </tr>
 }

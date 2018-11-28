@@ -10,16 +10,12 @@ namespace WebUI.Infrastructure.HelperMethods
     {
         // Для того чтобы использовать данный вспомогательный метод, необходимо импортировать пространство имен WebUI.Infrastructure.HelperMethods.
         // Пространство имен импортируем с помощью файла Views/web.config
-        public static MvcHtmlString UnorderedList(this HtmlHelper helper, string[] items)
+        public static string GetAlertType(this HtmlHelper helper, string isArchive)
         {
-            TagBuilder tag = new TagBuilder("ul");
-            foreach (var item in items)
-            {
-                TagBuilder liTag = new TagBuilder("li");
-                liTag.SetInnerText(item);
-                tag.InnerHtml += liTag.ToString();
-            }
-            return new MvcHtmlString(tag.ToString());
+            if (isArchive == "-")
+                return "alert-success";
+            else
+                return "alert-warning";
         }
     }
 }

@@ -32,7 +32,28 @@ namespace DbLayer
                 throw;
             }
             finally { _con.Close(); }            
-        }              
+        }
+
+        public static int GetCountWhere(string tableName, string field, string value)
+        {
+            try
+            {
+                _con.Open();
+                int count = -1;
+                string query = String.Format("select count(*) from {0} where {1} = {2}", tableName, field, value);
+                OracleDataReader reader = DbConnect.GetReader(query);
+                while (reader.Read())
+                {
+                    count = Convert.ToInt32(reader[0]);
+                }
+                return count;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
+        }
 
         public static List<string> GetFieldsListById(string tableName, string[] fieldNameArr, string idValue, string idName = "id")
         {
