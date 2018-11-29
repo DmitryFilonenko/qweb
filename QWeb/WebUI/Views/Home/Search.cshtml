@@ -1,69 +1,117 @@
 ﻿@model IEnumerable<WebUI.Models.QEntities.Pin>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreditorName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NameO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Inn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BusinessN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DebtDogovorN)
-        </th>
 
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+@{
+    if (Model != null)
     {
-    <tr>
-       
-        <td class=@Html.GetAlertType(item.ArchiveFlag)>
-            @Html.DisplayFor(modelItem => item.CreditorName)
-        </td>
-       
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameF)
-            </td>
-       
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameI)
-            </td>
-        
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameO)
-            </td>
-        
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.Inn)
-            </td>
-        
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.BusinessN)
-            </td>
-               
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.DebtDogovorN)
-            </td>
-       
-        <td>
-            @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
-        </td>
-    </tr>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
+            <li>
+                @Ajax.ActionLink("К списку реестров " + Model.First().CreditorName, "Regs", new { creditorId = Model.First().CreditorIdLong }, new AjaxOptions()
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "concret_task",
+                    LoadingElementId = "loader"
+                })
+              </li>
+        </ol>
     }
+}
 
-</table>
+<br />
+
+<fieldset class="text-center">
+    @{
+        if (ViewBag.Search != null)
+        {
+            <p class="alert-danger">@ViewBag.Search</p>
+            <br />
+            <hr />
+
+            <p>
+                @Html.ActionLink("Назад", "Index")
+            </p>
+            <br />
+            ViewBag.Search = null;
+
+        }
+    }
+</fieldset>
+
+
+
+@{
+    if (Model != null)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreditorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NameF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NameI)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NameO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Inn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BusinessN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DebtDogovorN)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.CreditorName)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.NameF)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.NameI)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.NameO)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.Inn)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.BusinessN)
+                    </td>
+
+                    <td class=@Html.GetAlertType(item.ArchiveFlag)>
+                        @Html.DisplayFor(modelItem => item.DebtDogovorN)
+                    </td>
+
+                    <td>
+                        @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+}
+
+
+

@@ -1,14 +1,31 @@
 ﻿@model IEnumerable<WebUI.Models.QEntities.Pin>
 
 
-@Html.ActionLink("К списку контрагентов", "Index") | 
-@Ajax.ActionLink("К списку реестров " + Model.First().CreditorName, "Regs", new { creditorId = Session["currentCreditorId"] }, new AjaxOptions()
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
+    <li class="breadcrumb-item">
+        @Ajax.ActionLink("К списку реестров " + Model.First().CreditorName, "Regs", new { creditorId = Model.First().CreditorIdLong }, new AjaxOptions()
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "concret_task",
+        LoadingElementId = "loader"
+    })
+    </li>
+</ol>
+
+
+
+@*@Html.ActionLink("К списку контрагентов", "Index") &nbsp; | &nbsp; 
+
+@Ajax.ActionLink("К списку реестров " + Model.First().CreditorName, "Regs", new { creditorId = Model.First().CreditorIdLong }, new AjaxOptions()
 {
-    InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+    InsertionMode = InsertionMode.Replace, 
     UpdateTargetId = "concret_task",
     LoadingElementId = "loader"
-})
+})*@
 
+
+<br /><br />
 
 <table class="table">
     <tr>

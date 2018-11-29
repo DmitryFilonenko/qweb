@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<WebUI.Models.QEntities.CreditorReg>
 
-<p>
-    @Html.ActionLink("К списку контрагентов", "Index")
-</p>
 
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>    
+</ol>
+
+
+<h4 class="text-success">@Model.First().CreditorName</h4>
 
 <table class="table" style="border-bottom:medium">
     <tr>

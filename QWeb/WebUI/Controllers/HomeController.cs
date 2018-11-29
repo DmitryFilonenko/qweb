@@ -60,14 +60,12 @@ namespace WebUI.Controllers
         public ActionResult Regs(string creditorId)
         {            
             ViewBag.Message = "creditorId - " + creditorId;
-            var model = CreditorReg.GetRegList(creditorId);
-            Session["currentCreditorId"] = creditorId;
+            var model = CreditorReg.GetRegList(creditorId);            
             return PartialView(model.OrderByDescending(r=>r.RegId).ToList());
         }
 
         public ActionResult Pins(string regId)
-        {
-            Session["currentRegId"] = regId;
+        {           
             var model = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
             return PartialView(model.OrderByDescending(p => p.BusinessN).ToList());
         }
@@ -80,15 +78,47 @@ namespace WebUI.Controllers
 
         public ActionResult Search(Pin pin)
         {
-            string valuePin = pin.BusinessN;
-            string valueDog = pin.DebtDogovorN;
-            List<Pin> model = new List<Pin>();
-            if (valuePin != null)
-                model = Pin.GetPinsByKey(PinSearhKey.Pin, valuePin);
-            else
-                model = Pin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
 
-            return PartialView(model);
+            List<Pin> model = new List<Pin>();
+
+            if (CheckInputData(pin))
+            {
+                string valuePin = pin.BusinessN;
+                string valueDog = pin.DebtDogovorN;
+                string valueInn = pin.Inn;
+
+                if (valuePin != null)
+                    model = Pin.GetPinsByKey(PinSearhKey.Pin, valuePin);
+                else if (valueDog != null)
+                    model = Pin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
+                else
+                    model = Pin.GetPinsByKey(PinSearhKey.Inn, valueInn);
+
+                return PartialView(model);
+            }
+            else
+            {
+                ViewBag.Search = "Некорректные данные для поиска";
+                return PartialView(null);
+            }
+            
+        }
+
+        private bool CheckInputData(Pin pin)
+        {
+            int count = 0;
+            if (pin.BusinessN != null) count++;
+            if (pin.DebtDogovorN != null) count++;
+            if (pin.Inn != null) count++;
+
+            if (count == 1)
+                return true;
+            else
+            {
+                //Session["search"] = "Некорректные данные для поиска";
+                
+                return false;
+            }
         }
 
         public ActionResult About()
