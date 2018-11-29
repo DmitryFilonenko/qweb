@@ -50,10 +50,15 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                CreditorReg reg = new CreditorReg { CreditorName = arr[0], CreditorId = arr[1], RegName = arr[2],
-                                                    RegId = arr[3], ActDate = arr[4].Substring(0, 10),
-                                                    StartDate = arr[5].Substring(0, 10), StopDate = arr[6].Substring(0, 10),
+                CreditorReg reg = new CreditorReg { CreditorName = arr[0],
+                                                    CreditorId = arr[1],
+                                                    RegName = arr[2],
+                                                    RegId = arr[3],
+                                                    ActDate = arr[4].Substring(0, 10),
+                                                    StartDate = arr[5].Length > 10 ? arr[5].Substring(0, 10) : "",
+                                                    StopDate = arr[6].Length > 10 ? arr[6].Substring(0, 10) : "",
                                                     IsActive = arr[7] == "1"? "-" : "+" };
+
                 reg.Count = ManagerDbQuery.GetCountWhere("suvd.projects", "dogovor_id", reg.RegId);
                 regs.Add(reg);
             }

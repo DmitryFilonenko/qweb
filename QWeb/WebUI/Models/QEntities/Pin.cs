@@ -123,12 +123,42 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                Pin p = new Pin { NameF = arr[0], NameI = arr[1], NameO = arr[2], Inn = arr[3], ProjectId = arr[4], BusinessN = arr[5],
-                                  DebtDogovorN = arr[6], DebtRest = arr[7], TotalRest = arr[8], ArchiveFlag = arr[9] == "1"? "+" : "-",
-                                  Ap = arr[10], Avr = arr[11], Af = arr[12], Aw = arr[13], Marker1 = arr[14], Period1 = arr[15], Marker2 = arr[16],
-                                  Period2 = arr[17], CreditorName = arr[18], CreditorIdLong = arr[19], CreditorIdShort = arr[20], RegName = arr[21],
-                                  IdLong = arr[22], IdShort = arr[23], Start = arr[24].Substring(0, 10), Stop = arr[25].Substring(0, 10)
-                };
+                //Pin p = new Pin { NameF = arr[0], NameI = arr[1], NameO = arr[2], Inn = arr[3], ProjectId = arr[4], BusinessN = arr[5],
+                //                  DebtDogovorN = arr[6], DebtRest = arr[7], TotalRest = arr[8], ArchiveFlag = arr[9] == "1"? "+" : "-",
+                //                  Ap = arr[10], Avr = arr[11], Af = arr[12], Aw = arr[13], Marker1 = arr[14], Period1 = arr[15], Marker2 = arr[16],
+                //                  Period2 = arr[17], CreditorName = arr[18], CreditorIdLong = arr[19], CreditorIdShort = arr[20], RegName = arr[21],
+                //                  IdLong = arr[22], IdShort = arr[23], Start = arr[24].Substring(0, 10), Stop = arr[25].Substring(0, 10)
+                //};
+
+                Pin p = new Pin();
+                p.NameF = arr[0];
+                p.NameI = arr[1];
+                p.NameO = arr[2];
+                p.Inn = arr[3];
+                p.ProjectId = arr[4];
+                p.BusinessN = arr[5];
+                p.DebtDogovorN = arr[6];
+                p.DebtRest = arr[7];
+                p.TotalRest = arr[8];
+                p.ArchiveFlag = arr[9] == "1" ? "+" : "-";
+                p.Ap = arr[10];
+                p.Avr = arr[11];
+                p.Af = arr[12];
+                p.Aw = arr[13];
+                p.Marker1 = arr[14];
+                p.Period1 = arr[15];
+                p.Marker2 = arr[16];
+                p.Period2 = arr[17];
+                p.CreditorName = arr[18];
+                p.CreditorIdLong = arr[19];
+                p.CreditorIdShort = arr[20];
+                p.RegName = arr[21];
+                p.IdLong = arr[22];
+                p.IdShort = arr[23];
+                p.Start = arr[24].Length > 10?  arr[24].Substring(0, 10) : "";
+                p.Stop = arr[25].Length > 10 ? arr[25].Substring(0, 10) : "";
+
+
                 if (p.Period1 == "c  no ")
                     p.Period1 = "";
                 pins.Add(p);
