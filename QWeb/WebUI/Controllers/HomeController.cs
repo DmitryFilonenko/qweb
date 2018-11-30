@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebUI.Models.Home;
 //using WebUI.Models.Home;
 using WebUI.Models.QEntities;
 
@@ -12,7 +13,8 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        ISelectable _entity = null; 
+        ISelectable _entity = null;
+        public int pageSize = 4;
 
         public ActionResult Index()
         {
@@ -64,10 +66,23 @@ namespace WebUI.Controllers
             return PartialView(model.OrderByDescending(r=>r.RegId).ToList());
         }
 
-        public ActionResult Pins(string regId)
-        {           
-            var model = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
-            return PartialView(model.OrderByDescending(p => p.BusinessN).ToList());
+        public ActionResult Pins(string regId, int page = 1)
+        {
+            PinListViewModel model = new PinListViewModel
+            {
+                PinSet = Pin.GetPinsByKey(PinSearhKey.RegId, regId)
+                .OrderBy(pin => pin.BusinessN)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize).ToList(),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = Pin.GetPinsByKey(PinSearhKey.RegId, regId).Count()
+                }
+            };
+
+            return PartialView(model);            
         }
 
         public ActionResult PinDetails(string pin)
@@ -115,8 +130,6 @@ namespace WebUI.Controllers
                 return true;
             else
             {
-                //Session["search"] = "Некорректные данные для поиска";
-                
                 return false;
             }
         }
