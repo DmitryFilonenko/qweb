@@ -7,11 +7,11 @@
     <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
     <li class="breadcrumb-item">
         @Ajax.ActionLink("К списку реестров " + Model.PinSet.First().CreditorName, "Regs", new { creditorId = Model.PinSet.First().CreditorIdLong }, new AjaxOptions()
-        {
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "concret_task",
-            LoadingElementId = "loader"
-        })
+   {
+       InsertionMode = InsertionMode.Replace,
+       UpdateTargetId = "concret_task",
+       LoadingElementId = "loader"
+   })
     </li>
 </ol>
 
@@ -85,13 +85,31 @@
 </table>
 <div>
 
-    @for(int i = 1; i <= Model.PagingInfo.TotalPages; ++i)
-    {
-        @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].IdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
-    }
 
-    
-    @*@Html.PageLinks(Model.PagingInfo, p => Url.Action("Pins", new { regId = Model.PinSet[0].IdLong, page = p }))*@
+    @if (Model.PagingInfo.TotalItems > Model.PagingInfo.ItemsPerPage)
+    {
+        <div>
+            <ul class="pagination">
+
+                @for (int i = 1; i <= Model.PagingInfo.TotalPages; ++i)
+                {
+                    if (Model.PagingInfo.CurrentPage == i)
+                    {
+                        <li class="page-item active">
+                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].IdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].IdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+    }
 
 </div>
 

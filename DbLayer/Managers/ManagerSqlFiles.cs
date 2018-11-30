@@ -72,8 +72,5 @@ namespace DbLayer.Managers
         }
 
         #endregion
-
-
-
     }
 }

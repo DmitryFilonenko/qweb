@@ -14,7 +14,7 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         ISelectable _entity = null;
-        public int pageSize = 4;
+        public int pageSize = 30;
 
         public ActionResult Index()
         {
@@ -76,11 +76,16 @@ namespace WebUI.Controllers
                 .Take(pageSize).ToList(),
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = pageSize,
-                    TotalItems = Pin.GetPinsByKey(PinSearhKey.RegId, regId).Count()
+                    CurrentPage = page,                    
+                    TotalItems = Pin.GetPinsByKey(PinSearhKey.RegId, regId).Count(),                    
                 }
             };
+
+            if (model.PagingInfo.TotalItems < 100)
+                model.PagingInfo.ItemsPerPage = 30;
+            else if (model.PagingInfo.TotalItems < 1000)
+                model.PagingInfo.ItemsPerPage = 100;
+            else model.PagingInfo.ItemsPerPage = model.PagingInfo.TotalItems / 10;
 
             return PartialView(model);            
         }

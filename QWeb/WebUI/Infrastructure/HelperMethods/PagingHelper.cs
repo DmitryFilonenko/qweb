@@ -10,25 +10,16 @@ namespace WebUI.Infrastructure.HelperMethods
 {
     public static class PagingHelper
     {
-        public static MvcHtmlString PageLinks(this HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
+        public static string GetPageClass(this HtmlHelper html, PagingInfo pagingInfo, int currentItem)
         {
-            StringBuilder result = new StringBuilder();
+            string str = "";
 
-            for (int i = 1; i <= pagingInfo.TotalPages; i++)
-            {
-                TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
-                if (i == pagingInfo.CurrentPage)
-                {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
-                }
-                tag.AddCssClass("btn btn-default");
-                result.Append(tag.ToString());
-            }
+            if (pagingInfo.CurrentPage == currentItem)
+                str = "btn btn-primary";
+            else
+                str = "btn btn-outline-primary";
 
-            return MvcHtmlString.Create(result.ToString());
+            return str;
         }
     }
 }
