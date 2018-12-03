@@ -57,19 +57,41 @@
 
                 <label style="padding-left:50px">Инн:</label>
                 @Html.TextBox("Inn")
-                <input type="submit" style="margin-left:50px" value="Найти" />                
+                <input type="submit" style="margin-left:50px" value="Найти" />
 
                 <br />
             </div>
-           
-               
- 
+
+
+
         </fieldset>
-    }       
+    }
 
     <hr />
 
     <h4 class="text-center">Актуальные кредиторы:</h4>
+
+    @*@using (Ajax.BeginForm("SearchCreditor", "Home", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "concret_task",
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }))
+    {
+        <fieldset>
+
+            <div class="text-center">
+
+                <label>Кредитор:</label>
+                @Html.TextBox("orgName")
+
+                <input type="submit" style="margin-left:10px" value="Найти" />
+
+                <br /><br />
+            </div>
+
+        </fieldset>
+    }*@
 
     <table class="table">
         <tr>

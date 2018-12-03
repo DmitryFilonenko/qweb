@@ -1,0 +1,35 @@
+﻿@*@model IEnumerable<WebUI.Models.QEntities.ActualCreditor>
+
+<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgIdLong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgIdShort)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgIdLong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrgIdShort)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Реестры (" + item.Count + ")", "Regs", new { creditorId = item.OrgIdLong }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                </td>
+            </tr>
+        }
+
+    </table>*@

@@ -81,16 +81,27 @@ namespace WebUI.Models.QEntities
         public string RegName { get; set; }
 
         [Display(Name = "suvd ID:")]
-        public string IdLong { get; set; }
+        public string RegIdLong { get; set; }
 
         [Display(Name = "eadr ID:")]
-        public string IdShort { get; set; }
+        public string RegIdShort { get; set; }
 
         [Display(Name = "Начало:")]
         public string Start { get; set; }
 
         [Display(Name = "Окончание:")]
         public string Stop { get; set; }
+
+        DateTime notesStart = DateTime.Today.AddDays(-7);
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime NotesStart { get { return notesStart; } set { notesStart = value; } }
+
+        DateTime notesStop = DateTime.Today;
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]        
+        public DateTime NotesStop { get { return notesStop; } set { notesStop = value; } }
+
 
 
         #endregion
@@ -153,8 +164,8 @@ namespace WebUI.Models.QEntities
                 p.CreditorIdLong = arr[19];
                 p.CreditorIdShort = arr[20];
                 p.RegName = arr[21];
-                p.IdLong = arr[22];
-                p.IdShort = arr[23];
+                p.RegIdLong = arr[22];
+                p.RegIdShort = arr[23];
                 p.Start = arr[24].Length > 10?  arr[24].Substring(0, 10) : "";
                 p.Stop = arr[25].Length > 10 ? arr[25].Substring(0, 10) : "";
 

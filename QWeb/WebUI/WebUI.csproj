@@ -156,6 +156,7 @@
     <Compile Include="Models\Home\PinListViewModel.cs" />
     <Compile Include="Models\QEntities\ActualCreditors.cs" />
     <Compile Include="Models\QEntities\CreditorReg.cs" />
+    <Compile Include="Models\QEntities\Note.cs" />
     <Compile Include="Models\QEntities\Pin.cs" />
     <Compile Include="Models\QEntities\QSubTask.cs" />
     <Compile Include="Models\QEntities\QTask.cs" />
@@ -217,6 +218,7 @@
     <Content Include="Views\Home\Pins.cshtml" />
     <Content Include="Views\Home\PinDetails.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\SearchCreditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

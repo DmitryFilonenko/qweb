@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebUI.Models.QEntities;
 
 namespace WebUI.Controllers
 {
     public class TaskController : Controller
     {
-        
+        #region Priority
         public ActionResult Priority( int prior)
         {
             ViewBag.Prior = prior;
@@ -22,9 +23,22 @@ namespace WebUI.Controllers
             uploadfile.SaveAs(Server.MapPath("/Uploads/" + uploadfile.FileName));
             return View();
         }
+        #endregion
+
+
+        #region Notes
+
+        public ActionResult Notes(string projectId, string startDate, string stopDate)
+        {
+            projectId += "0";          
+
+            return View();
+        }
+
+        #endregion
+
     }
-
-
+    
     //Priority
     //Priority
     //Priority

@@ -96,13 +96,13 @@
                     if (Model.PagingInfo.CurrentPage == i)
                     {
                         <li class="page-item active">
-                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].IdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].RegIdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
                         </li>
                     }
                     else
                     {
                         <li class="page-item">
-                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].IdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                            @Ajax.ActionLink(i.ToString(), "Pins", new { regId = Model.PinSet[0].RegIdLong, page = i }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
                         </li>
                     }
                 }

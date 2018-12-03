@@ -51,33 +51,33 @@ namespace WebUI.Controllers
             return "ID подзадачи - " + subTaskId;
         }
 
-        [HttpPost]
-        public ActionResult Index(string list)
-        {
-            int count = ManagerDbQuery.GetCount(list);
-            ViewBag.Message = "В таблице " + list + " содержится " + count + " записей.";
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult SearchCreditor(string orgName)
+        //{
+        //    var model = ActualCreditor.GetCreditorList().Where(cr => cr.OrgName.Contains(orgName));
+        //    return View(model);
+        //}
 
         public ActionResult Regs(string creditorId)
-        {            
+        {
             ViewBag.Message = "creditorId - " + creditorId;
-            var model = CreditorReg.GetRegList(creditorId);            
-            return PartialView(model.OrderByDescending(r=>r.RegId).ToList());
+            var model = CreditorReg.GetRegList(creditorId);
+            return PartialView(model.OrderByDescending(r => r.RegId).ToList());
         }
 
         public ActionResult Pins(string regId, int page = 1)
         {
+            List<Pin> list = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
+
             PinListViewModel model = new PinListViewModel
             {
-                PinSet = Pin.GetPinsByKey(PinSearhKey.RegId, regId)
-                .OrderBy(pin => pin.BusinessN)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize).ToList(),
+                PinSet = list.OrderBy(pin => pin.BusinessN).
+                              Skip((page - 1) * pageSize).
+                              Take(pageSize).ToList(),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,                    
-                    TotalItems = Pin.GetPinsByKey(PinSearhKey.RegId, regId).Count(),                    
+                    TotalItems = list.Count(),                    
                 }
             };
 
@@ -120,8 +120,7 @@ namespace WebUI.Controllers
             {
                 ViewBag.Search = "Некорректные данные для поиска";
                 return PartialView(null);
-            }
-            
+            }            
         }
 
         private bool CheckInputData(Pin pin)

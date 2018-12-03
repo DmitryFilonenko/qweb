@@ -12,7 +12,7 @@
         })
     </li>
     <li>
-        @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", new { regId = Model.IdLong }, new AjaxOptions()
+        @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", new { regId = Model.RegIdLong }, new AjaxOptions()
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "concret_task",
@@ -25,11 +25,11 @@
 <div>
     <br />
    
-    <div class="col-lg-1">
+    <div class="col-lg-1" >
         <br />
         <p style="height:17px">@Html.DisplayNameFor(model => model.CreditorName)</p>
         <hr />
-        <p style="height:17px">@Html.DisplayNameFor(model => model.RegName)</p>
+        <p class="table-condensed" style="height:17px">@Html.DisplayNameFor(model => model.RegName)</p>
         <hr />
         <p style="height:17px" class=@Html.GetAlertType(Model.ArchiveFlag)>Дело:</p>
         <hr />
@@ -48,6 +48,8 @@
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker1)</p>
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker2)</p>
+        <hr />
+        <p style="height:17px">Заметки:</p>
     </div>
 
     <div class="col-lg-11 text-center">
@@ -65,11 +67,11 @@
         <fieldset style="height:17px">
             @Html.DisplayFor(model => model.RegName)<span>&nbsp; | &nbsp;</span>
 
-            @Html.DisplayNameFor(model => model.IdShort)
-            @Html.DisplayFor(model => model.IdShort)<span>&nbsp; | &nbsp;</span>
+            @Html.DisplayNameFor(model => model.RegIdShort)
+            @Html.DisplayFor(model => model.RegIdShort)<span>&nbsp; | &nbsp;</span>
 
-            @Html.DisplayNameFor(model => model.IdLong)
-            @Html.DisplayFor(model => model.IdLong)<span>&nbsp; | &nbsp;</span>
+            @Html.DisplayNameFor(model => model.RegIdLong)
+            @Html.DisplayFor(model => model.RegIdLong)<span>&nbsp; | &nbsp;</span>
 
             @Html.DisplayNameFor(model => model.Start)
             @Html.DisplayFor(model => model.Start)<span>&nbsp; | &nbsp;</span>
@@ -133,6 +135,33 @@
             @Html.DisplayFor(model => model.Marker2)<span>&nbsp; &nbsp; &nbsp;</span>
 
             @Html.DisplayFor(model => model.Period2)
+        </fieldset>
+        <hr />
+        <fieldset style="height:17px">
+    @using (Ajax.BeginForm("Notes", "Task", 
+    new { projectId = Model.ProjectId }, 
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "concret_task",
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }))
+    {
+        <fieldset>
+            <div class="text-center">
+
+                <label>Диапазон дат: </label>
+
+                <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
+                <input name="stopDate" type="date" style="margin-left:10px"value="@Html.DisplayFor(model => model.NotesStop)" />                  
+
+                <input type="submit" style="margin-left:50px" value="Перейти к заметкам" />
+
+                <br /><br />
+            </div>
+
+        </fieldset>
+}
         </fieldset>
         <hr />
     </div>
