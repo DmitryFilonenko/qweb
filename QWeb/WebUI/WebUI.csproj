@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sql_files\actual_creditors.sql" />
+    <Content Include="App_Data\Sql_files\notes.sql" />
     <Content Include="App_Data\Sql_files\regs_by_creditor_id.sql" />
     <Content Include="App_Data\Sql_files\select_pin_by.sql" />
     <Content Include="Content\bootstrap.css" />
@@ -219,6 +220,8 @@
     <Content Include="Views\Home\PinDetails.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\SearchCreditor.cshtml" />
+    <Content Include="Views\Task\Notes.cshtml" />
+    <Content Include="Views\Task\EmptyResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

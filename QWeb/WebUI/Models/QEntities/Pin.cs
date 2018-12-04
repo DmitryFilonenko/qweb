@@ -1,4 +1,4 @@
-﻿using DbLayer.Managers;
+﻿using DbLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -102,7 +102,12 @@ namespace WebUI.Models.QEntities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]        
         public DateTime NotesStop { get { return notesStop; } set { notesStop = value; } }
 
+        public Pin() {  }
 
+        public Pin(string projectId)
+        {
+
+        }
 
         #endregion
 
@@ -129,7 +134,7 @@ namespace WebUI.Models.QEntities
             }
             string query = String.Format("{0} {1}", text, cond);
 
-            List<string> list = ManagerSqlFiles.GetPins(query, 26);
+            List<string> list = ManagerDbQuery.GetItems(query, 26);
 
             foreach (var item in list)
             {

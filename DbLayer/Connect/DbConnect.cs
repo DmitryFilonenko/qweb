@@ -61,7 +61,7 @@ namespace DbLayer.Connect
                 _cmd.Dispose();
                 return reader;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;

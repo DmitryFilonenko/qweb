@@ -1,5 +1,4 @@
 ﻿using DbLayer;
-using DbLayer.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -45,7 +44,7 @@ namespace WebUI.Models.QEntities
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/regs_by_creditor_id.sql");
             string text = File.ReadAllText(path);
             string query = String.Format("{0} {1}", text, creditorId); 
-            List<string> list = ManagerSqlFiles.GetCountedFieldData(query, 8);
+            List<string> list = ManagerDbQuery.GetItems(query, 8);
 
             foreach (var item in list)
             {

@@ -50,7 +50,6 @@
     <Compile Include="Infrsrt\IDbEntity.cs" />
     <Compile Include="Infrsrt\ISelectable.cs" />
     <Compile Include="Managers\ManagerDbQuery.cs" />
-    <Compile Include="Managers\ManagerSqlFiles.cs" />
     <Compile Include="Prop\Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

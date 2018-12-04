@@ -28,11 +28,37 @@ namespace WebUI.Controllers
 
         #region Notes
 
-        public ActionResult Notes(string projectId, string startDate, string stopDate)
+        public ActionResult Notes(string projectId, string startDate, string stopDate, string regId, string regName, string credId, string credName)
         {
-            projectId += "0";          
+            string start = startDate;
+            string stop = stopDate;
 
-            return View();
+            if (start == null) return View();
+
+            if (start.Contains("-"))
+            {
+                start = ReFormatDate(startDate);
+                stop = ReFormatDate(stopDate);
+            }
+
+            ViewBag.RegId = regId;
+            ViewBag.RegName = regName;
+            ViewBag.CreditorId = credId;
+            ViewBag.CrediotrName = credName;
+
+            List<Note> model = Note.GetNotes(projectId, start, stop);
+
+            return PartialView(model);
+        }
+
+        private static string ReFormatDate(string startDate)
+        {
+            string d = startDate.Substring(startDate.LastIndexOf("-") + 1);
+            startDate = startDate.Substring(0, startDate.LastIndexOf("-"));
+            string m = startDate.Substring(startDate.LastIndexOf("-") + 1);
+            string y = startDate.Substring(0, startDate.LastIndexOf("-"));
+
+            return string.Format("{0}.{1}.{2}", d, m, y);
         }
 
         #endregion

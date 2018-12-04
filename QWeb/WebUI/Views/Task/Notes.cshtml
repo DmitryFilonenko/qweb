@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebUI.Models.QEntities.Note>
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index", "Home")</li>
+    <li class="breadcrumb-item">
+
+        @{
+            string creditorName = ViewBag.CrediotrName;
+            string creditorId = ViewBag.CreditorId;
+        }
+
+        @Ajax.ActionLink("К списку реестров " + creditorName, "Regs", "Home", new { creditorId = creditorId }, new AjaxOptions()
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>
+    @*<li class="breadcrumb-item">
+        @Ajax.ActionLink("К Пину" + Model.PinSet.First().CreditorName, "PinDetails", "Home", new { creditorId = Model.PinSet.First().CreditorIdLong }, new AjaxOptions()
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>*@
+</ol>
+
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StopDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StopDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "NoteEdit", new { id = item.NoteId }) |
+                @Html.ActionLink("Details", "NoteDetails", new { id = item.NoteId }) |
+                @Html.ActionLink("Delete", "NoteDelete", new { id = item.NoteId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+
+        $(document).ready(function () {
+
+            $("#wrapper").css("padding-left", "225px");
+
+            //$("button").click(function () {
+            //    $("wrapper").css("background-color", "yellow");
+            //});
+        });
+</script>

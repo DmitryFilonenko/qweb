@@ -23,12 +23,12 @@
 
                 <span>@Html.ActionLink("© Qira", "Index", null, new { @class = "navbar-brand", @style = "padding-left:75px" })</span>
                 <span id="loader" style="display:none;">
-                    <img src="~/Img/ajax-loader.gif"  />
+                    <img src="~/Img/ajax-loader.gif" />
                 </span>
 
             </div>
 
-            
+
 
 
 
@@ -46,40 +46,39 @@
 
         <div id="page-wrapper" class="container body-content">
 
-            
+
 
             @RenderBody()
 
 
         </div><!-- /#wrapper -->
 
-        
 
     </div>
 
 
 
-        <!-- JavaScript -->
-        @*<script src="js/jquery-1.10.2.js"></script>
+    <!-- JavaScript -->
+    @*<script src="js/jquery-1.10.2.js"></script>
         <script src="js/bootstrap.js"></script>*@
 
 
 
 
-        <!-- Page Specific Plugins -->
-        @*<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <!-- Page Specific Plugins -->
+    @*<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
         <script src="js/morris/chart-data-morris.js"></script>
         <script src="js/tablesorter/jquery.tablesorter.js"></script>
         <script src="js/tablesorter/tables.js"></script>*@
 
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 
-
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
 
 </body>
 </html>

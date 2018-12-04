@@ -13,19 +13,19 @@
     </li>
     <li>
         @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", new { regId = Model.RegIdLong }, new AjaxOptions()
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "concret_task",
-        LoadingElementId = "loader"
-    })
-    </li>
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>    
 </ol>
 
 
 <div>
     <br />
-   
-    <div class="col-lg-1" >
+
+    <div class="col-lg-1">
         <br />
         <p style="height:17px">@Html.DisplayNameFor(model => model.CreditorName)</p>
         <hr />
@@ -138,32 +138,40 @@
         </fieldset>
         <hr />
         <fieldset style="height:17px">
-    @using (Ajax.BeginForm("Notes", "Task", 
-    new { projectId = Model.ProjectId }, 
+
+
+    @using (Ajax.BeginForm("Notes", "Task",
+    new { projectId = Model.ProjectId, regId = Model.RegIdLong, regName = Model.RegName, credId = Model.CreditorIdLong, credName = Model.CreditorName },
     new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
         UpdateTargetId = "concret_task",
         LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
     }))
-    {
-        <fieldset>
-            <div class="text-center">
+            {
+                <fieldset>
+                    <div class="text-center">
 
-                <label>Диапазон дат: </label>
+                        <label>Диапазон дат: </label>
 
-                <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
-                <input name="stopDate" type="date" style="margin-left:10px"value="@Html.DisplayFor(model => model.NotesStop)" />                  
+                        <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
+                        <input name="stopDate" type="date" style="margin-left:10px" value="@Html.DisplayFor(model => model.NotesStop)" />
 
-                <input type="submit" style="margin-left:50px" value="Перейти к заметкам" />
+                        <input type="submit" style="margin-left:50px"  class="btn btn-primary" value="Перейти к заметкам" />
 
-                <br /><br />
-            </div>
+                        <br /><br />
+                    </div>
 
-        </fieldset>
-}
+                </fieldset>
+            }
+
+
+
         </fieldset>
         <hr />
     </div>
 
+
+
 </div>
+

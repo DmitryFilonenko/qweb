@@ -1,5 +1,4 @@
 ﻿using DbLayer;
-using DbLayer.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +25,7 @@ namespace WebUI.Models.QEntities
             List<ActualCreditor> actualCreditorsList = new List<ActualCreditor>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/actual_creditors.sql");
             string query = File.ReadAllText(path);
-            List<string> list = ManagerSqlFiles.GetCountedFieldData(query, 3);
+            List<string> list = ManagerDbQuery.GetItems(query, 3);
 
             foreach (var item in list)
             {

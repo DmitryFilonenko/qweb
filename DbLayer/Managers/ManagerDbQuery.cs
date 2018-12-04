@@ -17,7 +17,7 @@ namespace DbLayer
         {
             try
             {
-                _con.Open();
+                OpenConnect();
                 int count = -1;
                 string query = String.Format("select count(*) from {0}", tableName);
                 OracleDataReader reader = DbConnect.GetReader(query);
@@ -38,7 +38,7 @@ namespace DbLayer
         {
             try
             {
-                _con.Open();
+                OpenConnect();
                 int count = -1;
                 string query = String.Format("select count(*) from {0} where {1} = {2}", tableName, field, value);
                 OracleDataReader reader = DbConnect.GetReader(query);
@@ -59,7 +59,7 @@ namespace DbLayer
         {
             try
             {
-                _con.Open();
+                OpenConnect();
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
                 string fields = ArrToString(fieldNameArr);
@@ -89,7 +89,7 @@ namespace DbLayer
         {
             try
             {
-                _con.Open();
+                OpenConnect();
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
                 string fields = ArrToString(fieldNameArr);
@@ -119,7 +119,7 @@ namespace DbLayer
         {
             try
             {
-                _con.Open();
+                OpenConnect();
 
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
@@ -146,6 +146,16 @@ namespace DbLayer
             finally { _con.Close(); }
         }
 
+        private static void OpenConnect()
+        {
+            _con.Open();
+            OracleGlobalization info = _con.GetSessionInfo();
+            info.NumericCharacters = ",.";
+            info.DateFormat = "dd.mm.yyyy";
+            info.Language = "UKRAINIAN";
+            _con.SetSessionInfo(info);
+        }
+
         static string ArrToString(string[] strArr)
         {
             string fields = "";
@@ -155,6 +165,37 @@ namespace DbLayer
             }            
             return fields.TrimEnd(',');
         }
+
+
+        public static List<string> GetItems(string query, int fieldsCount)
+        {
+            List<string> list = new List<string>();
+            try
+            {
+                OpenConnect();
+                OracleDataReader reader = DbConnect.GetReader(query);
+                while (reader.Read())
+                {
+                    string record = "";
+                    for (int i = 0; i < fieldsCount; i++)
+                    {
+                        if (reader[i] is System.DBNull)
+                            record += " #";
+                        else
+                            record += reader[i].ToString() + "#";
+                    }
+                    list.Add(record.TrimEnd('#'));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
+
+            return list;
+        }
+
 
         //public static List<string> CompositeQuery(string[] tables, string[] fieldNameArr, string[] conditions )
         //{
