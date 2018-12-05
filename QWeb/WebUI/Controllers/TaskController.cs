@@ -62,33 +62,45 @@ namespace WebUI.Controllers
 
         public ActionResult NoteSave(string BusinessN, string noteId, string Message)
         {
-            bool res = Note.SaveNote(noteId, Message);
-
-            if (res)
+            try
             {
-                Session["Message"] = "Успешное сохранение";
-                QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+                bool res = Note.SaveNote(noteId, Message);
+
+                if (res)
+                {
+                    Session["Message"] = "Успешное сохранение";
+                    QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+                }
+                else
+                    Session["Message"] = "Ошибка при сохранении";                
             }
-                
-            else
-                Session["Message"] = "Ошибка при сохранении";
-            
+            catch (Exception ex)
+            {
+                QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
+            }
             string pin = BusinessN;
 
-            return RedirectToAction("PinDetails", "Home",  new { pin } );
+            return RedirectToAction("PinDetails", "Home", new { pin });
         }
 
         public ActionResult NoteDelete(string BusinessN, string noteId)
         {
-            bool res = Note.DeleteNote(noteId);
-
-            if (res)
+            try
             {
-                Session["Message"] = "Успешное удаление";
-                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
-            }                
-            else
-                Session["Message"] = "Ошибка при удалении";
+                bool res = Note.DeleteNote(noteId);
+
+                if (res)
+                {
+                    Session["Message"] = "Успешное удаление";
+                    QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+                }
+                else
+                    Session["Message"] = "Ошибка при удалении";
+            }
+            catch (Exception ex)
+            {
+                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
+            }            
 
             string pin = BusinessN;
 
