@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebUI.Infrastructure;
 using WebUI.Models.QEntities;
 
 namespace WebUI.Controllers
@@ -62,9 +63,13 @@ namespace WebUI.Controllers
         public ActionResult NoteSave(string BusinessN, string noteId, string Message)
         {
             bool res = Note.SaveNote(noteId, Message);
-            
+
             if (res)
+            {
                 Session["Message"] = "Успешное сохранение";
+                QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+            }
+                
             else
                 Session["Message"] = "Ошибка при сохранении";
             
@@ -78,7 +83,10 @@ namespace WebUI.Controllers
             bool res = Note.DeleteNote(noteId);
 
             if (res)
+            {
                 Session["Message"] = "Успешное удаление";
+                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+            }                
             else
                 Session["Message"] = "Ошибка при удалении";
 

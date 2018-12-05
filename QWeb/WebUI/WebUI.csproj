@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Infrastructure\HelperMethods\PagingHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
+    <Compile Include="Infrastructure\QLoger.cs" />
     <Compile Include="Models\Home\PagingInfo.cs" />
     <Compile Include="Models\Home\PinListViewModel.cs" />
     <Compile Include="Models\QEntities\ActualCreditors.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Views\Task\NoteEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Logs\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
