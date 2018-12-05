@@ -28,7 +28,7 @@ namespace WebUI.Controllers
 
         #region Notes
 
-        public ActionResult Notes(string projectId, string startDate, string stopDate, string regId, string regName, string credId, string credName)
+        public ActionResult Notes(string projectId, string startDate, string stopDate)
         {
             string start = startDate;
             string stop = stopDate;
@@ -41,15 +41,52 @@ namespace WebUI.Controllers
                 stop = ReFormatDate(stopDate);
             }
 
-            ViewBag.RegId = regId;
-            ViewBag.RegName = regName;
-            ViewBag.CreditorId = credId;
-            ViewBag.CrediotrName = credName;
+            var pins = Pin.GetPinsByKey(PinSearhKey.ProjectId, projectId);
+            Pin pin = pins.First();
 
-            List<Note> model = Note.GetNotes(projectId, start, stop);
+            ViewBag.Pin = pin;
+
+            List<Note> model = Note.GetNotes(NoteSearchKey.ProjectId, projectId, start, stop);
 
             return PartialView(model);
         }
+
+        public ActionResult NoteEdit(Pin pin, string noteId)
+        {
+            var notes = Note.GetNotes(NoteSearchKey.NoteId, noteId);
+            Note note = notes.First();
+
+            return PartialView(note);
+        }
+
+        public ActionResult NoteSave(string BusinessN, string noteId, string Message)
+        {
+            bool res = Note.SaveNote(noteId, Message);
+            
+            if (res)
+                Session["Message"] = "Успешное сохранение";
+            else
+                Session["Message"] = "Ошибка при сохранении";
+            
+            string pin = BusinessN;
+
+            return RedirectToAction("PinDetails", "Home",  new { pin } );
+        }
+
+        public ActionResult NoteDelete(string BusinessN, string noteId)
+        {
+            bool res = Note.DeleteNote(noteId);
+
+            if (res)
+                Session["Message"] = "Успешное удаление";
+            else
+                Session["Message"] = "Ошибка при удалении";
+
+            string pin = BusinessN;
+
+            return RedirectToAction("PinDetails", "Home", new { pin });
+        }
+
 
         private static string ReFormatDate(string startDate)
         {

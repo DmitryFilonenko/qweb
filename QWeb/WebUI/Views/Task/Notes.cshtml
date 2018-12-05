@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebUI.Models.QEntities.Note>
+﻿@using WebUI.Models.QEntities
+@model IEnumerable<WebUI.Models.QEntities.Note>
 
 
 <ol class="breadcrumb">
@@ -8,23 +9,32 @@
         @{
             string creditorName = ViewBag.CrediotrName;
             string creditorId = ViewBag.CreditorId;
+            Pin currentPin = ViewBag.Pin;
         }
 
-        @Ajax.ActionLink("К списку реестров " + creditorName, "Regs", "Home", new { creditorId = creditorId }, new AjaxOptions()
+        @Ajax.ActionLink("К списку реестров " + currentPin.CreditorName, "Regs", "Home", new { creditorId = currentPin.CreditorIdLong }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",
             LoadingElementId = "loader"
         })
     </li>
-    @*<li class="breadcrumb-item">
-        @Ajax.ActionLink("К Пину" + Model.PinSet.First().CreditorName, "PinDetails", "Home", new { creditorId = Model.PinSet.First().CreditorIdLong }, new AjaxOptions()
+    <li>
+        @Ajax.ActionLink("К списку дел реестра " + currentPin.RegName, "Pins", new { regId = currentPin.RegIdLong }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",
             LoadingElementId = "loader"
         })
-    </li>*@
+    </li>
+    <li class="breadcrumb-item">
+        @Ajax.ActionLink("Вернуться к делу", "PinDetails", "Home", new { pin = currentPin.BusinessN }, new AjaxOptions()
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>
 </ol>
 
 
@@ -64,9 +74,8 @@
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                @Html.ActionLink("Edit", "NoteEdit", new { id = item.NoteId }) |
-                @Html.ActionLink("Details", "NoteDetails", new { id = item.NoteId }) |
-                @Html.ActionLink("Delete", "NoteDelete", new { id = item.NoteId })
+                @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }) <span>&nbsp; | &nbsp;</span>
+                @Ajax.ActionLink("Удалить", "NoteDelete", new { noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
             </td>
         </tr>
     }

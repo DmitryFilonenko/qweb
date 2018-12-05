@@ -1,4 +1,5 @@
 ﻿using DbLayer.Connect;
+using DbLayer.Infrsrt;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace DbLayer
     {        
         static OracleConnection _con = DbConnect.GetDBConnection();
 
+        #region Select
         public  static int GetCount(string tableName)
         {
             try
@@ -195,6 +197,52 @@ namespace DbLayer
 
             return list;
         }
+        #endregion
+
+        #region Delete
+
+        public static bool DeleteById(string tableName, string idName, string idValue)
+        {            
+            try
+            {
+                OpenConnect();
+
+                string query = String.Format("delete from {0} where {1} = {2} ", tableName, idName, idValue);
+                DbConnect.ExecCommand(query);
+
+                return true;      
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally { _con.Close(); }
+        }
+
+        #endregion
+
+
+        #region Update
+
+        public static bool UpdateFieldById(string tableName, string fieldName, string newValue, string idName, string idValue)
+        {
+            try
+            {
+                OpenConnect();
+
+                string query = String.Format("update {0} t set t.{1} = {2} where t.{3} = {4} ", tableName, fieldName, newValue, idName, idValue);
+                DbConnect.ExecCommand(query);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally { _con.Close(); }
+        }
+
+        #endregion
 
 
         //public static List<string> CompositeQuery(string[] tables, string[] fieldNameArr, string[] conditions )

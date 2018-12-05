@@ -9,7 +9,7 @@ using System.Web.Hosting;
 
 namespace WebUI.Models.QEntities
 {
-    public enum PinSearhKey { Pin, DebtDogovorN, RegId, Inn }
+    public enum PinSearhKey { Pin, DebtDogovorN, RegId, Inn , ProjectId}
 
     public class Pin
     {
@@ -102,13 +102,6 @@ namespace WebUI.Models.QEntities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]        
         public DateTime NotesStop { get { return notesStop; } set { notesStop = value; } }
 
-        public Pin() {  }
-
-        public Pin(string projectId)
-        {
-
-        }
-
         #endregion
 
         public static List<Pin> GetPinsByKey(PinSearhKey searhKey, string value)
@@ -130,6 +123,9 @@ namespace WebUI.Models.QEntities
                     break;
                 case PinSearhKey.RegId:
                     cond = " and p.dogovor_id = " + value;
+                    break;
+                case PinSearhKey.ProjectId:
+                    cond = " and p.id = " + value;
                     break;
             }
             string query = String.Format("{0} {1}", text, cond);

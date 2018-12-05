@@ -1,5 +1,20 @@
 ﻿@model WebUI.Models.QEntities.Pin
 
+@{
+    if (Session["Message"] != null)
+    {
+        if (Session["Message"].ToString().Contains("Успешн"))
+        {
+            <label class="alert-success text-center">@Session["Message"]</label>
+        }
+        else
+        {
+            <label class="alert-danger text-center">@Session["Message"]</label>
+        }
+        Session["Message"] = null;
+    }
+}
+
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
@@ -18,7 +33,7 @@
             UpdateTargetId = "concret_task",
             LoadingElementId = "loader"
         })
-    </li>    
+    </li>
 </ol>
 
 
@@ -41,10 +56,10 @@
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Af)</p>
         <hr />
-        <p style="height:17px">@Html.DisplayNameFor(model => model.Avr)</p>
-        <hr />
-        <p style="height:17px">@Html.DisplayNameFor(model => model.Aw)</p>
-        <hr />
+        @*<p style="height:17px">@Html.DisplayNameFor(model => model.Avr)</p>
+            <hr />
+            <p style="height:17px">@Html.DisplayNameFor(model => model.Aw)</p>
+            <hr />*@
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker1)</p>
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker2)</p>
@@ -117,14 +132,14 @@
             @Html.DisplayFor(model => model.Af)
         </fieldset>
         <hr />
-        <fieldset style="height:17px">
-            @Html.DisplayFor(model => model.Avr)
-        </fieldset>
-        <hr />
-        <fieldset style="height:17px">
-            @Html.DisplayFor(model => model.Aw)
-        </fieldset>
-        <hr />
+        @*<fieldset style="height:17px">
+                @Html.DisplayFor(model => model.Avr)
+            </fieldset>
+            <hr />
+            <fieldset style="height:17px">
+                @Html.DisplayFor(model => model.Aw)
+            </fieldset>
+            <hr />*@
         <fieldset style="height:17px">
             @Html.DisplayFor(model => model.Marker1)<span>&nbsp; &nbsp; &nbsp;</span>
 
@@ -140,13 +155,13 @@
         <fieldset style="height:17px">
 
 
-    @using (Ajax.BeginForm("Notes", "Task",
-    new { projectId = Model.ProjectId, regId = Model.RegIdLong, regName = Model.RegName, credId = Model.CreditorIdLong, credName = Model.CreditorName },
-    new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+            @using (Ajax.BeginForm("Notes", "Task",
+            new { projectId = Model.ProjectId, regId = Model.RegIdLong, regName = Model.RegName, credId = Model.CreditorIdLong, credName = Model.CreditorName },
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
         UpdateTargetId = "concret_task",
-        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+                LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
     }))
             {
                 <fieldset>
@@ -157,7 +172,7 @@
                         <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
                         <input name="stopDate" type="date" style="margin-left:10px" value="@Html.DisplayFor(model => model.NotesStop)" />
 
-                        <input type="submit" style="margin-left:50px"  class="btn btn-primary" value="Перейти к заметкам" />
+                        <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Перейти к заметкам" />
 
                         <br /><br />
                     </div>

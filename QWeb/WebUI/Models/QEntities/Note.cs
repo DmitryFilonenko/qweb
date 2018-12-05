@@ -1,68 +1,124 @@
 ﻿using DbLayer;
+using DbLayer.Infrsrt;
+using DbLayer.Managers;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
+using System.Web.Mvc;
 
 namespace WebUI.Models.QEntities
 {
+    public enum NoteSearchKey { ProjectId, NoteId }
+
     public class Note
     {
         #region Fields
-        
+
+        [HiddenInput(DisplayValue = false)]
         public string NoteId { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public string EmployeerId { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public string ProjectId { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string BusinessN { get; set; }
+
         [Display(Name = "Начало:")]
+        [ReadOnly(true)]
         public string StartDate { get; set; }
 
         [Display(Name = "Окончание:")]
+        [ReadOnly(true)]
         public string StopDate { get; set; }
 
         [Display(Name = "Пользователь:")]
+        [ReadOnly(true)]
         public string EmployeerName { get; set; }
 
         [Display(Name = "Зметка:")]
+        [DataType(DataType.MultilineText)]
         public string Message { get; set; }
 
         #endregion
 
-        public static List<Note> GetNotes(string projectId, string startDate, string stopDate)
+        public static List<Note> GetNotes(NoteSearchKey searhKey, string keyValue, string startDate = "", string stopDate = "")
         {
             List<Note> notes = new List<Note>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/notes.sql");
             string text = File.ReadAllText(path);
-            //DateTime start = new DateTime(startDate);
-            string query = text + String.Format(" and t.project_id = {0} and trunc(t.result_time) between '{1}' and '{2}'", projectId, startDate, stopDate);
 
-            List<string> list = ManagerDbQuery.GetItems(query, 6);
+            string query = "";
+
+            switch (searhKey)
+            {
+                case NoteSearchKey.ProjectId:
+                    query = text + String.Format(" and t.project_id = {0} and trunc(t.result_time) between '{1}' and '{2}'", keyValue, startDate, stopDate);
+                    break;
+                case NoteSearchKey.NoteId:
+                    query = text + String.Format(" and t.id = {0}", keyValue);
+                    break;
+            }            
+
+            List<string> list = ManagerDbQuery.GetItems(query, 8);
 
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                Note p = new Note { NoteId = arr[0], EmployeerId = arr[1], StartDate = arr[2].ToString(), StopDate = arr[3], EmployeerName = arr[4], Message = arr[5] };
-                //if (p.StartDate.Contains("-"))
-                //{
-                //    p.StartDate = ReFormatDate(p.StartDate);
-
-                //}  
+                Note p = new Note { NoteId = arr[0], EmployeerId = arr[1], ProjectId = arr[2], BusinessN = arr[3], StartDate = arr[4].ToString(), StopDate = arr[5], EmployeerName = arr[6], Message = arr[7] };
                 notes.Add(p);
             }
             return notes;
         }
 
-        //private static string ReFormatDate(string startDate)
-        //{
-        //    string d = startDate.Substring(startDate.LastIndexOf("-"));
-        //    startDate = startDate.Substring(0, startDate.LastIndexOf("-"));
-        //    string m = startDate.Substring(startDate.LastIndexOf("-"));
-        //    string y = startDate.Substring(0, startDate.LastIndexOf("-"));
+        public static bool SaveNote(string noteId, string comment)
+        {
+            bool res = false;
+            try
+            {
+                List<ProcParam> args = new List<ProcParam> {
+                    new ProcParam { Name = "note_id", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = noteId },
+                    new ProcParam { Name = "txt", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = comment }
+                };
 
-        //    return string.Format("{0}.{1}.{2}", d, m, y);
-        //}
+                ManagerPlProc.ExecProc("q_note.update_note", args);
+                res = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return res;
+        }
+
+        public static bool DeleteNote(string noteId)
+        {
+            bool res = false;
+            try
+            {
+                List<ProcParam> args = new List<ProcParam> {
+                    new ProcParam { Name = "note_id", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = noteId }                    
+                };
+
+                ManagerPlProc.ExecProc("q_note.delete_note", args);
+                res = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return res;
+        }
     }
 }

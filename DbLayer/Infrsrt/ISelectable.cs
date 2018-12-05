@@ -11,6 +11,8 @@ namespace DbLayer.Infrsrt
         int GetCount();
         List<IDbEntity> GetAllFieldsList();
         IDbEntity GetSingleRecordById(string idValue);
-        List<IDbEntity> GetFieldsListById(string idValue);        
+        List<IDbEntity> GetFieldsListById(string idValue);   
+        
+
     }
 }

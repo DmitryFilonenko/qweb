@@ -7,11 +7,11 @@
     <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
     <li class="breadcrumb-item">
         @Ajax.ActionLink("К списку реестров " + Model.PinSet.First().CreditorName, "Regs", new { creditorId = Model.PinSet.First().CreditorIdLong }, new AjaxOptions()
-   {
-       InsertionMode = InsertionMode.Replace,
-       UpdateTargetId = "concret_task",
-       LoadingElementId = "loader"
-   })
+        {
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "concret_task",
+           LoadingElementId = "loader"
+        })
     </li>
 </ol>
 
