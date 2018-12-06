@@ -9,7 +9,7 @@ using System.Web.Hosting;
 
 namespace WebUI.Models.QEntities
 {
-    public class CreditorReg
+    public class QCreditorReg
     {
         [Display(Name = "Кредитор")]
         public string CreditorName { get; set; }
@@ -38,9 +38,9 @@ namespace WebUI.Models.QEntities
         [Display(Name = "Количество дел")]
         public int Count { get; set; }
 
-        public static List<CreditorReg> GetRegList(string creditorId)
+        public static List<QCreditorReg> GetRegList(string creditorId)
         {
-            List<CreditorReg> regs = new List<CreditorReg>();
+            List<QCreditorReg> regs = new List<QCreditorReg>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/regs_by_creditor_id.sql");
             string text = File.ReadAllText(path);
             string query = String.Format("{0} {1}", text, creditorId); 
@@ -49,7 +49,7 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                CreditorReg reg = new CreditorReg { CreditorName = arr[0],
+                QCreditorReg reg = new QCreditorReg { CreditorName = arr[0],
                                                     CreditorId = arr[1],
                                                     RegName = arr[2],
                                                     RegId = arr[3],

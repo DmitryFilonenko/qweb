@@ -17,7 +17,7 @@ namespace WebUI.Models.QEntities
 {
     public enum NoteSearchKey { ProjectId, NoteId }
 
-    public class Note
+    public class QNote
     {
         #region Fields
 
@@ -51,9 +51,9 @@ namespace WebUI.Models.QEntities
 
         #endregion
 
-        public static List<Note> GetNotes(NoteSearchKey searhKey, string keyValue, string startDate = "", string stopDate = "")
+        public static List<QNote> GetNotes(NoteSearchKey searhKey, string keyValue, string startDate = "", string stopDate = "")
         {
-            List<Note> notes = new List<Note>();
+            List<QNote> notes = new List<QNote>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/notes.sql");
             string text = File.ReadAllText(path);
 
@@ -74,7 +74,7 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                Note p = new Note { NoteId = arr[0], EmployeerId = arr[1], ProjectId = arr[2], BusinessN = arr[3], StartDate = arr[4].ToString(), StopDate = arr[5], EmployeerName = arr[6], Message = arr[7] };
+                QNote p = new QNote { NoteId = arr[0], EmployeerId = arr[1], ProjectId = arr[2], BusinessN = arr[3], StartDate = arr[4].ToString(), StopDate = arr[5], EmployeerName = arr[6], Message = arr[7] };
                 notes.Add(p);
             }
             return notes;

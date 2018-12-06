@@ -156,10 +156,10 @@
     <Compile Include="Infrastructure\QLoger.cs" />
     <Compile Include="Models\Home\PagingInfo.cs" />
     <Compile Include="Models\Home\PinListViewModel.cs" />
-    <Compile Include="Models\QEntities\ActualCreditors.cs" />
-    <Compile Include="Models\QEntities\CreditorReg.cs" />
-    <Compile Include="Models\QEntities\Note.cs" />
-    <Compile Include="Models\QEntities\Pin.cs" />
+    <Compile Include="Models\QEntities\QActualCreditors.cs" />
+    <Compile Include="Models\QEntities\QCreditorReg.cs" />
+    <Compile Include="Models\QEntities\QNote.cs" />
+    <Compile Include="Models\QEntities\QPin.cs" />
     <Compile Include="Models\QEntities\QSubTask.cs" />
     <Compile Include="Models\QEntities\QTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,13 +224,11 @@
     <Content Include="Views\Home\PinDetails.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\SearchCreditor.cshtml" />
-    <Content Include="Views\Task\Notes.cshtml" />
-    <Content Include="Views\Task\EmptyResult.cshtml" />
-    <Content Include="Views\Task\NoteEdit.cshtml" />
+    <Content Include="Views\Note\NoteEdit.cshtml" />
+    <Content Include="Views\Note\Notes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Note\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

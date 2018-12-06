@@ -1,4 +1,4 @@
-﻿@model WebUI.Models.QEntities.Pin
+﻿@model WebUI.Models.QEntities.QPin
 
 @{
     if (Session["Message"] != null)
@@ -155,7 +155,7 @@
         <fieldset style="height:17px">
 
 
-            @using (Ajax.BeginForm("Notes", "Task",
+            @using (Ajax.BeginForm("Notes", "Note",
             new { projectId = Model.ProjectId, regId = Model.RegIdLong, regName = Model.RegName, credId = Model.CreditorIdLong, credName = Model.CreditorName },
             new AjaxOptions
             {
@@ -171,7 +171,6 @@
 
                         <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
                         <input name="stopDate" type="date" style="margin-left:10px" value="@Html.DisplayFor(model => model.NotesStop)" />
-
                         <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Перейти к заметкам" />
 
                         <br /><br />
@@ -180,13 +179,9 @@
                 </fieldset>
             }
 
-
-
         </fieldset>
         <hr />
     </div>
-
-
 
 </div>
 

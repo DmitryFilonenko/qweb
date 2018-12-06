@@ -1,8 +1,8 @@
-﻿@model WebUI.Models.QEntities.Note
+﻿@model WebUI.Models.QEntities.QNote
 
 
 
-@using (Ajax.BeginForm("NoteSave", "Task", new AjaxOptions
+@using (Ajax.BeginForm("NoteSave", "Note", new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
     UpdateTargetId = "concret_task",

@@ -8,7 +8,7 @@ namespace WebUI.Models.Home
 {
     public class PinListViewModel
     {
-        public List<Pin> PinSet { get; set; }
+        public List<QPin> PinSet { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }

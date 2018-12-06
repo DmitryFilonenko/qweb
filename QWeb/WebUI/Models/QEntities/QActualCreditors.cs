@@ -9,7 +9,7 @@ using System.Web.Hosting;
 
 namespace WebUI.Models.QEntities
 {
-    public class ActualCreditor
+    public class QActualCreditor
     {
         [Display(Name = "Название")]
         public string OrgName { get; set; }
@@ -20,9 +20,9 @@ namespace WebUI.Models.QEntities
         [Display(Name = "Количество реестров")]
         public int Count { get; set; }
 
-        public static List<ActualCreditor> GetCreditorList()
+        public static List<QActualCreditor> GetCreditorList()
         {
-            List<ActualCreditor> actualCreditorsList = new List<ActualCreditor>();
+            List<QActualCreditor> actualCreditorsList = new List<QActualCreditor>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/actual_creditors.sql");
             string query = File.ReadAllText(path);
             List<string> list = ManagerDbQuery.GetItems(query, 3);
@@ -30,7 +30,7 @@ namespace WebUI.Models.QEntities
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                ActualCreditor creditor = new ActualCreditor { OrgName = arr[0], OrgIdLong = arr[1], OrgIdShort = arr[2] };
+                QActualCreditor creditor = new QActualCreditor { OrgName = arr[0], OrgIdLong = arr[1], OrgIdShort = arr[2] };
                 creditor.Count = ManagerDbQuery.GetCountWhere("suvd.creditor_dogovors", "creditor_id", creditor.OrgIdLong.ToString());
                  actualCreditorsList.Add(creditor);
             }

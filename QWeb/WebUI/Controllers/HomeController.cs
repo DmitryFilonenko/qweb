@@ -18,13 +18,13 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {            
-            Pin pinToSeach = new Pin();
+            QPin pinToSeach = new QPin();
             ViewBag.PinToSeach = pinToSeach;
 
             _entity = new QTask();
             List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-            var model = ActualCreditor.GetCreditorList();
+            var model = QActualCreditor.GetCreditorList();
             
             return View(model);
         }
@@ -54,20 +54,20 @@ namespace WebUI.Controllers
         //[HttpPost]
         //public ActionResult SearchCreditor(string orgName)
         //{
-        //    var model = ActualCreditor.GetCreditorList().Where(cr => cr.OrgName.Contains(orgName));
+        //    var model = QActualCreditor.GetCreditorList().Where(cr => cr.OrgName.Contains(orgName));
         //    return View(model);
         //}
 
         public ActionResult Regs(string creditorId)
         {
             ViewBag.Message = "creditorId - " + creditorId;
-            var model = CreditorReg.GetRegList(creditorId);
+            var model = QCreditorReg.GetRegList(creditorId);
             return PartialView(model.OrderByDescending(r => r.RegId).ToList());
         }
 
         public ActionResult Pins(string regId, int page = 1)
         {
-            List<Pin> list = Pin.GetPinsByKey(PinSearhKey.RegId, regId);
+            List<QPin> list = QPin.GetPinsByKey(PinSearhKey.RegId, regId);
 
             PinListViewModel model = new PinListViewModel
             {
@@ -92,14 +92,14 @@ namespace WebUI.Controllers
 
         public ActionResult PinDetails(string pin)
         {
-            var model = Pin.GetPinsByKey(PinSearhKey.Pin, pin);
+            var model = QPin.GetPinsByKey(PinSearhKey.Pin, pin);
             return PartialView(model[0]);
         }
 
-        public ActionResult Search(Pin pin)
+        public ActionResult Search(QPin pin)
         {
 
-            List<Pin> model = new List<Pin>();
+            List<QPin> model = new List<QPin>();
 
             if (CheckInputData(pin))
             {
@@ -108,11 +108,11 @@ namespace WebUI.Controllers
                 string valueInn = pin.Inn;
 
                 if (valuePin != null)
-                    model = Pin.GetPinsByKey(PinSearhKey.Pin, valuePin);
+                    model = QPin.GetPinsByKey(PinSearhKey.Pin, valuePin);
                 else if (valueDog != null)
-                    model = Pin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
+                    model = QPin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
                 else
-                    model = Pin.GetPinsByKey(PinSearhKey.Inn, valueInn);
+                    model = QPin.GetPinsByKey(PinSearhKey.Inn, valueInn);
 
                 return PartialView(model);
             }
@@ -123,7 +123,7 @@ namespace WebUI.Controllers
             }            
         }
 
-        private bool CheckInputData(Pin pin)
+        private bool CheckInputData(QPin pin)
         {
             int count = 0;
             if (pin.BusinessN != null) count++;

@@ -1,5 +1,5 @@
 ﻿@using WebUI.Models.QEntities
-@model IEnumerable<WebUI.Models.QEntities.Note>
+@model IEnumerable<WebUI.Models.QEntities.QNote>
 
 
 <ol class="breadcrumb">
@@ -9,7 +9,7 @@
         @{
             string creditorName = ViewBag.CrediotrName;
             string creditorId = ViewBag.CreditorId;
-            Pin currentPin = ViewBag.Pin;
+            QPin currentPin = ViewBag.Pin;
         }
 
         @Ajax.ActionLink("К списку реестров " + currentPin.CreditorName, "Regs", "Home", new { creditorId = currentPin.CreditorIdLong }, new AjaxOptions()

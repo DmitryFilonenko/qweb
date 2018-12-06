@@ -11,7 +11,7 @@ namespace WebUI.Models.QEntities
 {
     public enum PinSearhKey { Pin, DebtDogovorN, RegId, Inn , ProjectId}
 
-    public class Pin
+    public class QPin
     {
         #region Fields
         [Display(Name = "Фамилия:")]
@@ -104,9 +104,9 @@ namespace WebUI.Models.QEntities
 
         #endregion
 
-        public static List<Pin> GetPinsByKey(PinSearhKey searhKey, string value)
+        public static List<QPin> GetPinsByKey(PinSearhKey searhKey, string value)
         {
-            List<Pin> pins = new List<Pin>();
+            List<QPin> pins = new List<QPin>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/select_pin_by.sql");
             string text = File.ReadAllText(path);
             string cond = "";
@@ -142,7 +142,7 @@ namespace WebUI.Models.QEntities
                 //                  IdLong = arr[22], IdShort = arr[23], Start = arr[24].Substring(0, 10), Stop = arr[25].Substring(0, 10)
                 //};
 
-                Pin p = new Pin();
+                QPin p = new QPin();
                 p.NameF = arr[0];
                 p.NameI = arr[1];
                 p.NameO = arr[2];
