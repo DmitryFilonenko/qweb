@@ -1,29 +1,38 @@
-﻿using System;
+﻿using DbLayer.Infrsrt;
+using DbLayer.Managers;
+using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Hosting;
-using System.Windows;
+
 
 namespace WebUI.Infrastructure
 {
     public static class QLoger
     {
-        public static void AddRecordToLog(string taskName, string message, [CallerMemberName] string callerName = null)
+        public static void AddRecordToLog(string userName, string taskName, string message, string isEx, [CallerMemberName] string callerName = null)
         {
             try
-            {
-                if (String.IsNullOrEmpty(message))
-                {
-                    return;
-                }
+            {                
+                List<ProcParam> args = new List<ProcParam> {
+                    new ProcParam { Name = "user_login", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = userName },
+                    new ProcParam { Name = "task", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = taskName },
+                    new ProcParam { Name = "message_text", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = message },
+                    new ProcParam { Name = "is_exception", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = isEx },
+                    new ProcParam { Name = "method", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = callerName }
+                };
 
+                ManagerPlProc.ExecProc("q_log.add_to_log", args);
+
+            }
+            catch (Exception)
+            {
                 string pathToDir = HostingEnvironment.MapPath(@"~/App_Data/Logs");
-                string path = Path.Combine(pathToDir, (taskName + ".log"));                
-                
+                string path = Path.Combine(pathToDir, (taskName + ".log"));
+
                 if (!File.Exists(path))
                 {
                     File.Create(path).Close();
@@ -31,17 +40,8 @@ namespace WebUI.Infrastructure
 
                 string fileText = File.ReadAllText(path);
 
-                if (!fileText.Contains(message))
-                {
-                    string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-
-                    string textToAdd = Environment.NewLine + DateTime.Now + "\t" + userName + Environment.NewLine + message + Environment.NewLine;
-                    File.AppendAllText(path, textToAdd);                    
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                string textToAdd = Environment.NewLine + DateTime.Now + "\t" + userName + Environment.NewLine + (callerName != null ? ("Запись создана методом  " + callerName + "()" + Environment.NewLine) : "") + message + Environment.NewLine;
+                File.AppendAllText(path, textToAdd);
             }
         }
     }

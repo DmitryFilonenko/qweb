@@ -17,7 +17,7 @@ namespace WebUI.Controllers
         public int pageSize = 30;
 
         public ActionResult Index()
-        {
+        {            
             Pin pinToSeach = new Pin();
             ViewBag.PinToSeach = pinToSeach;
 

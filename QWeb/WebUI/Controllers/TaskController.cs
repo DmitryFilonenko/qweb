@@ -69,14 +69,14 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное сохранение";
-                    QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+                    QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId, "0");
                 }
                 else
                     Session["Message"] = "Ошибка при сохранении";                
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog("Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
+                QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
             }
             string pin = BusinessN;
 
@@ -92,17 +92,15 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное удаление";
-                    QLoger.AddRecordToLog("Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId);
+                    QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId, "0");
                 }
                 else
                     Session["Message"] = "Ошибка при удалении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
+                QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
             }            
-
-           // string pin = BusinessN;
 
             return RedirectToAction("PinDetails", "Home", new { pin });
         }
