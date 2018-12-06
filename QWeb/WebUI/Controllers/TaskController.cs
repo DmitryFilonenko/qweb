@@ -83,7 +83,7 @@ namespace WebUI.Controllers
             return RedirectToAction("PinDetails", "Home", new { pin });
         }
 
-        public ActionResult NoteDelete(string BusinessN, string noteId)
+        public ActionResult NoteDelete(string pin, string noteId)
         {
             try
             {
@@ -92,17 +92,17 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное удаление";
-                    QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId);
+                    QLoger.AddRecordToLog("Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId);
                 }
                 else
                     Session["Message"] = "Ошибка при удалении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
+                QLoger.AddRecordToLog("Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId + Environment.NewLine + ex.Message);
             }            
 
-            string pin = BusinessN;
+           // string pin = BusinessN;
 
             return RedirectToAction("PinDetails", "Home", new { pin });
         }

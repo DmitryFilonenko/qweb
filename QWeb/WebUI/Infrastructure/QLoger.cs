@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Hosting;
@@ -11,7 +12,7 @@ namespace WebUI.Infrastructure
 {
     public static class QLoger
     {
-        public static void AddRecordToLog(string taskName, string message)
+        public static void AddRecordToLog(string taskName, string message, [CallerMemberName] string callerName = null)
         {
             try
             {

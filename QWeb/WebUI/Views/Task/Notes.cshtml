@@ -75,7 +75,7 @@
             </td>
             <td>
                 @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }) <span>&nbsp; | &nbsp;</span>
-                @Ajax.ActionLink("Удалить", "NoteDelete", new { noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+                @Ajax.ActionLink("Удалить", "NoteDelete", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
             </td>
         </tr>
     }
