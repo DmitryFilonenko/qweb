@@ -74,6 +74,36 @@ namespace DbLayer.Managers
             finally { _con.Close(); }
         }
 
+       
+        public static string ExecFunc(string procName, List<ProcParam> args = null)
+        {
+            try
+            {
+                OpenConnect();
 
+                using (OracleCommand cmd = new OracleCommand(procName, _con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    
+                    //var param1 = new ProcParam { Name = "user_login", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = "Dima" };
+                    //var param2 = new ProcParam { Type = OracleDbType.Varchar2, Direction = ParameterDirection.ReturnValue };
+
+                    foreach (var item in args)
+                    {
+                        cmd.Parameters.Add(item.Name, item.Type, item.Direction).Value = item.Value;
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    return cmd.Parameters[0].Value.ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace WebUI.Models.QEntities
 
         public int GetCount()
         {
-            return ManagerDbQuery.GetCount("subtasks");
+            return ManagerDbQuery.GetCount("q_subtasks");
         }
 
         public List<IDbEntity> GetFieldsListById(string idValue)
@@ -32,7 +32,7 @@ namespace WebUI.Models.QEntities
             List<IDbEntity> subTaskList = new List<IDbEntity>();
             string[] fields = new string[] { "id", "task_id", "name", "action", "param", "table_id" };
 
-            List<string> resultlist = ManagerDbQuery.GetFieldsListById("subtasks", fields, idValue, "task_id");
+            List<string> resultlist = ManagerDbQuery.GetFieldsListById("q_subtasks", fields, idValue, "task_id");
             foreach (var item in resultlist)
             {
                 string[] arr = item.Split('#');
