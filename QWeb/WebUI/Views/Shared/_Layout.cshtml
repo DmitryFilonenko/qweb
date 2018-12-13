@@ -39,6 +39,8 @@
                 <ul class="nav navbar-nav navbar-right navbar-user">
                     <li class="nav navbar-text navbar-right" style="padding-right:30px">
                         @User.Identity.Name
+                        <span>(@HttpContext.Current.Request.LogonUserIdentity.Label)</span>
+
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->

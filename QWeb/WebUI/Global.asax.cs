@@ -23,27 +23,26 @@ namespace WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-           // PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;
         }
 
         // обработка события PostAuthenticateRequest
         protected void Application_PostAuthenticateRequest()
         {
             WindowsIdentity identity = HttpContext.Current.Request.LogonUserIdentity;
-            string name = identity.Name;
-            //QLoger.AddRecordToLog(name, "Autintification", "test", "0");            
+            string userName = identity.Name.Substring(identity.Name.LastIndexOf('\\') + 1);
 
             try
             {
-                List<ProcParam> args = new List<ProcParam> {
-                    new ProcParam { Name = "user_login", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = name },
-                    new ProcParam { Type = OracleDbType.Varchar2, Direction = ParameterDirection.ReturnValue }
+                List<OracleParameter> args = new List<OracleParameter> {
+                    new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input ) 
                 };
-                string role = ManagerPlProc.ExecFunc("q_users_pack.get_role", args);
+
+                string userRole = ManagerPlProc.ExecFunc("q_users_pack.get_role", OracleDbType.Varchar2, args);
+                identity.Label = userRole;
             }
             catch (Exception ex)
-            {                
-                throw;
+            {
+                QLoger.AddRecordToLog(userName, "Get_usrer_role", ex.Message, "1");
             }
         }
     }
