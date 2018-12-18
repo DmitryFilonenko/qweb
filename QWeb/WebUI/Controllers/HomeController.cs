@@ -13,7 +13,6 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        ISelectable _entity = null;
         public int pageSize = 30;
 
         public ActionResult Index()
@@ -21,8 +20,8 @@ namespace WebUI.Controllers
             QPin pinToSeach = new QPin();
             ViewBag.PinToSeach = pinToSeach;
 
-            _entity = new QTask();
-            List<IDbEntity> taskList = _entity.GetAllFieldsList(); 
+            QTask task = new QTask();
+            List<QTask> taskList = task.GetTasksByLogin(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));// GetAllFieldsList(); 
             ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
             var model = QActualCreditor.GetCreditorList();
             
@@ -31,17 +30,16 @@ namespace WebUI.Controllers
         
         public ActionResult SubTasks(string id)
         {
-            _entity = new QTask();
-            IDbEntity curTask = _entity.GetSingleRecordById(id);
-            QTask task = (QTask)curTask;
+            QTask task = new QTask();
+            QTask curTask = task.GetSingleRecordById(id);
             ViewBag.TaskName = task.Name;
 
-            _entity = new QSubTask();
-            List<IDbEntity> sTaskList = _entity.GetFieldsListById(id);
+            QSubTask subTask = new QSubTask();
+            List<QSubTask> sTaskList = subTask.GetFieldsListById(id);
             List<QSubTask> subTaskList = new List<QSubTask>(); 
             foreach (var item in sTaskList)
             {
-                subTaskList.Add((QSubTask)item);
+                subTaskList.Add(item);
             }
             return PartialView(subTaskList.OrderBy(s => s.Name).ToList()); 
         }

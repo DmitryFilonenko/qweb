@@ -108,7 +108,8 @@ namespace DbLayer
                     }
                     list.Add(record.TrimEnd('#'));
                 }
-                return list[0];
+
+                return list.Count > 0? list[0] : null;
             }
             catch (Exception)
             {

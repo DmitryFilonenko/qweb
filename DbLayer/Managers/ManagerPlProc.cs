@@ -130,7 +130,7 @@ namespace DbLayer.Managers
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

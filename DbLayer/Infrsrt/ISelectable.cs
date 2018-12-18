@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace DbLayer.Infrsrt
 {
-    public interface ISelectable
+    public interface ISelectable<T>
     {
         int GetCount();
-        List<IDbEntity> GetAllFieldsList();
-        IDbEntity GetSingleRecordById(string idValue);
-        List<IDbEntity> GetFieldsListById(string idValue);   
-        
-
+        List<T> GetAllFieldsList();
+        T GetSingleRecordById(string idValue);
+        List<T> GetFieldsListById(string tableName, string[] fieldNameArr = null, string idValue = null, string idName = "id");  
     }
 }

@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connect\DbConnect.cs" />
-    <Compile Include="Infrsrt\IDbEntity.cs" />
     <Compile Include="Infrsrt\ISelectable.cs" />
     <Compile Include="Infrsrt\ProcParam.cs" />
     <Compile Include="Managers\ManagerDbQuery.cs" />

@@ -37,7 +37,7 @@ namespace WebUI
                     new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input ) 
                 };
 
-                string userRole = ManagerPlProc.ExecFunc("q_users_pack.get_role", OracleDbType.Varchar2, args);
+                string userRole = ManagerPlProc.ExecFunc("q_users_pack.get_role_name", OracleDbType.Varchar2, args);
                 identity.Label = userRole;
             }
             catch (Exception ex)
