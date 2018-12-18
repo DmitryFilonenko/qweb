@@ -154,6 +154,7 @@
     <Compile Include="Infrastructure\HelperMethods\PagingHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Infrastructure\QLoger.cs" />
+    <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\Home\Paging\PagingInfo.cs" />
     <Compile Include="Models\Home\Paging\PinListViewModel.cs" />
     <Compile Include="Models\Home\QActualCreditors.cs" />
@@ -226,6 +227,9 @@
     <Content Include="Views\Home\SearchCreditor.cshtml" />
     <Content Include="Views\Note\NoteEdit.cshtml" />
     <Content Include="Views\Note\Notes.cshtml" />
+    <Content Include="Views\Note\NoteSearch.cshtml" />
+    <Content Include="Views\Note\TargetPin.cshtml" />
+    <Content Include="Views\Note\Note.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\QEntities\" />

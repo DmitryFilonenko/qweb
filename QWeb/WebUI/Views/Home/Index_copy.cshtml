@@ -1,4 +1,4 @@
-﻿@model WebUI.Models.Home.HomeModel
+﻿@model IEnumerable<WebUI.Models.QEntities.QActualCreditor>
 
 @{
     ViewBag.Title = "EADR";
@@ -12,12 +12,17 @@
             <br />
             <a href="#" class="dropdown-toggle text-center" style="font-size:18px" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Задачи <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                @foreach (var item in Model.TaskList)
+
+                @if (ViewBag.Tasks != null)
                 {
-                    <li>
-                        @Ajax.ActionLink(item.Name, item.Action, item.Action, new { id = item.Id, taskName = item.Name }, new AjaxOptions() { UpdateTargetId = "concret_task" })
-                    </li>
+                    foreach (var item in ViewBag.Tasks as SelectList)
+                    {
+                        <li>
+                            @Ajax.ActionLink(item.Text, item.a, new { id = item.Value }, new AjaxOptions() { UpdateTargetId = "subtasks" })
+                        </li>
+                    }
                 }
+
             </ul>
         </li>
 
@@ -52,7 +57,7 @@
 
                 <label style="padding-left:50px">Инн:</label>
                 @Html.TextBox("Inn")
-                <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Найти" />
+                <input type="submit" style="margin-left:50px"  class="btn btn-primary" value="Найти" />
 
                 <br />
             </div>
@@ -65,42 +70,42 @@
     <h4 class="text-center">Актуальные кредиторы:</h4>
 
     @*@using (Ajax.BeginForm("SearchCreditor", "Home", new AjaxOptions
-        {
-            InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
-            UpdateTargetId = "concret_task",
-            LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
-        }))
-        {
-            <fieldset>
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "concret_task",
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }))
+    {
+        <fieldset>
 
-                <div class="text-center">
+            <div class="text-center">
 
-                    <label>Кредитор:</label>
-                    @Html.TextBox("orgName")
+                <label>Кредитор:</label>
+                @Html.TextBox("orgName")
 
-                    <input type="submit" style="margin-left:10px" value="Найти" />
+                <input type="submit" style="margin-left:10px" value="Найти" />
 
-                    <br /><br />
-                </div>
+                <br /><br />
+            </div>
 
-            </fieldset>
-        }*@
+        </fieldset>
+    }*@
 
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CreditorList[0].OrgName)
+                @Html.DisplayNameFor(model => model.OrgName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreditorList[0].OrgIdLong)
+                @Html.DisplayNameFor(model => model.OrgIdLong)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreditorList[0].OrgIdShort)
+                @Html.DisplayNameFor(model => model.OrgIdShort)
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model.CreditorList)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -175,8 +180,6 @@
             }
         </script>*@
 }
-
-
 
 
 

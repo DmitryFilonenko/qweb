@@ -21,7 +21,7 @@ namespace DbLayer
             {
                 OpenConnect();
                 int count = -1;
-                string query = String.Format("select count(*) from {0}", tableName);
+                string query = String.Format("select count(*) from {0} where {1} = {2}", tableName);
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
@@ -34,6 +34,27 @@ namespace DbLayer
                 throw;
             }
             finally { _con.Close(); }            
+        }
+
+        public static int GetCountById(string tableName, string idValue, string idName = "id")
+        {
+            try
+            {
+                OpenConnect();
+                int count = -1;
+                string query = String.Format("select count(*) from {0} where {1} = {2}", tableName, idName, idValue);
+                OracleDataReader reader = DbConnect.GetReader(query);
+                while (reader.Read())
+                {
+                    count = Convert.ToInt32(reader[0]);
+                }
+                return count;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally { _con.Close(); }
         }
 
         public static int GetCountWhere(string tableName, string field, string value)

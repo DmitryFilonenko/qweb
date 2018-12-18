@@ -1,0 +1,29 @@
+﻿<hr />
+
+<h4 class="text-center">@ViewBag.TaskName:</h4>
+
+<hr />
+
+@using (Ajax.BeginForm("NoteSearch", "Note", new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+    UpdateTargetId = "concret_task",
+    LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+}))
+{
+    <fieldset>
+
+        <div class="text-center form-control" style="height:auto; width:auto">
+
+            <label>Пин:</label>
+            @Html.TextBox("BusinessN")
+
+            <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Найти" />
+
+            <br />
+        </div>
+
+    </fieldset>
+}
+
+<hr />

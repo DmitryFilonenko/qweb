@@ -22,9 +22,12 @@ namespace WebUI.Controllers
 
             QTask task = new QTask();
             List<QTask> taskList = task.GetTasksByLogin(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));// GetAllFieldsList(); 
-            ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-            var model = QActualCreditor.GetCreditorList();
-            
+            //ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
+
+            //var model = QActualCreditor.GetCreditorList();
+            //return View(model);
+
+            HomeModel model = new HomeModel { CreditorList = QActualCreditor.GetCreditorList(), TaskList = taskList };
             return View(model);
         }
         
@@ -32,16 +35,30 @@ namespace WebUI.Controllers
         {
             QTask task = new QTask();
             QTask curTask = task.GetSingleRecordById(id);
-            ViewBag.TaskName = task.Name;
+
+
+            int subCount = curTask.GetCountById(id);
+
+
 
             QSubTask subTask = new QSubTask();
-            List<QSubTask> sTaskList = subTask.GetFieldsListById(id);
-            List<QSubTask> subTaskList = new List<QSubTask>(); 
-            foreach (var item in sTaskList)
+            List<QSubTask> subTaskList = subTask.GetFieldsListById(id);
+            //List<QSubTask> subTaskList = new List<QSubTask>(); 
+            // foreach (var item in sTaskList)
+            // {
+            //    subTaskList.Add(item);
+            // }
+
+            if (subTaskList.Count > 0)
             {
-                subTaskList.Add(item);
+                ViewBag.TaskName = curTask.Name;
+                return PartialView(subTaskList.OrderBy(s => s.Name).ToList());
             }
-            return PartialView(subTaskList.OrderBy(s => s.Name).ToList()); 
+                
+            else
+            {
+                return PartialView();//////////////////////////////////////
+            }
         }
 
         public string ConcretTask(string subTaskId)

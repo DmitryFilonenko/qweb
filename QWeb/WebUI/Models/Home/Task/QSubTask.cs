@@ -25,6 +25,11 @@ namespace WebUI.Models.QEntities
             return ManagerDbQuery.GetCount("q_subtasks");
         }
 
+        public int GetCountById(string idValue, string idName = "id")
+        {
+            throw new NotImplementedException();
+        }
+
         public List<QSubTask> GetFieldsListById( string idValue)
         {
             List<QSubTask> subTaskList = new List<QSubTask>();

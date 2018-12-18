@@ -9,6 +9,7 @@ namespace DbLayer.Infrsrt
     public interface ISelectable<T>
     {
         int GetCount();
+        int GetCountById(string idValue, string idName = "id");
         List<T> GetAllFieldsList();
         T GetSingleRecordById(string idValue);
         List<T> GetFieldsListById(string tableName, string[] fieldNameArr = null, string idValue = null, string idName = "id");  

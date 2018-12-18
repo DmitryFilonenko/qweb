@@ -15,6 +15,8 @@ namespace WebUI.Models.QEntities
         public string Id { get; set; }
         public string Name { get; set; }
         public string TableName {get; set;}
+        public string Action { get; set; }
+
 
         public List<QTask> GetAllFieldsList()
         {
@@ -61,12 +63,15 @@ namespace WebUI.Models.QEntities
                 if (arr.Length > 1)
                     task.Name = arr[1];
                 else
-                    task.Name = ManagerDbQuery.GetSingleRecordById("q_tasks", new string[] { "name" }, arr[0], "id");
-                                    
+                    task.Name = ManagerDbQuery.GetSingleRecordById("q_tasks", new string[] { "name" }, arr[0], "id");                                    
                 if (arr.Length > 2)
                     task.TableName = arr[2];
                 else
                     task.TableName = ManagerDbQuery.GetSingleRecordById("q_tables", new string[] { "table_name" }, arr[0], "id");                
+                if (arr.Length > 3)
+                    task.TableName = arr[3];
+                else
+                    task.Action = ManagerDbQuery.GetSingleRecordById("q_tasks", new string[] { "action" }, arr[0], "id");
                 taskList.Add(task);
             }
             return taskList;
@@ -80,7 +85,12 @@ namespace WebUI.Models.QEntities
             QTask task = new QTask { Id = resArr[0], Name = resArr[1] };
             return task;
         }
-        
+
+        public int GetCountById(string idValue, string idName = "id")
+        {
+            return ManagerDbQuery.GetCountById("q_subtasks", idValue, "task_id");
+        }
+
 
         //public List<QTask> GetFieldsListById(string idValue)
         //{

@@ -12,6 +12,17 @@ namespace WebUI.Controllers
     {
         #region Notes
 
+        public ActionResult TargetPin()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Note(string id, string taskName)
+        {
+            ViewBag.TaskName = taskName;
+            return PartialView();
+        }
+
         public ActionResult Notes(string projectId, string startDate, string stopDate)
         {
             string start = startDate;
