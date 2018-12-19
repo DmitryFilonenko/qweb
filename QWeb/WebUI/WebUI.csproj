@@ -164,6 +164,8 @@
     <Compile Include="Models\Home\QPin.cs" />
     <Compile Include="Models\Home\Task\QSubTask.cs" />
     <Compile Include="Models\Home\Task\QTask.cs" />
+    <Compile Include="Models\QEntities\QPins\QPinBase.cs" />
+    <Compile Include="Models\QEntities\QPins\QPinNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +236,6 @@
     <Content Include="Views\Note\NoteDates.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\QEntities\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>

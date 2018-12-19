@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using WebUI.Models.Home;
 //using WebUI.Models.Home;
 using WebUI.Models.QEntities;
+using WebUI.Models.QEntities.QPinDecorator;
 
 namespace WebUI.Controllers
 {
@@ -16,7 +17,10 @@ namespace WebUI.Controllers
         public int pageSize = 30;
 
         public ActionResult Index()
-        {            
+        {
+            //QPinBase pinBase = QPinBase.GetPinsByKey(PinSearhKey.Pin, "3039047").First();
+            //QPinNote pinNote = new QPinNote(pinBase);
+
             QPin pinToSeach = new QPin();
             ViewBag.PinToSeach = pinToSeach;
 
