@@ -1,0 +1,59 @@
+﻿@model WebUI.Models.QEntities.QPin
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
+    <li>
+        @Ajax.ActionLink("К списку реестров " + Model.CreditorName, "Regs", new { creditorId = Model.CreditorIdLong }, new AjaxOptions()
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>
+    <li>
+        @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", new { regId = Model.RegIdLong }, new AjaxOptions()
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "concret_task",
+            LoadingElementId = "loader"
+        })
+    </li>
+</ol>
+
+<hr />
+
+<fieldset>
+    <div class="text-center">
+
+        <label>Пин: @Model.BusinessN</label>
+
+        <hr />
+    </div>
+
+</fieldset>
+
+@using (Ajax.BeginForm("Notes", "Note",
+            new { projectId = Model.ProjectId, regId = Model.RegIdLong, regName = Model.RegName, credId = Model.CreditorIdLong, credName = Model.CreditorName },
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+    UpdateTargetId = "concret_task",
+                LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+}))
+{
+    <fieldset>
+        <div class="text-center">
+
+            <label>Диапазон дат: </label>
+
+            <input name="startDate" type="date" style="margin-left:30px" value="@Html.DisplayFor(model => model.NotesStart)" />
+            <input name="stopDate" type="date" style="margin-left:10px" value="@Html.DisplayFor(model => model.NotesStop)" />
+            <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Перейти к заметкам" />
+
+            <br /><br />
+        </div>
+
+    </fieldset>
+}
+        
+<hr />

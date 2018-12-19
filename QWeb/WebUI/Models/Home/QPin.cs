@@ -102,6 +102,8 @@ namespace WebUI.Models.QEntities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]        
         public DateTime NotesStop { get { return notesStop; } set { notesStop = value; } }
 
+
+
         #endregion
 
         public static List<QPin> GetPinsByKey(PinSearhKey searhKey, string value)

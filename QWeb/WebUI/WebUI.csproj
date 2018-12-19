@@ -151,6 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\HelperMethods\AccessHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\PagingHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Infrastructure\QLoger.cs" />
@@ -230,6 +231,7 @@
     <Content Include="Views\Note\NoteSearch.cshtml" />
     <Content Include="Views\Note\TargetPin.cshtml" />
     <Content Include="Views\Note\Note.cshtml" />
+    <Content Include="Views\Note\NoteDates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\QEntities\" />

@@ -1,4 +1,6 @@
 ﻿@using WebUI.Models.QEntities
+@using WebUI.Infrastructure.HelperMethods
+
 @model IEnumerable<WebUI.Models.QEntities.QNote>
 
 
@@ -28,7 +30,7 @@
         })
     </li>
     <li class="breadcrumb-item">
-        @Ajax.ActionLink("Вернуться к делу", "PinDetails", "Home", new { pin = currentPin.BusinessN }, new AjaxOptions()
+        @Ajax.ActionLink("К диапазону дат", "NoteDates", "Note", new { businessN = currentPin.BusinessN }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",
@@ -74,8 +76,9 @@
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }) <span>&nbsp; | &nbsp;</span>
-                @Ajax.ActionLink("Удалить", "NoteDelete", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+
+                @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) }) <span>&nbsp; | &nbsp;</span>
+                @Ajax.ActionLink("Удалить", "NoteDelete", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) })
             </td>
         </tr>
     }
@@ -84,12 +87,12 @@
 
 <script>
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $("#wrapper").css("padding-left", "225px");
+        $("#wrapper").css("padding-left", "225px");
 
-            //$("button").click(function () {
-            //    $("wrapper").css("background-color", "yellow");
-            //});
-        });
+        //$("button").click(function () {
+        //    $("wrapper").css("background-color", "yellow");
+        //});
+    });
 </script>

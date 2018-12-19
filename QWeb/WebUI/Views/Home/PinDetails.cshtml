@@ -64,7 +64,7 @@
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker2)</p>
         <hr />
-        <p style="height:17px">Заметки:</p>
+        @*<p style="height:17px">Заметки:</p>*@
     </div>
 
     <div class="col-lg-11 text-center">
@@ -152,7 +152,7 @@
             @Html.DisplayFor(model => model.Period2)
         </fieldset>
         <hr />
-        <fieldset style="height:17px">
+        @*<fieldset style="height:17px">
 
 
             @using (Ajax.BeginForm("Notes", "Note",
@@ -160,9 +160,9 @@
             new AjaxOptions
             {
                 InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
-        UpdateTargetId = "concret_task",
+                UpdateTargetId = "concret_task",
                 LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
-    }))
+            }))
             {
                 <fieldset>
                     <div class="text-center">
@@ -180,7 +180,7 @@
             }
 
         </fieldset>
-        <hr />
+        <hr />*@
     </div>
 
 </div>

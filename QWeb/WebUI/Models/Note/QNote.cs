@@ -45,6 +45,10 @@ namespace WebUI.Models.QEntities
         [ReadOnly(true)]
         public string EmployeerName { get; set; }
 
+        [Display(Name = "Логин:")]
+        [ReadOnly(true)]
+        public string EmployeerLogin { get; set; }
+
         [Display(Name = "Зметка:")]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
@@ -69,12 +73,12 @@ namespace WebUI.Models.QEntities
                     break;
             }            
 
-            List<string> list = ManagerDbQuery.GetItems(query, 8);
+            List<string> list = ManagerDbQuery.GetItems(query, 9);
 
             foreach (var item in list)
             {
                 string[] arr = item.Split('#');
-                QNote p = new QNote { NoteId = arr[0], EmployeerId = arr[1], ProjectId = arr[2], BusinessN = arr[3], StartDate = arr[4].ToString(), StopDate = arr[5], EmployeerName = arr[6], Message = arr[7] };
+                QNote p = new QNote { NoteId = arr[0], EmployeerId = arr[1], ProjectId = arr[2], BusinessN = arr[3], StartDate = arr[4].ToString(), StopDate = arr[5], EmployeerName = arr[6], EmployeerLogin = arr[7], Message = arr[8] };
                 notes.Add(p);
             }
             return notes;

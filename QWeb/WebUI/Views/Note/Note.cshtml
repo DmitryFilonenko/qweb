@@ -4,7 +4,7 @@
 
 <hr />
 
-@using (Ajax.BeginForm("NoteSearch", "Note", new AjaxOptions
+@using (Ajax.BeginForm("NoteDates", "Note", new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
     UpdateTargetId = "concret_task",
@@ -16,7 +16,7 @@
         <div class="text-center form-control" style="height:auto; width:auto">
 
             <label>Пин:</label>
-            @Html.TextBox("BusinessN")
+            @Html.TextBox("businessN")
 
             <input type="submit" style="margin-left:50px" class="btn btn-primary" value="Найти" />
 

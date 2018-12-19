@@ -12,16 +12,23 @@ namespace WebUI.Controllers
     {
         #region Notes
 
-        public ActionResult TargetPin()
-        {
-            return PartialView();
-        }
+        //public ActionResult TargetPin()
+        //{
+        //    return PartialView();
+        //}
 
         public ActionResult Note(string id, string taskName)
         {
             ViewBag.TaskName = taskName;
             return PartialView();
         }
+
+        public ActionResult NoteDates(string businessN)
+        {
+            QPin qpin = QPin.GetPinsByKey(PinSearhKey.Pin, businessN).First();
+            return PartialView(qpin);
+        }
+        
 
         public ActionResult Notes(string projectId, string startDate, string stopDate)
         {
