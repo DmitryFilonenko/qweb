@@ -27,6 +27,9 @@ namespace WebUI.Models.QEntities.QPins
 
         public string DebtContactId { get; set; }
 
+        [Display(Name = "ИНН:")]
+        public string Inn { get; set; }
+
         [Display(Name = "Архив:")]
         public string ArchiveFlag { get; set; }
         
@@ -70,10 +73,13 @@ namespace WebUI.Models.QEntities.QPins
                 case PinSearhKey.ProjectId:
                     cond = " and p.id = " + value;
                     break;
+                case PinSearhKey.Inn:
+                    cond = " and c.inn = " + value;
+                    break;
             }
             string query = String.Format("{0} {1}", text, cond);
 
-            List<string> list = ManagerDbQuery.GetItems(query, 11);
+            List<string> list = ManagerDbQuery.GetItems(query, 12);
 
             foreach (var item in list)
             {
@@ -84,13 +90,14 @@ namespace WebUI.Models.QEntities.QPins
                 p.BusinessN = arr[1];
                 p.DebtDogovorN = arr[2];
                 p.DebtContactId = arr[3];
-                p.ArchiveFlag = arr[4] == "1" ? "+" : "-";
-                p.CreditorName = arr[5];
-                p.CreditorIdLong = arr[6];
-                p.CreditorIdShort = arr[7];
-                p.RegName = arr[8];
-                p.RegIdLong = arr[9];
-                p.RegIdShort = arr[10];
+                p.Inn = arr[4];
+                p.ArchiveFlag = arr[5] == "1" ? "+" : "-";
+                p.CreditorName = arr[6];
+                p.CreditorIdLong = arr[7];
+                p.CreditorIdShort = arr[8];
+                p.RegName = arr[9];
+                p.RegIdLong = arr[10];
+                p.RegIdShort = arr[11];
 
                 pins.Add(p);
             }

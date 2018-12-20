@@ -18,9 +18,12 @@
 
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.PinSet[0].CreditorName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PinSet[0].RegName)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.PinSet[0].NameF)
         </th>
@@ -45,42 +48,46 @@
 
     @foreach (var item in Model.PinSet)
     {
-        <tr>
+    <tr>
 
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.CreditorName)
-            </td>
+        @*<td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.CreditorName)
+        </td>
 
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameF)
-            </td>
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.RegName)
+        </td>*@
 
-
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameI)
-            </td>
-
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.NameO)
-            </td>
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.NameF)
+        </td>
 
 
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.Inn)
-            </td>
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.NameI)
+        </td>
 
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.BusinessN)
-            </td>
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.NameO)
+        </td>
 
-            <td class=@Html.GetAlertType(item.ArchiveFlag)>
-                @Html.DisplayFor(modelItem => item.DebtDogovorN)
-            </td>
-            <td>
-                @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
-            </td>
 
-        </tr>
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.Inn)
+        </td>
+
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.BusinessN)
+        </td>
+
+        <td class=@Html.GetAlertType(item.ArchiveFlag)>
+            @Html.DisplayFor(modelItem => item.DebtDogovorN)
+        </td>
+        <td>
+            @Ajax.ActionLink("Детально", "PinDetails", new { pin = item.BusinessN }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" })
+        </td>
+
+    </tr>
     }
 </table>
 <div>

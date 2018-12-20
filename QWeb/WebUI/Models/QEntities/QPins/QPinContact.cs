@@ -1,6 +1,7 @@
 ﻿using DbLayer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 
@@ -20,9 +21,10 @@ namespace WebUI.Models.QEntities.QPins
         public string RegName { get; set; }
         public string RegIdLong { get; set; }
         public string RegIdShort { get; set; }
-
         public string Inn { get; set; }
-        public string NameF { get; set; }
+
+        [Display(Name = "ФИО:")]
+        public string NameF { get; set; }               
         public string NameI { get; set; }
         public string NameO { get; set; }
         #endregion
@@ -33,6 +35,7 @@ namespace WebUI.Models.QEntities.QPins
             this.BusinessN = pinBase.BusinessN;
             this.DebtDogovorN = pinBase.DebtDogovorN;
             this.DebtContactId = pinBase.DebtContactId;
+            this.Inn = pinBase.Inn;
             this.ArchiveFlag = pinBase.ArchiveFlag;
             this.CreditorName = pinBase.CreditorName;
             this.CreditorIdLong = pinBase.CreditorIdLong;

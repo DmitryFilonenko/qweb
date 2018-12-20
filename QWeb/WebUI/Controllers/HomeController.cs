@@ -119,22 +119,29 @@ namespace WebUI.Controllers
         }
 
         public ActionResult Search(QPinBase pin)
-        {
-
-            List<QPinBase> model = new List<QPinBase>();
+        { 
+            //QPinContact contPin = new QPinContact(pin);
+            List<QPinBase> list = new List<QPinBase>();
 
             if (CheckInputData(pin))
             {
                 string valuePin = pin.BusinessN;
                 string valueDog = pin.DebtDogovorN;
-              //  string valueInn = pin.Inn;
+                string valueInn = pin.Inn;
 
                 if (valuePin != null)
-                    model = QPinBase.GetPinsByKey(PinSearhKey.Pin, valuePin);
+                    list = QPinBase.GetPinsByKey(PinSearhKey.Pin, valuePin);
                 else if (valueDog != null)
-                    model = QPinBase.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
-               // else
-                 //   model = QPin.GetPinsByKey(PinSearhKey.Inn, valueInn);
+                    list = QPinBase.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
+                else
+                    list = QPinBase.GetPinsByKey(PinSearhKey.Inn, valueInn);
+
+                List<QPinContact> model = new List<QPinContact>();
+                foreach (var item in list)
+                {
+                    QPinContact cont = new QPinContact(item);
+                    model.Add(cont);
+                }
 
                 return PartialView(model);
             }
@@ -150,7 +157,7 @@ namespace WebUI.Controllers
             int count = 0;
             if (pin.BusinessN != null) count++;
             if (pin.DebtDogovorN != null) count++;
-           // if (pin.Inn != null) count++;
+            if (pin.Inn != null) count++;
 
             if (count == 1)
                 return true;

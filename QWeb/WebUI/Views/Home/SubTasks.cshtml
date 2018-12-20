@@ -1,4 +1,4 @@
-﻿@model List<WebUI.Models.QEntities.QSubTask>
+﻿@*@model List<WebUI.Models.QEntities.QSubTask>
 
 <br />
 <p style="padding-left:30px" class="text-muted">@ViewBag.TaskName:</p>
@@ -10,4 +10,4 @@
             @Ajax.ActionLink(item.Name, item.Action, "Task", new { prior = item.Param }, new AjaxOptions() { UpdateTargetId = "concret_task" })
         </li>
     }
-</ul>
+</ul>*@
