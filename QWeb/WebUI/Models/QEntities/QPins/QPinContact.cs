@@ -1,20 +1,18 @@
 ﻿using DbLayer;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Hosting;
+
 
 namespace WebUI.Models.QEntities.QPins
 {
-    public class QPinNote
+    public class QPinContact
     {
         #region Fields
         public string ProjectId { get; set; }
         public string BusinessN { get; set; }
         public string DebtDogovorN { get; set; }
+        public string DebtContactId { get; set; }
         public string ArchiveFlag { get; set; }
         public string CreditorName { get; set; }
         public string CreditorIdLong { get; set; }
@@ -23,22 +21,18 @@ namespace WebUI.Models.QEntities.QPins
         public string RegIdLong { get; set; }
         public string RegIdShort { get; set; }
 
-        DateTime notesStart = DateTime.Today.AddDays(-7);
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime NotesStart { get { return notesStart; } set { notesStart = value; } }
-
-        DateTime notesStop = DateTime.Today;
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime NotesStop { get { return notesStop; } set { notesStop = value; } }
+        public string Inn { get; set; }
+        public string NameF { get; set; }
+        public string NameI { get; set; }
+        public string NameO { get; set; }
         #endregion
 
-        public QPinNote(QPinBase pinBase)
+        public QPinContact(QPinBase pinBase)
         {
             this.ProjectId = pinBase.ProjectId;
             this.BusinessN = pinBase.BusinessN;
             this.DebtDogovorN = pinBase.DebtDogovorN;
+            this.DebtContactId = pinBase.DebtContactId;
             this.ArchiveFlag = pinBase.ArchiveFlag;
             this.CreditorName = pinBase.CreditorName;
             this.CreditorIdLong = pinBase.CreditorIdLong;
@@ -46,6 +40,19 @@ namespace WebUI.Models.QEntities.QPins
             this.RegName = pinBase.RegName;
             this.RegIdLong = pinBase.RegIdLong;
             this.RegIdShort = pinBase.RegIdShort;
+
+            GetDecorFields();
+        }
+
+        private void GetDecorFields()
+        {
+            string[] fields = new string[] { "inn", "name_f", "name_i", "name_o" };
+            string rec = ManagerDbQuery.GetFieldsListById("suvd.contacts", fields, DebtContactId).First();
+            string[] arr = rec.Split('#');
+            Inn = arr[0];
+            NameF = arr[1];
+            NameI = arr[2];
+            NameO = arr[3];
         }
     }
 }

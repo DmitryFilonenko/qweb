@@ -165,6 +165,7 @@
     <Compile Include="Models\Home\Task\QSubTask.cs" />
     <Compile Include="Models\Home\Task\QTask.cs" />
     <Compile Include="Models\QEntities\QPins\QPinBase.cs" />
+    <Compile Include="Models\QEntities\QPins\QPinContact.cs" />
     <Compile Include="Models\QEntities\QPins\QPinNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -217,10 +218,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\ConcretTask.cshtml" />
     <Content Include="Views\Home\SubTasks.cshtml" />
     <Content Include="Views\Task\Priority.cshtml" />
     <Content Include="Views\Home\Regs.cshtml" />

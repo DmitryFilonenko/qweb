@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebUI.Infrastructure;
 using WebUI.Models.QEntities;
+using WebUI.Models.QEntities.QPins;
 
 namespace WebUI.Controllers
 {
@@ -25,8 +26,9 @@ namespace WebUI.Controllers
 
         public ActionResult NoteDates(string businessN)
         {
-            QPin qpin = QPin.GetPinsByKey(PinSearhKey.Pin, businessN).First();
-            return PartialView(qpin);
+            QPinBase basePin = QPinBase.GetPinsByKey(PinSearhKey.Pin, businessN).First();
+            QPinNote pinNote = new QPinNote(basePin);
+            return PartialView(pinNote);
         }
         
 
@@ -43,8 +45,8 @@ namespace WebUI.Controllers
                 stop = ReFormatDate(stopDate);
             }
 
-            var pins = QPin.GetPinsByKey(PinSearhKey.ProjectId, projectId);
-            QPin pin = pins.First();
+            var pins = QPinBase.GetPinsByKey(PinSearhKey.ProjectId, projectId);
+            QPinBase pin = pins.First();
 
             ViewBag.Pin = pin;
 

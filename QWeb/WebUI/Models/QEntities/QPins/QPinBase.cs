@@ -7,11 +7,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 
-namespace WebUI.Models.QEntities.QPinDecorator
+namespace WebUI.Models.QEntities.QPins
 {
+
+    public enum PinSearhKey { Pin, DebtDogovorN, RegId, Inn, ProjectId }
+
     public class QPinBase
-    {
-       
+    {       
         #region Fields
        
         [Display(Name = "Project ID:")]
@@ -22,6 +24,8 @@ namespace WebUI.Models.QEntities.QPinDecorator
 
         [Display(Name = "Договор:")]
         public string DebtDogovorN { get; set; }
+
+        public string DebtContactId { get; set; }
 
         [Display(Name = "Архив:")]
         public string ArchiveFlag { get; set; }
@@ -60,9 +64,6 @@ namespace WebUI.Models.QEntities.QPinDecorator
                 case PinSearhKey.DebtDogovorN:
                     cond = " and p.debt_dogovor_n = '" + value + "'";
                     break;
-                case PinSearhKey.Inn:
-                    cond = " and c.inn = " + value;
-                    break;
                 case PinSearhKey.RegId:
                     cond = " and p.dogovor_id = " + value;
                     break;
@@ -72,7 +73,7 @@ namespace WebUI.Models.QEntities.QPinDecorator
             }
             string query = String.Format("{0} {1}", text, cond);
 
-            List<string> list = ManagerDbQuery.GetItems(query, 10);
+            List<string> list = ManagerDbQuery.GetItems(query, 11);
 
             foreach (var item in list)
             {
@@ -82,13 +83,14 @@ namespace WebUI.Models.QEntities.QPinDecorator
                 p.ProjectId = arr[0];
                 p.BusinessN = arr[1];
                 p.DebtDogovorN = arr[2];
-                p.ArchiveFlag = arr[3] == "1" ? "+" : "-";
-                p.CreditorName = arr[4];
-                p.CreditorIdLong = arr[5];
-                p.CreditorIdShort = arr[6];
-                p.RegName = arr[7];
-                p.RegIdLong = arr[8];
-                p.RegIdShort = arr[9];
+                p.DebtContactId = arr[3];
+                p.ArchiveFlag = arr[4] == "1" ? "+" : "-";
+                p.CreditorName = arr[5];
+                p.CreditorIdLong = arr[6];
+                p.CreditorIdShort = arr[7];
+                p.RegName = arr[8];
+                p.RegIdLong = arr[9];
+                p.RegIdShort = arr[10];
 
                 pins.Add(p);
             }

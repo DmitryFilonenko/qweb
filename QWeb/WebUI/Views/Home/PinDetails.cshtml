@@ -1,4 +1,4 @@
-﻿@model WebUI.Models.QEntities.QPin
+﻿@model WebUI.Models.QEntities.QPins.QPinContact
 
 @{
     if (Session["Message"] != null)
@@ -48,22 +48,22 @@
         <hr />
         <p style="height:17px" class=@Html.GetAlertType(Model.ArchiveFlag)>Дело:</p>
         <hr />
-        <p style="height:17px">Долг:</p>
-        <hr />
+        @*<p style="height:17px">Долг:</p>
+        <hr />*@
         <p style="height:17px">ФИО:</p>
         <hr />
-        <p style="height:17px">@Html.DisplayNameFor(model => model.Ap)</p>
+        @*<p style="height:17px">@Html.DisplayNameFor(model => model.Ap)</p>
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Af)</p>
-        <hr />
+        <hr />*@
         @*<p style="height:17px">@Html.DisplayNameFor(model => model.Avr)</p>
             <hr />
             <p style="height:17px">@Html.DisplayNameFor(model => model.Aw)</p>
             <hr />*@
-        <p style="height:17px">@Html.DisplayNameFor(model => model.Marker1)</p>
+        @*<p style="height:17px">@Html.DisplayNameFor(model => model.Marker1)</p>
         <hr />
         <p style="height:17px">@Html.DisplayNameFor(model => model.Marker2)</p>
-        <hr />
+        <hr />*@
         @*<p style="height:17px">Заметки:</p>*@
     </div>
 
@@ -86,13 +86,13 @@
             @Html.DisplayFor(model => model.RegIdShort)<span>&nbsp; | &nbsp;</span>
 
             @Html.DisplayNameFor(model => model.RegIdLong)
-            @Html.DisplayFor(model => model.RegIdLong)<span>&nbsp; | &nbsp;</span>
+            @Html.DisplayFor(model => model.RegIdLong)@*<span>&nbsp; | &nbsp;</span>*@
 
-            @Html.DisplayNameFor(model => model.Start)
+            @*@Html.DisplayNameFor(model => model.Start)
             @Html.DisplayFor(model => model.Start)<span>&nbsp; | &nbsp;</span>
 
             @Html.DisplayNameFor(model => model.Stop)
-            @Html.DisplayFor(model => model.Stop)
+            @Html.DisplayFor(model => model.Stop)*@
         </fieldset>
         <hr />
         <fieldset style="height:17px" class=@Html.GetAlertType(Model.ArchiveFlag)>
@@ -103,17 +103,17 @@
             @Html.DisplayFor(model => model.DebtDogovorN)<span>&nbsp; | &nbsp;</span>
 
             @Html.DisplayNameFor(model => model.ProjectId)
-            @Html.DisplayFor(model => model.ProjectId)<span>&nbsp; | &nbsp;</span>
+            @Html.DisplayFor(model => model.ProjectId)@*<span>&nbsp; | &nbsp;</span>*@
         </fieldset>
         <hr />
-        <fieldset style="height:17px">
+        @*<fieldset style="height:17px">
             @Html.DisplayNameFor(model => model.DebtRest)
             @Html.DisplayFor(model => model.DebtRest)<span>&nbsp; | &nbsp;</span>
 
             @Html.DisplayNameFor(model => model.TotalRest)
             @Html.DisplayFor(model => model.TotalRest)
         </fieldset>
-        <hr />
+        <hr />*@
         <fieldset style="height:17px">
 
             @Html.DisplayFor(model => model.NameF)
@@ -124,14 +124,14 @@
             @Html.DisplayFor(model => model.Inn)
         </fieldset>
         <hr />
-        <fieldset style="height:17px">
+        @*<fieldset style="height:17px">
             @Html.DisplayFor(model => model.Ap)
         </fieldset>
         <hr />
         <fieldset style="height:17px">
             @Html.DisplayFor(model => model.Af)
         </fieldset>
-        <hr />
+        <hr />*@
         @*<fieldset style="height:17px">
                 @Html.DisplayFor(model => model.Avr)
             </fieldset>
@@ -140,7 +140,7 @@
                 @Html.DisplayFor(model => model.Aw)
             </fieldset>
             <hr />*@
-        <fieldset style="height:17px">
+        @*<fieldset style="height:17px">
             @Html.DisplayFor(model => model.Marker1)<span>&nbsp; &nbsp; &nbsp;</span>
 
             @Html.DisplayFor(model => model.Period1)
@@ -151,7 +151,7 @@
 
             @Html.DisplayFor(model => model.Period2)
         </fieldset>
-        <hr />
+        <hr />*@
         @*<fieldset style="height:17px">
 
 

@@ -21,7 +21,7 @@ namespace DbLayer
             {
                 OpenConnect();
                 int count = -1;
-                string query = String.Format("select count(*) from {0} where {1} = {2}", tableName);
+                string query = String.Format("select count(*) from {0}", tableName);
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {

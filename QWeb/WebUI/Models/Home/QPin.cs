@@ -6,11 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
+using WebUI.Models.QEntities.QPins;
 
 namespace WebUI.Models.QEntities
 {
-    public enum PinSearhKey { Pin, DebtDogovorN, RegId, Inn , ProjectId}
-
     public class QPin
     {
         #region Fields

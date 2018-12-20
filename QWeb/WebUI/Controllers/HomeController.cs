@@ -6,9 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebUI.Models.Home;
-//using WebUI.Models.Home;
 using WebUI.Models.QEntities;
-using WebUI.Models.QEntities.QPinDecorator;
+using WebUI.Models.QEntities.QPins;
 
 namespace WebUI.Controllers
 {
@@ -18,10 +17,7 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {
-            //QPinBase pinBase = QPinBase.GetPinsByKey(PinSearhKey.Pin, "3039047").First();
-            //QPinNote pinNote = new QPinNote(pinBase);
-
-            QPin pinToSeach = new QPin();
+            QPinBase pinToSeach = new QPinBase();
             ViewBag.PinToSeach = pinToSeach;
 
             QTask task = new QTask();
@@ -35,40 +31,40 @@ namespace WebUI.Controllers
             return View(model);
         }
         
-        public ActionResult SubTasks(string id)
-        {
-            QTask task = new QTask();
-            QTask curTask = task.GetSingleRecordById(id);
+        //public ActionResult SubTasks(string id)
+        //{
+        //    QTask task = new QTask();
+        //    QTask curTask = task.GetSingleRecordById(id);
 
 
-            int subCount = curTask.GetCountById(id);
+        //    int subCount = curTask.GetCountById(id);
 
 
 
-            QSubTask subTask = new QSubTask();
-            List<QSubTask> subTaskList = subTask.GetFieldsListById(id);
-            //List<QSubTask> subTaskList = new List<QSubTask>(); 
-            // foreach (var item in sTaskList)
-            // {
-            //    subTaskList.Add(item);
-            // }
+        //    QSubTask subTask = new QSubTask();
+        //    List<QSubTask> subTaskList = subTask.GetFieldsListById(id);
+        //    //List<QSubTask> subTaskList = new List<QSubTask>(); 
+        //    // foreach (var item in sTaskList)
+        //    // {
+        //    //    subTaskList.Add(item);
+        //    // }
 
-            if (subTaskList.Count > 0)
-            {
-                ViewBag.TaskName = curTask.Name;
-                return PartialView(subTaskList.OrderBy(s => s.Name).ToList());
-            }
+        //    if (subTaskList.Count > 0)
+        //    {
+        //        ViewBag.TaskName = curTask.Name;
+        //        return PartialView(subTaskList.OrderBy(s => s.Name).ToList());
+        //    }
                 
-            else
-            {
-                return PartialView();//////////////////////////////////////
-            }
-        }
+        //    else
+        //    {
+        //        return PartialView();//////////////////////////////////////
+        //    }
+        //}
 
-        public string ConcretTask(string subTaskId)
-        {
-            return "ID подзадачи - " + subTaskId;
-        }
+        //public string ConcretTask(string subTaskId)
+        //{
+        //    return "ID подзадачи - " + subTaskId;
+        //}
 
         //[HttpPost]
         //public ActionResult SearchCreditor(string orgName)
@@ -86,11 +82,17 @@ namespace WebUI.Controllers
 
         public ActionResult Pins(string regId, int page = 1)
         {
-            List<QPin> list = QPin.GetPinsByKey(PinSearhKey.RegId, regId);
+            List<QPinBase> list = QPinBase.GetPinsByKey(PinSearhKey.RegId, regId);
+            List<QPinContact> contList = new List<QPinContact>();
+            foreach (var item in list)
+            {
+                QPinContact cont = new QPinContact(item);
+                contList.Add(cont);
+            }
 
             PinListViewModel model = new PinListViewModel
             {
-                PinSet = list.OrderBy(pin => pin.BusinessN).
+                PinSet = contList.OrderBy(pin => pin.BusinessN).
                               Skip((page - 1) * pageSize).
                               Take(pageSize).ToList(),
                 PagingInfo = new PagingInfo
@@ -111,27 +113,28 @@ namespace WebUI.Controllers
 
         public ActionResult PinDetails(string pin)
         {
-            var model = QPin.GetPinsByKey(PinSearhKey.Pin, pin);
-            return PartialView(model[0]);
+            var list = QPinBase.GetPinsByKey(PinSearhKey.Pin, pin);
+            QPinContact model = new QPinContact(list[0]);
+            return PartialView(model);
         }
 
-        public ActionResult Search(QPin pin)
+        public ActionResult Search(QPinBase pin)
         {
 
-            List<QPin> model = new List<QPin>();
+            List<QPinBase> model = new List<QPinBase>();
 
             if (CheckInputData(pin))
             {
                 string valuePin = pin.BusinessN;
                 string valueDog = pin.DebtDogovorN;
-                string valueInn = pin.Inn;
+              //  string valueInn = pin.Inn;
 
                 if (valuePin != null)
-                    model = QPin.GetPinsByKey(PinSearhKey.Pin, valuePin);
+                    model = QPinBase.GetPinsByKey(PinSearhKey.Pin, valuePin);
                 else if (valueDog != null)
-                    model = QPin.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
-                else
-                    model = QPin.GetPinsByKey(PinSearhKey.Inn, valueInn);
+                    model = QPinBase.GetPinsByKey(PinSearhKey.DebtDogovorN, valueDog);
+               // else
+                 //   model = QPin.GetPinsByKey(PinSearhKey.Inn, valueInn);
 
                 return PartialView(model);
             }
@@ -142,12 +145,12 @@ namespace WebUI.Controllers
             }            
         }
 
-        private bool CheckInputData(QPin pin)
+        private bool CheckInputData(QPinBase pin)
         {
             int count = 0;
             if (pin.BusinessN != null) count++;
             if (pin.DebtDogovorN != null) count++;
-            if (pin.Inn != null) count++;
+           // if (pin.Inn != null) count++;
 
             if (count == 1)
                 return true;
@@ -157,18 +160,5 @@ namespace WebUI.Controllers
             }
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
