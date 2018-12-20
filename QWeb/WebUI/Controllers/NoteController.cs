@@ -13,11 +13,6 @@ namespace WebUI.Controllers
     {
         #region Notes
 
-        //public ActionResult TargetPin()
-        //{
-        //    return PartialView();
-        //}
-
         public ActionResult Note(string id, string taskName)
         {
             ViewBag.TaskName = taskName;
@@ -29,15 +24,12 @@ namespace WebUI.Controllers
             QPinBase basePin = QPinBase.GetPinsByKey(PinSearhKey.Pin, businessN).First();
             QPinNote pinNote = new QPinNote(basePin);
             return PartialView(pinNote);
-        }
-        
+        }        
 
         public ActionResult Notes(string projectId, string startDate, string stopDate)
         {
             string start = startDate;
             string stop = stopDate;
-
-            if (start == null) return View();
 
             if (start.Contains("-"))
             {
@@ -45,25 +37,28 @@ namespace WebUI.Controllers
                 stop = ReFormatDate(stopDate);
             }
 
-            var pins = QPinBase.GetPinsByKey(PinSearhKey.ProjectId, projectId);
-            QPinBase pin = pins.First();
+            QPinBase pin = QPinBase.GetPinsByKey(PinSearhKey.ProjectId, projectId).First();
+            QPinNote notePin = new QPinNote(pin);
 
-            ViewBag.Pin = pin;
+            ViewBag.Pin = notePin;
 
             List<QNote> model = QNote.GetNotes(NoteSearchKey.ProjectId, projectId, start, stop);
 
-            return PartialView(model);
+            return PartialView(model.OrderByDescending(r => r.StopDate).ToList());
         }
 
-        public ActionResult NoteEdit(QPin pin, string noteId)
+        public ActionResult NoteEdit(string noteId, string startDate, string stopDate)
         {
             var notes = QNote.GetNotes(NoteSearchKey.NoteId, noteId);
             QNote note = notes.First();
 
+            ViewBag.Start = startDate;
+            ViewBag.Stop = stopDate;
+
             return PartialView(note);
         }
 
-        public ActionResult NoteSave(string BusinessN, string noteId, string Message)
+        public ActionResult NoteSave(string projectId, string noteId, string startDate, string stopDate, string Message)
         {
             try
             {
@@ -72,21 +67,19 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное сохранение";
-                    QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId, "0");
+                    QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId, "0");
                 }
                 else
                     Session["Message"] = "Ошибка при сохранении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "Пин - " + BusinessN + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
+                QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
             }
-            string pin = BusinessN;
-
-            return RedirectToAction("PinDetails", "Home", new { pin });
+            return RedirectToAction("Notes", new { projectId, startDate, stopDate });
         }
 
-        public ActionResult NoteDelete(string pin, string noteId)
+        public ActionResult NoteDelete(string projectId, string noteId, string startDate, string stopDate)
         {
             try
             {
@@ -95,17 +88,17 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное удаление";
-                    QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId, "0");
+                    QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId, "0");
                 }
                 else
                     Session["Message"] = "Ошибка при удалении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "Пин - " + pin + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
+                QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
             }
 
-            return RedirectToAction("PinDetails", "Home", new { pin });
+            return RedirectToAction("Notes", new { projectId, startDate, stopDate });
         }
 
         private static string ReFormatDate(string startDate)

@@ -1,20 +1,5 @@
 ﻿@model WebUI.Models.QEntities.QPins.QPinContact
 
-@{
-    if (Session["Message"] != null)
-    {
-        if (Session["Message"].ToString().Contains("Успешн"))
-        {
-            <label class="alert-success text-center">@Session["Message"]</label>
-        }
-        else
-        {
-            <label class="alert-danger text-center">@Session["Message"]</label>
-        }
-        Session["Message"] = null;
-    }
-}
-
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>

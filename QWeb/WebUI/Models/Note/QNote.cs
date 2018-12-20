@@ -33,11 +33,11 @@ namespace WebUI.Models.QEntities
         [HiddenInput(DisplayValue = false)]
         public string BusinessN { get; set; }
 
-        [Display(Name = "Начало:")]
+        [Display(Name = "Назначено:")]
         [ReadOnly(true)]
         public string StartDate { get; set; }
 
-        [Display(Name = "Окончание:")]
+        [Display(Name = "Выполнено:")]
         [ReadOnly(true)]
         public string StopDate { get; set; }
 
@@ -49,7 +49,7 @@ namespace WebUI.Models.QEntities
         [ReadOnly(true)]
         public string EmployeerLogin { get; set; }
 
-        [Display(Name = "Зметка:")]
+        [Display(Name = "Заметка:")]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
 

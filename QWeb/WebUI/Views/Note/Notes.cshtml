@@ -1,7 +1,22 @@
-﻿@using WebUI.Models.QEntities
+﻿@using WebUI.Models.QEntities.QPins
 @using WebUI.Infrastructure.HelperMethods
 
 @model IEnumerable<WebUI.Models.QEntities.QNote>
+
+@{
+    if (Session["Message"] != null)
+    {
+        if (Session["Message"].ToString().Contains("Успешн"))
+        {
+            <label class="alert-success text-center">@Session["Message"]</label>
+        }
+        else
+        {
+            <label class="alert-danger text-center">@Session["Message"]</label>
+        }
+        Session["Message"] = null;
+    }
+}
 
 
 <ol class="breadcrumb">
@@ -11,7 +26,7 @@
         @{
             string creditorName = ViewBag.CrediotrName;
             string creditorId = ViewBag.CreditorId;
-            QPin currentPin = ViewBag.Pin;
+            QPinNote currentPin = ViewBag.Pin;
         }
 
         @Ajax.ActionLink("К списку реестров " + currentPin.CreditorName, "Regs", "Home", new { creditorId = currentPin.CreditorIdLong }, new AjaxOptions()
@@ -77,22 +92,22 @@
             </td>
             <td>
 
-                @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) }) <span>&nbsp; | &nbsp;</span>
-                @Ajax.ActionLink("Удалить", "NoteDelete", new { pin = item.BusinessN, noteId = item.NoteId }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) })
+                @Ajax.ActionLink("Редактировать", "NoteEdit", new { pin = item, noteId = item.NoteId, startDate = currentPin.NotesStart.ToString("yyyy-MM-dd"), stopDate = currentPin.NotesStop.ToString("yyyy-MM-dd") }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) }) <span>&nbsp; | &nbsp;</span>
+                @Ajax.ActionLink("Удалить", "NoteDelete", new { projectId = item.ProjectId, noteId = item.NoteId, startDate = currentPin.NotesStart.ToString("yyyy-MM-dd"), stopDate = currentPin.NotesStop.ToString("yyyy-MM-dd") }, new AjaxOptions() { UpdateTargetId = "concret_task", LoadingElementId = "loader" }, new { @class = "btn " + Html.OperationAccess(User.Identity.Name, item.EmployeerLogin) })
             </td>
         </tr>
     }
 
 </table>
 
-<script>
+@*<script>
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $("#wrapper").css("padding-left", "225px");
+            $("#wrapper").css("padding-left", "225px");
 
-        //$("button").click(function () {
-        //    $("wrapper").css("background-color", "yellow");
-        //});
-    });
-</script>
+            //$("button").click(function () {
+            //    $("wrapper").css("background-color", "yellow");
+            //});
+        });
+    </script>*@

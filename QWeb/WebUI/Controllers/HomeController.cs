@@ -22,56 +22,10 @@ namespace WebUI.Controllers
 
             QTask task = new QTask();
             List<QTask> taskList = task.GetTasksByLogin(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));// GetAllFieldsList(); 
-            //ViewBag.Tasks = new SelectList(taskList, "Id", "Name");
-
-            //var model = QActualCreditor.GetCreditorList();
-            //return View(model);
 
             HomeModel model = new HomeModel { CreditorList = QActualCreditor.GetCreditorList(), TaskList = taskList };
             return View(model);
-        }
-        
-        //public ActionResult SubTasks(string id)
-        //{
-        //    QTask task = new QTask();
-        //    QTask curTask = task.GetSingleRecordById(id);
-
-
-        //    int subCount = curTask.GetCountById(id);
-
-
-
-        //    QSubTask subTask = new QSubTask();
-        //    List<QSubTask> subTaskList = subTask.GetFieldsListById(id);
-        //    //List<QSubTask> subTaskList = new List<QSubTask>(); 
-        //    // foreach (var item in sTaskList)
-        //    // {
-        //    //    subTaskList.Add(item);
-        //    // }
-
-        //    if (subTaskList.Count > 0)
-        //    {
-        //        ViewBag.TaskName = curTask.Name;
-        //        return PartialView(subTaskList.OrderBy(s => s.Name).ToList());
-        //    }
-                
-        //    else
-        //    {
-        //        return PartialView();//////////////////////////////////////
-        //    }
-        //}
-
-        //public string ConcretTask(string subTaskId)
-        //{
-        //    return "ID подзадачи - " + subTaskId;
-        //}
-
-        //[HttpPost]
-        //public ActionResult SearchCreditor(string orgName)
-        //{
-        //    var model = QActualCreditor.GetCreditorList().Where(cr => cr.OrgName.Contains(orgName));
-        //    return View(model);
-        //}
+        }              
 
         public ActionResult Regs(string creditorId)
         {
@@ -166,6 +120,5 @@ namespace WebUI.Controllers
                 return false;
             }
         }
-
     }
 }
