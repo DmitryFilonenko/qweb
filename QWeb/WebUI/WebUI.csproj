@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\PriorityController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,17 +220,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\SubTasks.cshtml" />
     <Content Include="Views\Task\Priority.cshtml" />
     <Content Include="Views\Home\Regs.cshtml" />
     <Content Include="Views\Home\Pins.cshtml" />
     <Content Include="Views\Home\PinDetails.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\SearchCreditor.cshtml" />
     <Content Include="Views\Note\NoteEdit.cshtml" />
     <Content Include="Views\Note\Notes.cshtml" />
     <Content Include="Views\Note\Note.cshtml" />
     <Content Include="Views\Note\NoteDates.cshtml" />
+    <Content Include="Views\Priority\Priority.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />
