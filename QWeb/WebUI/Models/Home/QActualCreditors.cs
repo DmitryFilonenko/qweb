@@ -23,7 +23,7 @@ namespace WebUI.Models.QEntities
         public static List<QActualCreditor> GetCreditorList()
         {
             List<QActualCreditor> actualCreditorsList = new List<QActualCreditor>();
-            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/actual_creditors.sql");
+            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Entities/actual_creditors.sql");
             string query = File.ReadAllText(path);
             List<string> list = ManagerDbQuery.GetItems(query, 3);
 

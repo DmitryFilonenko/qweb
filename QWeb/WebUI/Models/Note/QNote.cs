@@ -58,7 +58,7 @@ namespace WebUI.Models.QEntities
         public static List<QNote> GetNotes(NoteSearchKey searhKey, string keyValue, string startDate = "", string stopDate = "")
         {
             List<QNote> notes = new List<QNote>();
-            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/notes.sql");
+            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Entities/notes.sql");
             string text = File.ReadAllText(path);
 
             string query = "";

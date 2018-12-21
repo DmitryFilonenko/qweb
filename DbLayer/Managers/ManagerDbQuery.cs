@@ -95,9 +95,10 @@ namespace DbLayer
                     string record = "";
                     for (int i = 0; i < countOfFields; i++)
                     {
-                        record += (reader[i].ToString() + "#");
+                        record += (reader[i] is System.DBNull ? "#" : reader[i].ToString() + "#");
                     }
-                    list.Add(record.TrimEnd('#'));
+                    //list.Add(record.TrimEnd('#'));
+                    list.Add(record.Substring(0, record.Length -1));
                 }
                 return list;
             }
@@ -125,9 +126,11 @@ namespace DbLayer
                     string record = "";
                     for (int i = 0; i < countOfFields; i++)
                     {
-                        record += (reader[i].ToString() + "#");
+                        //record += (reader[i].ToString() + "#");
+                        record += (reader[i] is System.DBNull ? "#" : reader[i].ToString() + "#");
                     }
-                    list.Add(record.TrimEnd('#'));
+                    //list.Add(record.TrimEnd('#'));
+                    list.Add(record.Substring(0, record.Length - 1));
                 }
 
                 return list.Count > 0? list[0] : null;
@@ -157,9 +160,11 @@ namespace DbLayer
                     string record = "";
                     for (int i = 0; i < countOfFields; i++)
                     {
-                        record += (reader[i].ToString() + "#");
+                        //record += (reader[i].ToString() + "#");
+                        record += (reader[i] is System.DBNull ? "#" : reader[i].ToString() + "#");
                     }
-                    list.Add(record.TrimEnd('#'));
+                    //list.Add(record.TrimEnd('#'));
+                    list.Add(record.Substring(0, record.Length - 1));
                 }
                 return list;
             }
@@ -208,7 +213,8 @@ namespace DbLayer
                         else
                             record += reader[i].ToString() + "#";
                     }
-                    list.Add(record.TrimEnd('#'));
+                    //list.Add(record.TrimEnd('#'));
+                    list.Add(record.Substring(0, record.Length - 1));
                 }
             }
             catch (Exception)

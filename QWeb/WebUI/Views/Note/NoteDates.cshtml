@@ -3,7 +3,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item">@Html.ActionLink("К списку контрагентов", "Index")</li>
     <li>
-        @Ajax.ActionLink("К списку реестров " + Model.CreditorName, "Regs", new { creditorId = Model.CreditorIdLong }, new AjaxOptions()
+        @Ajax.ActionLink("К списку реестров " + Model.CreditorName, "Regs", "Home", new { creditorId = Model.CreditorIdLong }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",
@@ -11,7 +11,7 @@
         })
     </li>
     <li>
-        @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", new { regId = Model.RegIdLong }, new AjaxOptions()
+        @Ajax.ActionLink("К списку дел реестра " + Model.RegName, "Pins", "Home", new { regId = Model.RegIdLong }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",

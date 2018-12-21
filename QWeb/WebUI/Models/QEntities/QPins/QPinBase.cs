@@ -56,7 +56,7 @@ namespace WebUI.Models.QEntities.QPins
         public static List<QPinBase> GetPinsByKey(PinSearhKey searhKey, string value)
         {
             List<QPinBase> pins = new List<QPinBase>();
-            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/get_pin_base.sql");
+            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Pins/get_pin_base.sql");
             string text = File.ReadAllText(path);
             string cond = "";
             switch (searhKey)

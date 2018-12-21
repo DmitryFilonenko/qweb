@@ -37,7 +37,7 @@
         })
     </li>
     <li>
-        @Ajax.ActionLink("К списку дел реестра " + currentPin.RegName, "Pins", new { regId = currentPin.RegIdLong }, new AjaxOptions()
+        @Ajax.ActionLink("К списку дел реестра " + currentPin.RegName, "Pins", "Home", new { regId = currentPin.RegIdLong }, new AjaxOptions()
         {
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = "concret_task",

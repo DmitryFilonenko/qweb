@@ -41,7 +41,7 @@ namespace WebUI.Models.QEntities
         public static List<QCreditorReg> GetRegList(string creditorId)
         {
             List<QCreditorReg> regs = new List<QCreditorReg>();
-            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/regs_by_creditor_id.sql");
+            string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Entities/regs_by_creditor_id.sql");
             string text = File.ReadAllText(path);
             string query = String.Format("{0} {1}", text, creditorId); 
             List<string> list = ManagerDbQuery.GetItems(query, 8);
@@ -63,8 +63,5 @@ namespace WebUI.Models.QEntities
             }
             return regs;
         }
-        
-
-
     }
 }

@@ -10,17 +10,27 @@ namespace WebUI.Models.QEntities.QPins
     public class QPinContact
     {
         #region Fields
+        [Display(Name = "Project ID:")]
         public string ProjectId { get; set; }
+        [Display(Name = "Пин:")]
         public string BusinessN { get; set; }
+        [Display(Name = "Договор:")]
         public string DebtDogovorN { get; set; }
         public string DebtContactId { get; set; }
         public string ArchiveFlag { get; set; }
+        [Display(Name = "Кредитор:")]
         public string CreditorName { get; set; }
+        [Display(Name = "suvd ID:")]
         public string CreditorIdLong { get; set; }
+        [Display(Name = "eadr ID:")]
         public string CreditorIdShort { get; set; }
+        [Display(Name = "Реестр:")]
         public string RegName { get; set; }
+        [Display(Name = "suvd ID:")]
         public string RegIdLong { get; set; }
+        [Display(Name = "eadr ID:")]
         public string RegIdShort { get; set; }
+        [Display(Name = "ИНН:")]
         public string Inn { get; set; }
 
         [Display(Name = "ФИО:")]
@@ -49,13 +59,20 @@ namespace WebUI.Models.QEntities.QPins
 
         private void GetDecorFields()
         {
-            string[] fields = new string[] { "inn", "name_f", "name_i", "name_o" };
-            string rec = ManagerDbQuery.GetFieldsListById("suvd.contacts", fields, DebtContactId).First();
-            string[] arr = rec.Split('#');
-            Inn = arr[0];
-            NameF = arr[1];
-            NameI = arr[2];
-            NameO = arr[3];
+            string[] arr;
+            try
+            {
+                string[] fields = new string[] { "name_f", "name_i", "name_o" };
+                string rec = ManagerDbQuery.GetFieldsListById("suvd.contacts", fields, DebtContactId).First();
+                arr = rec.Split('#');
+                NameF = arr[0];
+                NameI = arr[1];
+                NameO = arr[2];
+            }
+            catch (Exception)
+            {
+                throw;
+            }            
         }
     }
 }
