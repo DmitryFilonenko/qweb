@@ -10,11 +10,11 @@
     InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
     UpdateTargetId = "concret_task",
     LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
-}))
+}, new { @class = "text-center" }))
 {
 <div>
 
-    <label>Приоритет:</label> <input type="text" id="myText" /><hr />    
+    <span>Приоритет:</span> <input type="text" id="myText" style="width:70px"/><hr />   
 
     <input type="file" style="text-align:center" id="inputFile" />   <hr />
 
@@ -26,32 +26,7 @@
 
 <script type="text/javascript">
 
-    //$(document).ready(function () {
-
-    //   // alert("Привет");
-
-    //    //function updatePrice() {
-    //    //    var price = parseFloat($("#dare_price").val());
-    //    //    var total = (price + 1) * 1.05;
-    //    //    var total = total.toFixed(2);
-    //    //    $("#total_price_amount").val(total);
-    //    //}
-    //    //$(document).on("change, keyup", "#dare_price", updatePrice);
-    //});
-
-
-
-
-    //     $("#myText").change(function () {
-    //         //var total = Number($this).val();
-
-    //         alert("!!!");
-
-    //     $('#total_price').val(total);
-    //     });
-
-
-    // Restricts input for the given textbox to the given inputFilter.
+   // Restricts input for the given textbox to the given inputFilter.
     function setInputFilter(textbox, inputFilter) {
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
@@ -67,15 +42,38 @@
         });
     }
 
-
-    
-
-    // Restrict input to digits and '.' by using a regular expression filter.
+    // Restrict input to digits by using a regular expression filter.
     setInputFilter(document.getElementById("myText"), function(value) {
         return /^[0-9]*$/.test(value);
     });
 
+    $(document).ready(function () {
 
+        var file; 
+        var txt;
+
+        $(':input[type="submit"]').prop('disabled', true);
+
+        function buttonState() {
+            if (txt >= 0 && txt <= 255 && txt != "" && file != null) {
+                $(':input[type="submit"]').prop('disabled', false);
+            }
+            else {
+                $(':input[type="submit"]').prop('disabled', true);
+            }
+        }
+
+        $('input:file').on("change", function () {
+            file = $(this).val();
+            buttonState();
+
+        });        
+
+        $('input[type="text"]').keyup(function () {
+            txt = $(this).val(); 
+            buttonState();            
+        });
+    });
 
 </script>
 
