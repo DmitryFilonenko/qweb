@@ -1,32 +1,60 @@
-﻿@*@using (Html.BeginForm("Priority", "Task", new { priorityValue = @ViewBag.Prior }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+﻿
+@{
+    if (Session["Message"] != null)
     {
-        <input type="file" name="uploadfile" />
-        <br />
-        <input type="submit" id="submit" value="Загрузить" />
-    }*@
-
-@using (Ajax.BeginForm("Change", "Priority", new { }, new AjaxOptions
-{
-    InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
-    UpdateTargetId = "concret_task",
-    LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
-}, new { @class = "text-center" }))
-{
-<div>
-
-    <span>Приоритет:</span> <input type="text" id="myText" style="width:70px"/><hr />   
-
-    <input type="file" style="text-align:center" id="inputFile" />   <hr />
-
-    <input type="submit" id="submit" value="Загрузить" />  <br /><br />
-
-</div>
+        <label class="alert-danger text-center">@Session["Message"]</label>        
+        Session["Message"] = null;
+    }
 }
 
 
+@using (Ajax.BeginForm("Change", "Priority", new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "concret_task",
+    LoadingElementId = "loader"
+}, new { @class = "text-center", enctype = "multipart/form-data" }))
+{
+    <div>
+        <span>Приоритет:</span>
+        <input type="text" name="priorityValue" id="priorValue" style="width:70px" /><hr />
+        <input type="file" style="text-align:center" id="inputFile" name="uploadfile" />   <hr />
+        <input type="submit" id="submitButton" value="Загрузить" />  <br /><br />
+    </div>
+}
+
 <script type="text/javascript">
 
-   // Restricts input for the given textbox to the given inputFilter.
+    $(document).ready(function () {
+
+        var file;
+        var txt;
+
+        $('#submitButton').prop('disabled', true);
+
+        function buttonState() {
+            if (txt >= 0 && txt <= 255 && txt != "" && file != null) {
+                $('#submitButton').prop('disabled', false);
+            }
+            else {
+                $('#submitButton').prop('disabled', true);
+            }
+        }
+
+        $('#inputFile').on("change", function () {
+            file = $(this).val();
+            buttonState();
+
+        });
+
+        $('#priorValue').keyup(function () {
+            txt = $(this).val();
+            buttonState();
+        });
+    });
+
+
+    // Restricts input for the given textbox to the given inputFilter.
     function setInputFilter(textbox, inputFilter) {
         ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
             textbox.addEventListener(event, function () {
@@ -43,38 +71,12 @@
     }
 
     // Restrict input to digits by using a regular expression filter.
-    setInputFilter(document.getElementById("myText"), function(value) {
+    setInputFilter(document.getElementById("priorValue"), function (value) {
         return /^[0-9]*$/.test(value);
     });
 
-    $(document).ready(function () {
-
-        var file; 
-        var txt;
-
-        $(':input[type="submit"]').prop('disabled', true);
-
-        function buttonState() {
-            if (txt >= 0 && txt <= 255 && txt != "" && file != null) {
-                $(':input[type="submit"]').prop('disabled', false);
-            }
-            else {
-                $(':input[type="submit"]').prop('disabled', true);
-            }
-        }
-
-        $('input:file').on("change", function () {
-            file = $(this).val();
-            buttonState();
-
-        });        
-
-        $('input[type="text"]').keyup(function () {
-            txt = $(this).val(); 
-            buttonState();            
-        });
-    });
-
 </script>
+
+@*<script src="~/Scripts/uploadFile.js"></script>*@  @*    Деактивирует кнопку загрузки файла пока не выбран файл    *@
 
 

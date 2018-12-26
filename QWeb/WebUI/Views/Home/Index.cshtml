@@ -15,7 +15,7 @@
                 @foreach (var item in Model.TaskList)
                 {
                     <li>
-                        @Ajax.ActionLink(item.Name, item.Action, item.Action, new { id = item.Id, taskName = item.Name }, new AjaxOptions() { UpdateTargetId = "concret_task" })
+                        @Ajax.ActionLink(item.Name, item.Action, item.Action, new { taskId = item.Id, taskName = item.Name }, new AjaxOptions() { UpdateTargetId = "concret_task" })
                     </li>
                 }
             </ul>
@@ -155,7 +155,7 @@
 @section scripts
 {
     @*Ненавязивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
 
     @*<script type="text/javascript">
             function OnBeginJs() {

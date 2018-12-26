@@ -1,5 +1,6 @@
 ﻿using DbLayer.Connect;
 using DbLayer.Infrsrt;
+using DbLayer.Managers;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -282,8 +283,37 @@ namespace DbLayer
         //    return res;
         //}
 
+        public static void FillTable(string taskId, string[] fieldNameArr, string[] data)
+        {
+            try
+            {
+                OpenConnect();
 
+                List<OracleParameter> args = new List<OracleParameter> {
+                    new OracleParameter("task_id", OracleDbType.Varchar2, taskId, ParameterDirection.Input)
+                };
+                string tableName = ManagerPlProc.ExecFunc("q_users_pack.get_table_name", OracleDbType.Varchar2, args);
 
+                string fields = ArrToString(fieldNameArr);
 
+                foreach (var item in data)
+                {
+                    string query = String.Format("insert into {0} ({1}) values ({2})", tableName, fields, item);
+                    DbConnect.ExecCommand(query);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                List<ProcParam> prm = new List<ProcParam> {
+                    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
+                };
+                ManagerPlProc.ExecProc("q_users_pack.clean_table", prm); 
+                _con.Close();
+            }
+        }
     }
 }

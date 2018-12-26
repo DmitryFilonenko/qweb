@@ -16,12 +16,15 @@ namespace DbLayer.Managers
 
         private static void OpenConnect()
         {
-            _con.Open();
-            OracleGlobalization info = _con.GetSessionInfo();
-            info.NumericCharacters = ",.";
-            info.DateFormat = "dd.mm.yyyy";
-            info.Language = "UKRAINIAN";
-            _con.SetSessionInfo(info);
+            if (_con.State == ConnectionState.Closed)
+            {
+                _con.Open();
+                OracleGlobalization info = _con.GetSessionInfo();
+                info.NumericCharacters = ",.";
+                info.DateFormat = "dd.mm.yyyy";
+                info.Language = "UKRAINIAN";
+                _con.SetSessionInfo(info);
+            }            
         }
 
         //public static void ExecProc(string procName)
@@ -109,6 +112,7 @@ namespace DbLayer.Managers
         {
             try
             {
+
                 OpenConnect();
 
                 using (OracleCommand cmd = new OracleCommand(procName, _con))
