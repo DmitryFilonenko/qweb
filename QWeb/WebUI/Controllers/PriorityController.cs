@@ -33,13 +33,15 @@ namespace WebUI.Controllers
             var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
             uploadfile.SaveAs(path);
 
-            PriorityCommand qCommand = new PriorityCommand() { PathToFile = path,
+            PriorityCommand qCommand = new PriorityCommand() {
+                PriorityValue = priorityValue,
+                PathToFile = path,
                 TaskId = Session["TaskId"].ToString(),
                 Data = System.IO.File.ReadAllLines(path/*, System.Text.Encoding.Default*/)
             }; 
-            //qCommand.Data = System.IO.File.ReadAllLines(qCommand.PathToFile/*, System.Text.Encoding.Default*/);
 
             bool isDataCorrect = qCommand.CheckData(qCommand.Data);
+
             if(!isDataCorrect)
             {
                 Session["Message"] = "В файле поданы некорректные данные.";
@@ -47,7 +49,6 @@ namespace WebUI.Controllers
             }
 
             qCommand.Act();
-
 
             return PartialView();
         }

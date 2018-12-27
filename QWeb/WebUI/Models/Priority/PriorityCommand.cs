@@ -10,6 +10,7 @@ namespace WebUI.Models.Priority
     public class PriorityCommand : IQCommand
     {
         public string TaskId { get; set; }
+        public string PriorityValue { get; set; }
         public string PathToFile { get; set; }
         public string[] Data { get; set; }
         
@@ -39,8 +40,12 @@ namespace WebUI.Models.Priority
         public void Act()
         {
             FillTable();
+            //UpdatePriority();
         }
 
-
+        private void UpdatePriority()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

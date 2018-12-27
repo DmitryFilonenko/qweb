@@ -287,14 +287,19 @@ namespace DbLayer
         {
             try
             {
-                OpenConnect();
+                List<ProcParam> prm = new List<ProcParam> {
+                    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
+                };
+                ManagerPlProc.ExecProc("Q_TASKS_PACK.clean_table", prm);
 
                 List<OracleParameter> args = new List<OracleParameter> {
                     new OracleParameter("task_id", OracleDbType.Varchar2, taskId, ParameterDirection.Input)
                 };
-                string tableName = ManagerPlProc.ExecFunc("q_users_pack.get_table_name", OracleDbType.Varchar2, args);
+                string tableName = ManagerPlProc.ExecFunc("Q_TASKS_PACK.get_table_name", OracleDbType.Varchar2, args);
 
                 string fields = ArrToString(fieldNameArr);
+
+                OpenConnect();
 
                 foreach (var item in data)
                 {
@@ -308,10 +313,11 @@ namespace DbLayer
             }
             finally
             {
-                List<ProcParam> prm = new List<ProcParam> {
-                    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
-                };
-                ManagerPlProc.ExecProc("q_users_pack.clean_table", prm); 
+                //List<ProcParam> prm = new List<ProcParam> {
+                //    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
+                //};
+                //ManagerPlProc.ExecProc("q_users_pack.free_table", prm);
+
                 _con.Close();
             }
         }
