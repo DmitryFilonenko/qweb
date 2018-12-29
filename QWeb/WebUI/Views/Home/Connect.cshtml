@@ -1,40 +1,45 @@
-﻿@if (Session["ConnectionType"].ToString() == "test")
+﻿@if (Session["role"].ToString() == "admin")
 {
-    using (Ajax.BeginForm("Connect", "Home", new { dbState = "test" }, new AjaxOptions
+    @if (Session["ConnectionType"].ToString() == "test")
     {
-        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
-        UpdateTargetId = "db",
-        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+        using (Ajax.BeginForm("Connect", "Home", new { dbState = "test" }, new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+            UpdateTargetId = "db",
+            LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+        }
+        ))
+        {
+            <fieldset>
+                <div class="text-center form-control" style="height:auto; width:auto">
+
+                    <input type="submit" class="btn btn-success" style="width:700px" value="Тестовая база" />
+
+                    <br />
+                </div>
+            </fieldset>
+        }
     }
-    ))
+    else
     {
-        <fieldset>
-            <div class="text-center form-control" style="height:auto; width:auto">
+        using (Ajax.BeginForm("Connect", "Home", new { dbState = "work" }, new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+            UpdateTargetId = "db",
+            LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+        }
+         ))
+        {
+            <fieldset>
+                <div class="text-center form-control" style="height:auto; width:auto">
 
-                <input type="submit" class="btn btn-success" style="width:700px" value="Тестовая база" />
+                    <input type="submit" class="btn btn-danger" style="width:700px" value="Рабочая база" />
 
-                <br />
-            </div>
-        </fieldset>
+                    <br />
+                </div>
+            </fieldset>
+        }
     }
 }
-else
-{
-    using (Ajax.BeginForm("Connect", "Home", new { dbState = "work" }, new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
-        UpdateTargetId = "db",
-        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
-    }
-     ))
-    {
-        <fieldset>
-            <div class="text-center form-control" style="height:auto; width:auto">
 
-                <input type="submit" class="btn btn-danger" style="width:700px" value="Рабочая база" />
 
-                <br />
-            </div>
-        </fieldset>
-    }
-}

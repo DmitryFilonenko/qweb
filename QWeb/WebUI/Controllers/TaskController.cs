@@ -10,21 +10,21 @@ namespace WebUI.Controllers
 {
     public class TaskController : Controller
     {
-        #region Priority
-        public ActionResult Priority( int prior)
-        {
-            ViewBag.Prior = prior;
+        //#region Priority
+        //public ActionResult Priority( int prior)
+        //{
+        //    ViewBag.Prior = prior;
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult Priority(string priorityValue, HttpPostedFileBase uploadfile)
-        {            
-            uploadfile.SaveAs(Server.MapPath("/Uploads/" + uploadfile.FileName));
-            return View();
-        }
-        #endregion
+        //[HttpPost]
+        //public ActionResult Priority(string priorityValue, HttpPostedFileBase uploadfile)
+        //{            
+        //    uploadfile.SaveAs(Server.MapPath("/Uploads/" + uploadfile.FileName));
+        //    return View();
+        //}
+        //#endregion
     }
     
     //Priority

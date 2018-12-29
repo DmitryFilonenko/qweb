@@ -26,24 +26,24 @@ namespace WebUI
         }
 
         // обработка события PostAuthenticateRequest
-        protected void Application_PostAuthenticateRequest()
-        {
-            WindowsIdentity identity = HttpContext.Current.Request.LogonUserIdentity;
-            string userName = identity.Name.Substring(identity.Name.LastIndexOf('\\') + 1);
+        //protected void Application_PostAuthenticateRequest()
+        //{
+        //    //WindowsIdentity identity = HttpContext.Current.Request.LogonUserIdentity;
+        //    //string userName = identity.Name.Substring(identity.Name.LastIndexOf('\\') + 1);
 
-            try
-            {
-                List<OracleParameter> args = new List<OracleParameter> {
-                    new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input ) 
-                };
+        //    try
+        //    {
+        //        List<OracleParameter> args = new List<OracleParameter> {
+        //            new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input ) 
+        //        };
 
-                string userRole = ManagerPlProc.ExecFunc("q_users_pack.get_role_name", OracleDbType.Varchar2, args);
-                identity.Label = userRole;
-            }
-            catch (Exception ex)
-            {
-                QLoger.AddRecordToLog(userName, "Get_usrer_role", ex.Message, "1");
-            }
-        }
+        //        string userRole = ManagerPlProc.ExecFunc("q_users_pack.get_role_name", OracleDbType.Varchar2, args);
+        //        //identity.Label = userRole;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        QLoger.AddRecordToLog(userName, "Get_usrer_role", ex.Message, "1");
+        //    }
+        //}
     }
 }

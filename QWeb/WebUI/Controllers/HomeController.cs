@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DbLayer;
 using DbLayer.Prop;
 using WebUI.Models.Home;
+using WebUI.Models.Home.User;
 using WebUI.Models.QEntities;
 using WebUI.Models.QEntities.QPins;
 
@@ -23,6 +24,8 @@ namespace WebUI.Controllers
             ViewBag.PinToSeach = pinToSeach;
 
             QTask task = new QTask();
+
+            Session["role"] = UserModel.GetUserRole();
             List<QTask> taskList = task.GetTasksByLogin(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));// GetAllFieldsList(); 
 
             HomeModel model = new HomeModel { CreditorList = QActualCreditor.GetCreditorList(), TaskList = taskList };

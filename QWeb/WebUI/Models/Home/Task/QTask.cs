@@ -37,13 +37,24 @@ namespace WebUI.Models.QEntities
             return ManagerDbQuery.GetCount("q_tasks");
         }
 
-        public List<QTask> GetTasksByLogin(string userName)
+
+        public string GetUserRoleId(string userName)
         {
             List<OracleParameter> args = new List<OracleParameter> {
                     new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input )
             };
 
-            string userRoleId = ManagerPlProc.ExecFunc("q_users_pack.get_role_id", OracleDbType.Varchar2, args);
+            return ManagerPlProc.ExecFunc("q_users_pack.get_role_id", OracleDbType.Varchar2, args);
+        }
+
+
+        public List<QTask> GetTasksByLogin(string userName)
+        {
+            //List<OracleParameter> args = new List<OracleParameter> {
+            //        new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input )
+            //};
+
+            string userRoleId = GetUserRoleId(userName); 
             string[] fields = new string[] { "task_id" };
             List<QTask> taskList = GetFieldsListById("q_roles_tasks", fields, userRoleId, "role_id");
 

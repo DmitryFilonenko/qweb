@@ -162,6 +162,7 @@
     <Compile Include="Models\Home\Paging\PinListViewModel.cs" />
     <Compile Include="Models\Home\QActualCreditors.cs" />
     <Compile Include="Models\Home\QCreditorReg.cs" />
+    <Compile Include="Models\Home\User\UserModel.cs" />
     <Compile Include="Models\Note\QNote.cs" />
     <Compile Include="Models\Home\QPin.cs" />
     <Compile Include="Models\Home\Task\QSubTask.cs" />
