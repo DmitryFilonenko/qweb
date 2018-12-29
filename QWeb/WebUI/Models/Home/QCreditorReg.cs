@@ -39,7 +39,7 @@ namespace WebUI.Models.QEntities
         public int Count { get; set; }
 
         public static List<QCreditorReg> GetRegList(string creditorId)
-        {
+        {            
             List<QCreditorReg> regs = new List<QCreditorReg>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Entities/regs_by_creditor_id.sql");
             string text = File.ReadAllText(path);

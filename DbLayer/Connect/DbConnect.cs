@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using DbLayer.Prop;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +11,61 @@ namespace DbLayer.Connect
     class DbConnect
     {
         #region connectSupport
-        private static readonly DbConnect instance = new DbConnect();
-        private static readonly OracleConnection _con = new OracleConnection(Properties.ConnectionString);
+
+        //private static readonly DbConnect instance = new DbConnect();
+        public static OracleConnection _con;// = new OracleConnection(DbLayerProperties.ConnectionString);
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
         static DbConnect()
         {
+            CreateConnect();
+            DbLayerProperties.ConnnectionStringChanged += DbLayerProperties_ConnnectionStringChanged;
         }
 
-        private DbConnect()
+        private static void CreateConnect()
         {
+            _con = new OracleConnection(DbLayerProperties.ConnectionString);
+            OpenConnect(ref _con);
         }
 
-        public static DbConnect Instance
+        private static void DbLayerProperties_ConnnectionStringChanged(ConnectionType obj)
         {
-            get
+            if (_con.State == System.Data.ConnectionState.Open)
             {
-                return instance;
+                _con.Close();
             }
+            CreateConnect();
         }
 
-        public static OracleConnection GetDBConnection()
+        private static void OpenConnect(ref OracleConnection con)
         {
-            return _con;
+            con.Open();
+            OracleGlobalization info = _con.GetSessionInfo();
+            info.NumericCharacters = ",.";
+            info.DateFormat = "dd.mm.yyyy";
+            info.Language = "UKRAINIAN";
+            con.SetSessionInfo(info);
         }
+
+        //private DbConnect()
+        //{
+        //}
+
+        //public static DbConnect Instance
+        //{
+        //    get
+        //    {
+        //        return instance;
+        //    }
+        //}
+
+
+
+        //public static OracleConnection GetDBConnection()
+        //{
+        //    return _con;
+        //}
 
         static OracleCommand _cmd;
 

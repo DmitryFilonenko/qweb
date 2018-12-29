@@ -1,0 +1,40 @@
+﻿@if (Session["ConnectionType"].ToString() == "test")
+{
+    using (Ajax.BeginForm("Connect", "Home", new { dbState = "test" }, new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "db",
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }
+    ))
+    {
+        <fieldset>
+            <div class="text-center form-control" style="height:auto; width:auto">
+
+                <input type="submit" class="btn btn-success" style="width:700px" value="Тестовая база" />
+
+                <br />
+            </div>
+        </fieldset>
+    }
+}
+else
+{
+    using (Ajax.BeginForm("Connect", "Home", new { dbState = "work" }, new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
+        UpdateTargetId = "db",
+        LoadingElementId = "loader" // div with .gif loader - that is shown when data are loading
+    }
+     ))
+    {
+        <fieldset>
+            <div class="text-center form-control" style="height:auto; width:auto">
+
+                <input type="submit" class="btn btn-danger" style="width:700px" value="Рабочая база" />
+
+                <br />
+            </div>
+        </fieldset>
+    }
+}

@@ -1,10 +1,10 @@
-﻿using DbLayer;
-using DbLayer.Infrsrt;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DbLayer;
+using DbLayer.Prop;
 using WebUI.Models.Home;
 using WebUI.Models.QEntities;
 using WebUI.Models.QEntities.QPins;
@@ -17,6 +17,8 @@ namespace WebUI.Controllers
 
         public ActionResult Index()
         {
+            SetConnectionTypeToSession();
+
             QPinBase pinToSeach = new QPinBase();
             ViewBag.PinToSeach = pinToSeach;
 
@@ -25,7 +27,40 @@ namespace WebUI.Controllers
 
             HomeModel model = new HomeModel { CreditorList = QActualCreditor.GetCreditorList(), TaskList = taskList };
             return View(model);
-        }              
+        }
+
+        private void SetConnectionTypeToSession()
+        {
+            switch (DbLayerProperties.DbType)
+            {
+                case ConnectionType.Test:
+                    Session["ConnectionType"] = "test";
+                    break;
+                case ConnectionType.Work:
+                    Session["ConnectionType"] = "work";
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Connect(string dbState)
+        {
+            switch (dbState)
+            {
+                case "work":
+                    DbLayerProperties.SetConnectionType(ConnectionType.Test);
+                    break;
+                case "test":
+                    DbLayerProperties.SetConnectionType(ConnectionType.Work);
+                    break;
+                default:
+                    break;
+            }
+            SetConnectionTypeToSession();
+            return PartialView();
+        }
 
         public ActionResult Regs(string creditorId)
         {

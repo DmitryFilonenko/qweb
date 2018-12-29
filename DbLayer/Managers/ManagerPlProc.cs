@@ -12,20 +12,20 @@ namespace DbLayer.Managers
 {
     public static class ManagerPlProc
     {
-        static OracleConnection _con = DbConnect.GetDBConnection();
+       // static OracleConnection _con = DbConnect.GetDBConnection();
 
-        private static void OpenConnect()
-        {
-            if (_con.State == ConnectionState.Closed)
-            {
-                _con.Open();
-                OracleGlobalization info = _con.GetSessionInfo();
-                info.NumericCharacters = ",.";
-                info.DateFormat = "dd.mm.yyyy";
-                info.Language = "UKRAINIAN";
-                _con.SetSessionInfo(info);
-            }            
-        }
+        //private static void OpenConnect()
+        //{
+        //    if (_con.State == ConnectionState.Closed)
+        //    {
+        //        _con.Open();
+        //        OracleGlobalization info = _con.GetSessionInfo();
+        //        info.NumericCharacters = ",.";
+        //        info.DateFormat = "dd.mm.yyyy";
+        //        info.Language = "UKRAINIAN";
+        //        _con.SetSessionInfo(info);
+        //    }            
+        //}
 
         //public static void ExecProc(string procName)
         //{
@@ -55,9 +55,9 @@ namespace DbLayer.Managers
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
 
-                using (OracleCommand cmd = new OracleCommand(procName, _con))
+                using (OracleCommand cmd = new OracleCommand(procName, DbConnect._con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -74,7 +74,7 @@ namespace DbLayer.Managers
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
 
@@ -113,9 +113,9 @@ namespace DbLayer.Managers
             try
             {
 
-                OpenConnect();
+                //OpenConnect();
 
-                using (OracleCommand cmd = new OracleCommand(procName, _con))
+                using (OracleCommand cmd = new OracleCommand(procName, DbConnect._con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -138,7 +138,7 @@ namespace DbLayer.Managers
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
     }
 }

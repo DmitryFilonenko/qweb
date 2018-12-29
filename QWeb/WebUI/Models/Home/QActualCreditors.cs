@@ -21,7 +21,7 @@ namespace WebUI.Models.QEntities
         public int Count { get; set; }
 
         public static List<QActualCreditor> GetCreditorList()
-        {
+        {            
             List<QActualCreditor> actualCreditorsList = new List<QActualCreditor>();
             string path = HostingEnvironment.MapPath(@"~/App_Data/Sql_files/Entities/actual_creditors.sql");
             string query = File.ReadAllText(path);
@@ -32,7 +32,7 @@ namespace WebUI.Models.QEntities
                 string[] arr = item.Split('#');
                 QActualCreditor creditor = new QActualCreditor { OrgName = arr[0], OrgIdLong = arr[1], OrgIdShort = arr[2] };
                 creditor.Count = ManagerDbQuery.GetCountWhere("suvd.creditor_dogovors", "creditor_id", creditor.OrgIdLong.ToString());
-                 actualCreditorsList.Add(creditor);
+                actualCreditorsList.Add(creditor);
             }
             return actualCreditorsList;
         }

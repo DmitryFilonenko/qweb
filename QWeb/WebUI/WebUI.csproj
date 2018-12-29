@@ -233,6 +233,8 @@
     <Content Include="Views\Note\Note.cshtml" />
     <Content Include="Views\Note\NoteDates.cshtml" />
     <Content Include="Views\Priority\Priority.cshtml" />
+    <Content Include="Views\Home\ChangeDB.cshtml" />
+    <Content Include="Views\Home\Connect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

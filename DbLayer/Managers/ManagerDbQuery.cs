@@ -13,14 +13,14 @@ namespace DbLayer
 {
     public class ManagerDbQuery
     {        
-        static OracleConnection _con = DbConnect.GetDBConnection();
+        //static OracleConnection _con = DbConnect.GetDBConnection();
 
         #region Select
         public  static int GetCount(string tableName)
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 int count = -1;
                 string query = String.Format("select count(*) from {0}", tableName);
                 OracleDataReader reader = DbConnect.GetReader(query);
@@ -34,14 +34,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }            
+            //finally { _con.Close(); }            
         }
 
         public static int GetCountById(string tableName, string idValue, string idName = "id")
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 int count = -1;
                 string query = String.Format("select count(*) from {0} where {1} = {2}", tableName, idName, idValue);
                 OracleDataReader reader = DbConnect.GetReader(query);
@@ -55,14 +55,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         public static int GetCountWhere(string tableName, string field, string value)
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 int count = -1;
                 string query = String.Format("select count(*) from {0} where {1} = {2}", tableName, field, value);
                 OracleDataReader reader = DbConnect.GetReader(query);
@@ -76,14 +76,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         public static List<string> GetFieldsListById(string tableName, string[] fieldNameArr, string idValue, string idName = "id")
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
                 string fields = ArrToString(fieldNameArr);
@@ -107,14 +107,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         public static string GetSingleRecordById(string tableName, string[] fieldNameArr, string idValue, string idName = "id")
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
                 string fields = ArrToString(fieldNameArr);
@@ -140,14 +140,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         public static List<string> GetFieldsList(string tableName, string[] fieldNameArr)
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
 
                 int countOfFields = fieldNameArr.Length;
                 List<string> list = new List<string>();
@@ -173,18 +173,10 @@ namespace DbLayer
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
-        private static void OpenConnect()
-        {
-            _con.Open();
-            OracleGlobalization info = _con.GetSessionInfo();
-            info.NumericCharacters = ",.";
-            info.DateFormat = "dd.mm.yyyy";
-            info.Language = "UKRAINIAN";
-            _con.SetSessionInfo(info);
-        }
+        
 
         static string ArrToString(string[] strArr)
         {
@@ -202,7 +194,7 @@ namespace DbLayer
             List<string> list = new List<string>();
             try
             {
-                OpenConnect();
+                //OpenConnect();
                 OracleDataReader reader = DbConnect.GetReader(query);
                 while (reader.Read())
                 {
@@ -218,11 +210,15 @@ namespace DbLayer
                     list.Add(record.Substring(0, record.Length - 1));
                 }
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             catch (Exception)
             {
                 throw;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
 
             return list;
         }
@@ -234,7 +230,7 @@ namespace DbLayer
         {            
             try
             {
-                OpenConnect();
+                //OpenConnect();
 
                 string query = String.Format("delete from {0} where {1} = {2} ", tableName, idName, idValue);
                 DbConnect.ExecCommand(query);
@@ -245,7 +241,7 @@ namespace DbLayer
             {
                 return false;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         #endregion
@@ -257,7 +253,7 @@ namespace DbLayer
         {
             try
             {
-                OpenConnect();
+                //OpenConnect();
 
                 string query = String.Format("update {0} t set t.{1} = {2} where t.{3} = {4} ", tableName, fieldName, newValue, idName, idValue);
                 DbConnect.ExecCommand(query);
@@ -268,7 +264,7 @@ namespace DbLayer
             {
                 return false;
             }
-            finally { _con.Close(); }
+            //finally { _con.Close(); }
         }
 
         #endregion
@@ -299,7 +295,7 @@ namespace DbLayer
 
                 string fields = ArrToString(fieldNameArr);
 
-                OpenConnect();
+                //OpenConnect();
 
                 foreach (var item in data)
                 {
@@ -311,14 +307,14 @@ namespace DbLayer
             {
                 throw;
             }
-            finally
+            //finally
             {
                 //List<ProcParam> prm = new List<ProcParam> {
                 //    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
                 //};
                 //ManagerPlProc.ExecProc("q_users_pack.free_table", prm);
 
-                _con.Close();
+                //_con.Close();
             }
         }
     }

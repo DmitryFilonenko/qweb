@@ -33,8 +33,7 @@ namespace WebUI.Models.Priority
         public void FillTable()
         {
             string[] arr = new string[] { "deal_id" };
-            ManagerDbQuery.FillTable(this.TaskId, arr, this.Data);           
-
+            ManagerDbQuery.FillTable(this.TaskId, arr, this.Data);   
         }
 
         public void Act()
