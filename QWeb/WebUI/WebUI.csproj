@@ -168,6 +168,7 @@
     <Compile Include="Models\Home\Task\QSubTask.cs" />
     <Compile Include="Models\Home\Task\QTask.cs" />
     <Compile Include="Models\Priority\PriorityCommand.cs" />
+    <Compile Include="Models\Priority\TodayChanges.cs" />
     <Compile Include="Models\QEntities\QPins\QPinBase.cs" />
     <Compile Include="Models\QEntities\QPins\QPinContact.cs" />
     <Compile Include="Models\QEntities\QPins\QPinNote.cs" />

@@ -25,7 +25,7 @@ namespace WebUI.Infrastructure
                     new ProcParam { Name = "method", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = callerName }
                 };
 
-                ManagerPlProc.ExecProc("q_log.add_to_log", args);
+                ManagerPlProc.ExecProc("q_log_pack.add_to_log", args);
 
             }
             catch (Exception)

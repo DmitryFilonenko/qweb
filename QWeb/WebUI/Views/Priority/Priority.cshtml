@@ -1,12 +1,14 @@
-﻿
+﻿@model IEnumerable<WebUI.Models.Priority.PriorReport>
+
 @{
     if (Session["Message"] != null)
     {
-        <label class="alert-danger text-center">@Session["Message"]</label>        
+        <label class="alert-danger text-center">@Session["Message"]</label>
         Session["Message"] = null;
     }
 }
 
+<hr />
 
 @using (Ajax.BeginForm("Change", "Priority", new AjaxOptions
 {
@@ -21,6 +23,40 @@
         <input type="file" style="text-align:center" id="inputFile" name="uploadfile" />   <hr />
         <input type="submit" id="submitButton" value="Загрузить" />  <br /><br />
     </div>
+}
+
+@if (Model.Count() > 0)
+{
+    <br />
+    <hr />
+    <h4 class="text-center">Изменения за сегодня:</h4>
+
+    <table class="table text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.PriorValue)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.PriorCount)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriorValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriorCount)
+                </td>
+            </tr>
+        }
+        <tr></tr>
+    </table>
+
+    <hr />
+    <br />
 }
 
 <script type="text/javascript">

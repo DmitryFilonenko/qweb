@@ -12,11 +12,14 @@ namespace WebUI.Controllers
 {
     public class PriorityController : Controller
     {
-        // GET: Priority
+
         public ActionResult Priority(string taskId)
         {
             Session["TaskId"] = taskId;
-            return PartialView();
+            TodayChanges todayChanges = new TodayChanges();
+            var model = todayChanges.ChangesList;
+
+            return PartialView(model.OrderBy(t => t.PriorValue));
         }
 
         [HttpPost]

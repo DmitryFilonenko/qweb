@@ -121,10 +121,13 @@ namespace DbLayer.Managers
 
                     cmd.Parameters.Add("x", OracleDbType.Varchar2, returnSize).Direction = ParameterDirection.ReturnValue;
 
-                    foreach (var item in args)
+                    if (args != null)
                     {
-                        cmd.Parameters.Add(item);// new OracleParameter(item) item.ParameterName, item.OracleDbTypeType, item.Size).Value = item.Value;
-                    }
+                        foreach (var item in args)
+                        {
+                            cmd.Parameters.Add(item);// new OracleParameter(item) item.ParameterName, item.OracleDbTypeType, item.Size).Value = item.Value;
+                        }
+                    }                    
 
                     cmd.ExecuteNonQuery();
 
