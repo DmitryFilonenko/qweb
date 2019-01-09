@@ -156,6 +156,7 @@
     <Compile Include="Infrastructure\HelperMethods\PagingHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Infrastructure\QComands\IQCommand.cs" />
+    <Compile Include="Infrastructure\QComands\QUploadFileHandler.cs" />
     <Compile Include="Infrastructure\QDbWaiter\QTaskConroller.cs" />
     <Compile Include="Infrastructure\QLoger.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />

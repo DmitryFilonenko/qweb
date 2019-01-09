@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebUI.Infrastructure.QComands;
 
 namespace WebUI.Infrastructure
 {
     public interface IQCommand
     {
-        string PathToFile { get; set; }
-        bool CheckData(string[] strArr);
-        bool FillTable();
-        void Act();
-        event Action TaskFinishsed;
+        QUploadFileHandler FileHandler { get; set; }            // Хранит путь к загруженномсу файлу, проверяет коректность данных в файле, удаляем его после выполнения команды
+        //bool CheckData(string[] strArr);                      // Проверка корректности входных данных 
+        string BorrowTable(string userLogin);    // Проверяем свободна ли таблица
+        bool FillTable();                                       // заполняем темповую таблицу
+        void Act();                                             // Выполнение конкретной задачи
+        event Action TaskFinishsed;                             // Извещает о завершении работы команды
     }
 }

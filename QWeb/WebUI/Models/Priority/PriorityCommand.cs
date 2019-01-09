@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using WebUI.Infrastructure;
+using WebUI.Infrastructure.QComands;
 using WebUI.Infrastructure.QDbWaiter;
 
 namespace WebUI.Models.Priority
@@ -15,31 +16,15 @@ namespace WebUI.Models.Priority
     {
         public string TaskId { get; set; }
         public string PriorityValue { get; set; }
-        public string PathToFile { get; set; }
-        public string[] Data { get; set; }
-
+        public QUploadFileHandler FileHandler { get; set; }
         public event Action TaskFinishsed;
-
-        public bool CheckData(string[] strArr)
-        {
-            bool isCorrect = true;
-
-            foreach (var item in strArr)
-            {
-                if (!item.Any(char.IsDigit))
-                {
-                    isCorrect = false;
-                    break;
-                }
-            }
-            return isCorrect;
-        }       
-
         
-        public bool FillTable()
+        public string PreResult { get; }
+        
+
+        public string BorrowTable(string userLogin)
         {
-            string[] arr = new string[] { "deal_id" };
-            return ManagerDbQuery.FillTable(this.TaskId, arr, this.Data);   
+            return ManagerFileUpload.TakeTable(TaskId, userLogin);
         }
 
         public void Act()
@@ -49,6 +34,12 @@ namespace WebUI.Models.Priority
                 WaiterStart();
                 UpdatePriority();
             }
+        }
+
+        public bool FillTable()
+        {
+            string[] arr = new string[] { "deal_id" };
+            return ManagerDbQuery.FillTable(this.TaskId, arr, this.FileHandler.GetData());
         }
 
         private void WaiterStart()
@@ -62,8 +53,7 @@ namespace WebUI.Models.Priority
         {
             TaskFinishsed?.Invoke();
         }
-
-
+        
         private void UpdatePriority()
         {
             List<OracleParameter> args = new List<OracleParameter>() {

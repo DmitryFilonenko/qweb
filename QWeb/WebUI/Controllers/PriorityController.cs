@@ -7,6 +7,7 @@ using System.IO;
 using DbLayer.Managers;
 using WebUI.Infrastructure;
 using WebUI.Models.Priority;
+using WebUI.Infrastructure.QComands;
 
 namespace WebUI.Controllers
 {
@@ -22,31 +23,40 @@ namespace WebUI.Controllers
             return PartialView(model.OrderBy(t => t.PriorValue));
         }
 
-        [HttpPost]
-        public ActionResult Change(string priorityValue, HttpPostedFileBase uploadfile)
+
+
+        string SaveFile(HttpPostedFileBase uploadfile)
         {
-            string whoUses = ManagerFileUpload.TakeTable(Session["TaskId"].ToString(), User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));
-            if (whoUses != "ok")
+            var fileName = Path.GetFileName(uploadfile.FileName);
+            var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+            uploadfile.SaveAs(path);
+            return path;
+        }
+
+        [HttpPost]
+        public ActionResult PreChange(string priorityValue, HttpPostedFileBase uploadfile)
+        {
+            string path = SaveFile(uploadfile);
+            QUploadFileHandler fileHandler = new QUploadFileHandler(path);
+            
+            PriorityCommand qCommand = new PriorityCommand()
             {
+                FileHandler = fileHandler,
+                PriorityValue = priorityValue,
+                PathToFile = path,
+                TaskId = Session["TaskId"].ToString(),
+                Data = System.IO.File.ReadAllLines(path, System.Text.Encoding.Default)
+            };
+
+            string whoUses = qCommand.BorrowTable(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));
+            if (whoUses != "ok")
+            {                       // если таблица занята другим пользователем
                 Session["Message"] = String.Format("Таблица занята пользвотелем {0}.", whoUses);
                 return RedirectToAction("Priority", new { taskId = Session["TaskId"] });
             }
 
-            var fileName = Path.GetFileName(uploadfile.FileName);
-            var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
-            uploadfile.SaveAs(path);
-
-            PriorityCommand qCommand = new PriorityCommand() {
-                PriorityValue = priorityValue,
-                PathToFile = path,
-                TaskId = Session["TaskId"].ToString(),
-                Data = System.IO.File.ReadAllLines(path/*, System.Text.Encoding.Default*/)
-            }; 
-
-            bool isDataCorrect = qCommand.CheckData(qCommand.Data);
-
-            if(!isDataCorrect)
-            {
+            if(!qCommand.FileHandler.CheckIsDigits())
+            {                       // если в файле поданы не только числовые значения (ожидается список пинов)
                 Session["Message"] = "В файле поданы некорректные данные.";
                 return RedirectToAction("Priority", new { taskId = Session["TaskId"] });
             }
