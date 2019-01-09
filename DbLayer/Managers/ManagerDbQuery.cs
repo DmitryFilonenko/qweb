@@ -279,8 +279,8 @@ namespace DbLayer
         //    return res;
         //}
 
-        public static void FillTable(string taskId, string[] fieldNameArr, string[] data)
-        {
+        public static bool FillTable(string taskId, string[] fieldNameArr, string[] data)
+        {           
             try
             {
                 List<ProcParam> prm = new List<ProcParam> {
@@ -302,20 +302,22 @@ namespace DbLayer
                     string query = String.Format("insert into {0} ({1}) values ({2})", tableName, fields, item);
                     DbConnect.ExecCommand(query);
                 }
+                return true;
             }
             catch (Exception)
             {
+                return false;
                 throw;
             }
             //finally
-            {
+            //{
                 //List<ProcParam> prm = new List<ProcParam> {
                 //    new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
                 //};
                 //ManagerPlProc.ExecProc("q_users_pack.free_table", prm);
 
                 //_con.Close();
-            }
+            //}
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@if (Session["role"].ToString() == "admin")
 {
-    @if (Session["ConnectionType"].ToString() == "test")
+    if (Session["ConnectionType"].ToString() == "test")
     {
         using (Ajax.BeginForm("Connect", "Home", new { dbState = "test" }, new AjaxOptions
         {

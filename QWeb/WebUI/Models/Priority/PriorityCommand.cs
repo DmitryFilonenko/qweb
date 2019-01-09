@@ -1,9 +1,13 @@
 ﻿using DbLayer;
+using DbLayer.Managers;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using WebUI.Infrastructure;
+using WebUI.Infrastructure.QDbWaiter;
 
 namespace WebUI.Models.Priority
 {
@@ -13,7 +17,9 @@ namespace WebUI.Models.Priority
         public string PriorityValue { get; set; }
         public string PathToFile { get; set; }
         public string[] Data { get; set; }
-        
+
+        public event Action TaskFinishsed;
+
         public bool CheckData(string[] strArr)
         {
             bool isCorrect = true;
@@ -30,21 +36,40 @@ namespace WebUI.Models.Priority
         }       
 
         
-        public void FillTable()
+        public bool FillTable()
         {
             string[] arr = new string[] { "deal_id" };
-            ManagerDbQuery.FillTable(this.TaskId, arr, this.Data);   
+            return ManagerDbQuery.FillTable(this.TaskId, arr, this.Data);   
         }
 
         public void Act()
         {
-            FillTable();
-            //UpdatePriority();
+            if (FillTable())
+            {
+                WaiterStart();
+                UpdatePriority();
+            }
         }
+
+        private void WaiterStart()
+        {
+            QTaskConroller qTaskConroller = new QTaskConroller(TaskId);
+            qTaskConroller.TaskFinished += QTaskConroller_TaskFinished;
+            qTaskConroller.Wait();
+        }
+
+        private void QTaskConroller_TaskFinished()
+        {
+            TaskFinishsed?.Invoke();
+        }
+
 
         private void UpdatePriority()
         {
-            throw new NotImplementedException();
+            List<OracleParameter> args = new List<OracleParameter>() {
+                new OracleParameter("task_id", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
+            };
+            string user = ManagerPlProc.ExecFunc("q_prior_pack.set_prior", OracleDbType.Varchar2, args);
         }
     }
 }

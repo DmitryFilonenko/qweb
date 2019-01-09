@@ -9,7 +9,8 @@ namespace WebUI.Infrastructure
     {
         string PathToFile { get; set; }
         bool CheckData(string[] strArr);
-        void FillTable();
+        bool FillTable();
         void Act();
+        event Action TaskFinishsed;
     }
 }
