@@ -24,10 +24,9 @@ namespace WebUI.Controllers
         }
 
 
-
         string SaveFile(HttpPostedFileBase uploadfile)
         {
-            var fileName = Path.GetFileName(uploadfile.FileName);
+            var fileName = Guid.NewGuid().ToString(); //Path.GetFileName(uploadfile.FileName);
             var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
             uploadfile.SaveAs(path);
             return path;
@@ -42,11 +41,11 @@ namespace WebUI.Controllers
             PriorityCommand qCommand = new PriorityCommand()
             {
                 FileHandler = fileHandler,
-                PriorityValue = priorityValue,
-                PathToFile = path,
-                TaskId = Session["TaskId"].ToString(),
-                Data = System.IO.File.ReadAllLines(path, System.Text.Encoding.Default)
+                PriorityValue = priorityValue,                
+                TaskId = Session["TaskId"].ToString()
             };
+
+            // qCommand.TaskFinishsed += () => qCommand.FileHandler.DeleteFile();
 
             string whoUses = qCommand.BorrowTable(User.Identity.Name.Substring(User.Identity.Name.LastIndexOf('\\') + 1));
             if (whoUses != "ok")
@@ -61,9 +60,17 @@ namespace WebUI.Controllers
                 return RedirectToAction("Priority", new { taskId = Session["TaskId"] });
             }
 
-            qCommand.Act();
+            var model = new PreReport() {
+                PriorValue = priorityValue,
+                FileCount = qCommand.FileHandler.GetCount(),
+                WillUpdCount = qCommand.GetPreRes()
+            };
 
-            return PartialView();
+            Session["PriorityCommand"] = qCommand;
+
+            return PartialView(model);
         }
+
+        
     }
 }

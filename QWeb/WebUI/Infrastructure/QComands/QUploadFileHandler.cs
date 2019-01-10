@@ -10,6 +10,7 @@ namespace WebUI.Infrastructure.QComands
     {
         string _pathToFile;
 
+
         public QUploadFileHandler(string path)
         {
             _pathToFile = path;
@@ -18,7 +19,7 @@ namespace WebUI.Infrastructure.QComands
         public bool CheckIsDigits()
         {
             bool isCorrect = true;
-            string[] strArr = System.IO.File.ReadAllLines(_pathToFile/*, System.Text.Encoding.Default*/);
+            string[] strArr = System.IO.File.ReadAllLines(_pathToFile, System.Text.Encoding.Default);
 
             foreach (var item in strArr)
             {                
@@ -29,6 +30,17 @@ namespace WebUI.Infrastructure.QComands
                 }
             }
             return isCorrect;
+        }
+
+        public string[] GetData()
+        {
+            return File.ReadAllLines(_pathToFile, System.Text.Encoding.Default);
+        }
+
+        public string GetCount()
+        {
+            string[] strArr = System.IO.File.ReadAllLines(_pathToFile, System.Text.Encoding.Default);
+            return strArr.Length.ToString();
         }
 
         public void DeleteFile()

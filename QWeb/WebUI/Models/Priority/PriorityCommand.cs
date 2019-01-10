@@ -27,6 +27,14 @@ namespace WebUI.Models.Priority
             return ManagerFileUpload.TakeTable(TaskId, userLogin);
         }
 
+        public string GetPreRes()
+        {
+            List<OracleParameter> args = new List<OracleParameter>() {
+                new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
+            };
+            return ManagerPlProc.ExecFunc("q_prior_pack.check_prior", OracleDbType.Varchar2, args);
+        }
+
         public void Act()
         {
             if (FillTable())
@@ -50,14 +58,14 @@ namespace WebUI.Models.Priority
         }
 
         private void QTaskConroller_TaskFinished()
-        {
+        {            
             TaskFinishsed?.Invoke();
         }
         
         private void UpdatePriority()
         {
             List<OracleParameter> args = new List<OracleParameter>() {
-                new OracleParameter("task_id", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
+                new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
             };
             string user = ManagerPlProc.ExecFunc("q_prior_pack.set_prior", OracleDbType.Varchar2, args);
         }
