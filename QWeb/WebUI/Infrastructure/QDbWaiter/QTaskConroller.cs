@@ -34,7 +34,7 @@ namespace WebUI.Infrastructure.QDbWaiter
             List<OracleParameter> args = new List<OracleParameter>() {
                 new OracleParameter("task_id", OracleDbType.Varchar2, _taskId, ParameterDirection.Input)
             };
-            string user = ManagerPlProc.ExecFunc("Q_TASKS_PACK.who_uses", OracleDbType.Varchar2, args);
+            string user = ManagerPlSql.ExecFunc("Q_TASKS_PACK.who_uses", args);
 
             if (user == "null")
             {

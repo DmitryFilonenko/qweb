@@ -286,12 +286,12 @@ namespace DbLayer
                 List<ProcParam> prm = new List<ProcParam> {
                     new ProcParam(){ Name = "task_id", Type = OracleDbType.Varchar2, Value = taskId,  Direction = ParameterDirection.Input }
                 };
-                ManagerPlProc.ExecProc("Q_TASKS_PACK.clean_table", prm);
+                ManagerPlSql.ExecProc("Q_TASKS_PACK.clean_table", prm);
 
                 List<OracleParameter> args = new List<OracleParameter> {
                     new OracleParameter("task_id", OracleDbType.Varchar2, taskId, ParameterDirection.Input)
                 };
-                string tableName = ManagerPlProc.ExecFunc("Q_TASKS_PACK.get_table_name", OracleDbType.Varchar2, args);
+                string tableName = ManagerPlSql.ExecFunc("Q_TASKS_PACK.get_table_name", args);
 
                 string fields = ArrToString(fieldNameArr);
 

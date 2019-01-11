@@ -50,7 +50,6 @@
     <Compile Include="Infrsrt\ISelectable.cs" />
     <Compile Include="Infrsrt\ProcParam.cs" />
     <Compile Include="Managers\ManagerDbQuery.cs" />
-    <Compile Include="Managers\ManagerFileUpload.cs" />
     <Compile Include="Managers\ManagerPlProc.cs" />
     <Compile Include="Prop\DbLayerProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

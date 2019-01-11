@@ -27,7 +27,7 @@ namespace WebUI.Models.Priority
         {
             _changesList = new List<PriorReport>();
 
-            string xmlStr = ManagerPlProc.ExecFunc("q_prior_pack.get_today_count", OracleDbType.Varchar2);
+            string xmlStr = ManagerPlSql.ExecFunc("q_prior_pack.get_today_count");
             if (xmlStr.Length > 0)
             {
                 XmlDocument xDoc = new XmlDocument();

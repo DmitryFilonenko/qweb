@@ -44,7 +44,7 @@ namespace WebUI.Models.QEntities
                     new OracleParameter("user_login", OracleDbType.Varchar2, userName, ParameterDirection.Input )
             };
 
-            return ManagerPlProc.ExecFunc("q_users_pack.get_role_id", OracleDbType.Varchar2, args);
+            return ManagerPlSql.ExecFunc("q_users_pack.get_role_id", args);
         }
 
 

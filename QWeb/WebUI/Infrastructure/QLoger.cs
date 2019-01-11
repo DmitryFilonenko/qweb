@@ -11,9 +11,11 @@ using System.Web.Hosting;
 
 namespace WebUI.Infrastructure
 {
+    public enum MessageType { Report, Exception }
+
     public static class QLoger
     {
-        public static void AddRecordToLog(string userName, string taskName, string message, string isEx, [CallerMemberName] string callerName = null)
+        public static void AddRecordToLog(string userName, string taskName, string message, MessageType messageType, [CallerMemberName] string callerName = null)
         {
             try
             {                
@@ -21,11 +23,11 @@ namespace WebUI.Infrastructure
                     new ProcParam { Name = "user_login", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = userName },
                     new ProcParam { Name = "task", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = taskName },
                     new ProcParam { Name = "message_text", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = message },
-                    new ProcParam { Name = "is_exception", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = isEx },
+                    new ProcParam { Name = "is_exception", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = (messageType == MessageType.Exception? "1":"0") },
                     new ProcParam { Name = "method", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = callerName }
                 };
 
-                ManagerPlProc.ExecProc("q_log_pack.add_to_log", args);
+                ManagerPlSql.ExecProc("q_log_pack.add_to_log", args);
 
             }
             catch (Exception)

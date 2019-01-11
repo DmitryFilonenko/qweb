@@ -67,14 +67,14 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное сохранение";
-                    QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId, "0");
+                    QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId, MessageType.Report);
                 }
                 else
                     Session["Message"] = "Ошибка при сохранении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
+                QLoger.AddRecordToLog(User.Identity.Name, "Изменение заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, MessageType.Exception);
             }
             return RedirectToAction("Notes", new { projectId, startDate, stopDate });
         }
@@ -88,14 +88,14 @@ namespace WebUI.Controllers
                 if (res)
                 {
                     Session["Message"] = "Успешное удаление";
-                    QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId, "0");
+                    QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId, MessageType.Report);
                 }
                 else
                     Session["Message"] = "Ошибка при удалении";
             }
             catch (Exception ex)
             {
-                QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, "1");
+                QLoger.AddRecordToLog(User.Identity.Name, "Удаление заметок", "projectId - " + projectId + ", ID заметки - " + noteId + Environment.NewLine + ex.Message, MessageType.Exception);
             }
 
             return RedirectToAction("Notes", new { projectId, startDate, stopDate });

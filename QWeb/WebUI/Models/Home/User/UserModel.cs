@@ -22,7 +22,7 @@ namespace WebUI.Models.Home.User
             List<OracleParameter> args = new List<OracleParameter> {
                         new OracleParameter("user_login", OracleDbType.Varchar2, GetUserLogin(), ParameterDirection.Input )
              };
-            return ManagerPlProc.ExecFunc("q_users_pack.get_role_name", OracleDbType.Varchar2, args);
+            return ManagerPlSql.ExecFunc("q_users_pack.get_role_name", args);
         }       
     }
 }

@@ -94,7 +94,7 @@ namespace WebUI.Models.QEntities
                     new ProcParam { Name = "txt", Type = OracleDbType.Varchar2, Direction = ParameterDirection.Input, Value = comment }
                 };
 
-                ManagerPlProc.ExecProc("q_note_pack.update_note", args);
+                ManagerPlSql.ExecProc("q_note_pack.update_note", args);
                 res = true;
             }
             catch (Exception)
@@ -114,7 +114,7 @@ namespace WebUI.Models.QEntities
                     new ProcParam { Name = "note_id", Type = OracleDbType.Decimal, Direction = ParameterDirection.Input, Value = noteId }                    
                 };
 
-                ManagerPlProc.ExecProc("q_note_pack.delete_note", args);
+                ManagerPlSql.ExecProc("q_note_pack.delete_note", args);
                 res = true;
             }
             catch (Exception)

@@ -1,0 +1,49 @@
+﻿@model WebUI.Models.Priority.PreReport
+
+<div class="text-center">
+    <hr />
+
+    <p>
+        @Html.DisplayNameFor(model => model.PriorValue)
+        <span>
+            @Html.DisplayFor(model => model.PriorValue)
+        </span>
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.FileCount)
+        <span>
+            @Html.DisplayFor(model => model.FileCount)
+        </span>
+    </p>
+    <p>
+        @Html.DisplayNameFor(model => model.WillUpdCount)
+        <span>
+            @Html.DisplayFor(model => model.WillUpdCount)
+        </span>
+    </p>
+
+    <hr />
+
+    @using (Ajax.BeginForm("Change", "Priority", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "concret_task",
+        LoadingElementId = "loader"
+    }))
+    {
+        <div>
+            <input type="submit" id="submitButton" value="Изменить приоритет" class="btn-lg btn-primary" />  <br /><br />
+        </div>
+    }
+
+    <hr />
+
+</div>
+
+
+
+
+
+
+

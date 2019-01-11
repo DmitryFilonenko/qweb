@@ -12,19 +12,24 @@ using WebUI.Infrastructure.QDbWaiter;
 
 namespace WebUI.Models.Priority
 {
-    public class PriorityCommand : IQCommand
+    public class PriorityCommand 
     {
-        public string TaskId { get; set; }
-        public string PriorityValue { get; set; }
-        public QUploadFileHandler FileHandler { get; set; }
+        string _priorityValue;
+        public string PriorityValue { get { return _priorityValue; } }
+        QUploadFileHandler _fileHandler; 
+        public QUploadFileHandler FileHandler { get { return _fileHandler; } }
+        QTaskHandler _taskHandler;
+        public QTaskHandler TaskHandler { get { return _taskHandler; } }
         public event Action TaskFinishsed;
         
-        public string PreResult { get; }
-        
+        //public string PreResult { get; }
 
-        public string BorrowTable(string userLogin)
+
+        public PriorityCommand(string priority, string taskId, string pathToFile)
         {
-            return ManagerFileUpload.TakeTable(TaskId, userLogin);
+            _priorityValue = priority;
+            _fileHandler = new QUploadFileHandler(pathToFile);
+            _taskHandler = new QTaskHandler(taskId);
         }
 
         public string GetPreRes()
@@ -32,27 +37,33 @@ namespace WebUI.Models.Priority
             List<OracleParameter> args = new List<OracleParameter>() {
                 new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
             };
-            return ManagerPlProc.ExecFunc("q_prior_pack.check_prior", OracleDbType.Varchar2, args);
+            string s = ManagerPlSql.ExecFunc("q_prior_pack.check_prior", args);
+            return s;
         }
 
-        public void Act()
-        {
-            if (FillTable())
-            {
-                WaiterStart();
-                UpdatePriority();
-            }
-        }
+
+
+
+        //public void Act()
+        //{
+
+        //    if (FillTable())
+        //    {
+
+        //       // WaiterStart();
+        //       // UpdatePriority();
+        //    }
+        //}
 
         public bool FillTable()
         {
             string[] arr = new string[] { "deal_id" };
-            return ManagerDbQuery.FillTable(this.TaskId, arr, this.FileHandler.GetData());
+            return ManagerDbQuery.FillTable(_taskHandler.TaskId, arr, _fileHandler.GetData());
         }
 
         private void WaiterStart()
         {
-            QTaskConroller qTaskConroller = new QTaskConroller(TaskId);
+            QTaskConroller qTaskConroller = new QTaskConroller(_taskHandler.TaskId);
             qTaskConroller.TaskFinished += QTaskConroller_TaskFinished;
             qTaskConroller.Wait();
         }
@@ -67,7 +78,8 @@ namespace WebUI.Models.Priority
             List<OracleParameter> args = new List<OracleParameter>() {
                 new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
             };
-            string user = ManagerPlProc.ExecFunc("q_prior_pack.set_prior", OracleDbType.Varchar2, args);
-        }
+            string user = ManagerPlSql.ExecFunc("q_prior_pack.set_prior", args);
+        }   
+        
     }
 }
