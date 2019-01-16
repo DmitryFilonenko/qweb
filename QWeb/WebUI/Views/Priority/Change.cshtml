@@ -1,0 +1,33 @@
+﻿@model WebUI.Models.Priority.Report
+
+<div class="text-center">
+    <hr />
+
+    <p>
+        @Html.DisplayNameFor(model => model.PriorValue)
+        <span>
+            @Html.DisplayFor(model => model.PriorValue)
+        </span>
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.FileCount)
+        <span>
+            @Html.DisplayFor(model => model.FileCount)
+        </span>
+    </p>
+    <p>
+        @Html.DisplayNameFor(model => model.UpdatedCount)
+        <span>
+            @Html.DisplayFor(model => model.UpdatedCount)
+        </span>
+    </p>
+
+    <hr />
+
+    @Html.ActionLink("На главную", "Index", null, new { @class = "btn btn-primary" })
+
+    <hr />
+
+</div>
+

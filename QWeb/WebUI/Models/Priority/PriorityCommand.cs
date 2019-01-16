@@ -42,24 +42,45 @@ namespace WebUI.Models.Priority
         }
 
 
+        public void Act()
+        {
+            WaiterStart();
+            InsertToReportTable();
+            UpdatePriority();
+            
+            //FreeTable();
+        }
 
+        private void InsertToReportTable()
+        {
+            List<OracleParameter> args = new List<OracleParameter>() {
+                new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
+            };
+            ManagerPlSql.ExecProc1("q_prior_pack.prior_to_report", args);
+        }
 
-        //public void Act()
+        //private void FreeTable()
         //{
-
-        //    if (FillTable())
-        //    {
-
-        //       // WaiterStart();
-        //       // UpdatePriority();
-        //    }
+        //    List<OracleParameter> args = new List<OracleParameter>() {
+        //        new OracleParameter("task_id", OracleDbType.Varchar2, TaskHandler.TaskId, ParameterDirection.Input)
+        //    };
+        //    ManagerPlSql.ExecProc1("Q_TASKS_PACK.free_table", args);
         //}
+
+        public string ChekResult()
+        {
+            List<OracleParameter> args = new List<OracleParameter>() {
+                new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
+            };
+            return ManagerPlSql.ExecFunc("q_prior_pack.get_updated_prior_count", args);            
+        }
 
         public bool FillTable()
         {
             string[] arr = new string[] { "deal_id" };
             return ManagerDbQuery.FillTable(_taskHandler.TaskId, arr, _fileHandler.GetData());
         }
+
 
         private void WaiterStart()
         {
@@ -78,7 +99,7 @@ namespace WebUI.Models.Priority
             List<OracleParameter> args = new List<OracleParameter>() {
                 new OracleParameter("priority_value", OracleDbType.Varchar2, PriorityValue, ParameterDirection.Input)
             };
-            string user = ManagerPlSql.ExecFunc("q_prior_pack.set_prior", args);
+            ManagerPlSql.ExecProc1("q_prior_pack.set_prior", args);
         }   
         
     }

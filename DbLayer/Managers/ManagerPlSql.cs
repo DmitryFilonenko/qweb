@@ -35,7 +35,7 @@ namespace DbLayer.Managers
         }
 
 
-        public static void ExecProc(string procName, List<OracleParameter> args = null)
+        public static void ExecProc1(string procName, List<OracleParameter> args = null)
         {
             try
             {

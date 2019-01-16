@@ -14,8 +14,8 @@ namespace DbLayer.Prop
 
         static DbLayerProperties()
         {
-            // SetWorkDb();  // Set DB by default
-             SetTestDb();
+             SetWorkDb();  // Set DB by default
+            // SetTestDb();
         } 
         
         public static string ConnectionString { get; set; }

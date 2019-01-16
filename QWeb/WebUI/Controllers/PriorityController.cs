@@ -35,7 +35,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult PreChange(string priorityValue, HttpPostedFileBase uploadfile)
         {
-            PreReport model = new PreReport() { PriorValue = priorityValue };
+            Report model = new Report() { PriorValue = priorityValue };
             string path = SaveFile(uploadfile);
             QUploadFileHandler fileHandler = new QUploadFileHandler(path);
             PriorityCommand qCommand = new PriorityCommand(priorityValue, Session["TaskId"].ToString(), path);
@@ -70,7 +70,7 @@ namespace WebUI.Controllers
             }
             finally
             {
-                qCommand.FileHandler.DeleteFile();
+                qCommand.TaskHandler.ReleaseTable();
             }
             return PartialView(model);
         }
@@ -78,24 +78,45 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Change()
         {            
+            PriorityCommand command = Session["Command"] as PriorityCommand;
+            Session["Command"] = null;
+
+            string whoUses = command.TaskHandler.BorrowTable(UserModel.GetUserLogin());
+            if (whoUses != "ok")
+            {                       // если таблица занята другим пользователем
+                Session["Message"] = String.Format("Таблица занята пользвотелем {0}.", whoUses);
+                return RedirectToAction("Priority", new { taskId = Session["TaskId"] });
+            }
+
+            Report model = new Report() { PriorValue = command.PriorityValue, FileCount = command.FileHandler.GetCount() };
             try
-            {
-                PriorityCommand command = Session["PriorityCommand"] as PriorityCommand;
-                Session["Command"] = null;
+            {               
 
-                command.TaskFinishsed += () =>
+                //command.TaskFinishsed += () =>
+                //{
+                //    if (model.UpdatedCount != "0")
+                //        QLoger.AddRecordToLog(UserModel.GetUserLogin(), "Change()", "Для " + model.UpdatedCount + " дел был изменен приоритет на " + command.PriorityValue + " ", MessageType.Report);
+
+                //};
+
+                command.Act();
+                model.UpdatedCount = command.ChekResult();
+
+                if (model.UpdatedCount != "0")
                 {
-                    command.FileHandler.DeleteFile();
-                    command.TaskHandler.ReleaseTable();
-                };
-
-
+                    QLoger.AddRecordToLog(UserModel.GetUserLogin(), "Change()", "Для " + model.UpdatedCount + " дел был изменен приоритет на " + command.PriorityValue + " ", MessageType.Report);
+                }
             }
             catch (Exception ex)
             {
                 QLoger.AddRecordToLog(UserModel.GetUserLogin(), "Change()", ex.Message, MessageType.Exception);
             }
-            return PartialView();
+            finally
+            {
+                command.FileHandler.DeleteFile();
+                command.TaskHandler.ReleaseTable();
+            }
+            return PartialView(model);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace WebUI.Infrastructure.QComands
                     new OracleParameter("task_id", OracleDbType.Varchar2, TaskId, ParameterDirection.Input ),
                     new OracleParameter("user_name", OracleDbType.Varchar2, userLogin, ParameterDirection.Input )
             };
-
             return ManagerPlSql.ExecFunc("Q_TASKS_PACK.use_table", args);
         }
 
@@ -32,8 +31,7 @@ namespace WebUI.Infrastructure.QComands
             List<OracleParameter> args = new List<OracleParameter>() {
                 new OracleParameter("task_id", OracleDbType.Varchar2, TaskId, ParameterDirection.Input)
             };
-
-            ManagerPlSql.ExecFunc("Q_TASKS_PACK.free_table", args);
+            ManagerPlSql.ExecProc1("Q_TASKS_PACK.free_table", args);
         }
     }
 }
