@@ -1,6 +1,6 @@
 ﻿
 
-@using (Ajax.BeginForm("Press", "Chess", new AjaxOptions
+@using (Ajax.BeginForm("CheckResult", "Chess", new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
     UpdateTargetId = "concret_task",
@@ -11,7 +11,11 @@
         <div id=chess>
             <div id=desk class="col-lg-8">
                 <div class="text-center form-control" style="height:auto; width:auto">
-                    <br />
+                    @*<br />*@
+
+                    <h4 id = message>Hello!</h4>
+                    
+                    @*<br />*@
 
                     @for (int i = 0; i < 8; i++)
                     {
@@ -22,8 +26,10 @@
                         <br />
                     }
                     <br />
+                    <p id="start" class="btn btn-primary">Начать</p>
                 </div>
             </div>
+
             <div id=res class="col-lg-4">
 
                 <div class="text-center form-control" style="height:auto; width:auto">
@@ -63,12 +69,9 @@
                     <br />
                 </div>
 
-
-                <br />
-                <br />
+                <br /><br />
 
                 <div class="text-center form-control" style="height:auto; width:auto">
-
 
                     <h4>Последние попытки:</h4>
                     <table border="1" class="text-center" style="width:100%">
@@ -100,13 +103,8 @@
                         </tr>
                     </table>
                     <br />
-
                 </div>
-
             </div>
-
-
-
         </div>
 
         @*<input type="submit" style="width:50px; height:50px; border:inherit; border-color:black bisque; Background:blue" class="btn" />*@
@@ -115,4 +113,39 @@
 
     <br />
 }
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var Timer = function () {            
+
+            this.go = function (start) {
+                this.start = start;
+            };
+
+            this.getInterval = function (stop) {
+                return stop - this.start;
+            };
+        };
+
+        var start;
+
+        $("#start").click(function () {
+            
+            $("#message").text('E-2');
+            start = $.now();
+            //alert(start);            
+
+        });
+
+        $('.answer').click(function () {
+            //alert($.now() - start);            
+            $("#message").text('Фиг там! за ' + ($.now() - start)/1000 + 'сек.');
+        });
+
+    });
+
+    </script>
 

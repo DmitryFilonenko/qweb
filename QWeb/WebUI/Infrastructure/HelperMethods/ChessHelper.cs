@@ -15,25 +15,11 @@ namespace WebUI.Infrastructure.HelperMethods
     {  
 
         public static MvcHtmlString ChessDeskBuilder(this HtmlHelper html, int row, int col, ChessSide side)
-        {
-            string result = "";         
-            
-
-                
+        {       
             TagBuilder t = new TagBuilder("input");
             t.MergeAttribute("type", "submit");
-            t.MergeAttribute("class", "btn");
-            string style = "width: 50px; height: 50px; border: inherit; border-color:black; ";
-
-            //if (row < 2)
-            //{
-            //    style += side == ChessSide.white? "background-color: black;" : "background-color: white;";
-            //}
-            //if (row > 1 && row < 6)
-            //{
-            //    style += "background-color: bisque;";
-            //}
-
+            t.MergeAttribute("class", "btn answer");
+            string style = "width: 45px; height: 45px; border: inherit; border-color:black; ";
 
             if (row % 2 == 1)
             {
@@ -45,7 +31,6 @@ namespace WebUI.Infrastructure.HelperMethods
                 {
                     style += "background-color: burlywood;";
                 }
-
             }
             else
             {
@@ -59,33 +44,14 @@ namespace WebUI.Infrastructure.HelperMethods
                 }
             }
 
-
-
-            //if (row % 2 == 1)
-            //{
-
-
-            //    //style += side == ChessSide.white ? "background-color: red;" : "background-color: green;";
-            //    style += "background-color: red;";
-            //}
-            //else
-            //{
-
-            //}
-
             if (row > 5)
             {
                 style += side == ChessSide.white ? "background-color: white;" : "background-color: black;";
             }
             t.MergeAttribute("style", style);
             t.MergeAttribute("value", "");
-            result = t.ToString(TagRenderMode.Normal);
-          
-
+            string result = t.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(result);
-
-
-
         }
     }
 }

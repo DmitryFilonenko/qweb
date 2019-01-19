@@ -13,5 +13,12 @@ namespace WebUI.Controllers
         {
             return PartialView();
         }
+
+        [HttpPost]
+        public ActionResult CheckResult()
+        {
+            return PartialView();
+        }
+
     }
 }
