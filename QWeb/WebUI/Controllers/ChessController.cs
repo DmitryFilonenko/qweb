@@ -11,14 +11,24 @@ namespace WebUI.Controllers
         // GET: Chess
         public ActionResult Chess()
         {
+            ViewBag.Random = GetRandomNumber(0, 2);
             return PartialView();
+        }
+
+        private static readonly Random getrandom = new Random();
+
+        public static int GetRandomNumber(int min, int max)
+        {
+            lock (getrandom) 
+            {
+                return getrandom.Next(min, max);
+            }
         }
 
         [HttpPost]
-        public ActionResult CheckResult()
+        public ActionResult Result(string field, string deskSide, string time)
         {
             return PartialView();
         }
-
     }
 }
