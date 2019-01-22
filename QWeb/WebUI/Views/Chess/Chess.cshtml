@@ -1,6 +1,6 @@
 ﻿
 
-@using (Ajax.BeginForm("Result", "Chess", new AjaxOptions
+@using (Ajax.BeginForm("Result", new { deskSide = ViewBag.Random }, new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace, //target element(#patientList) will be replaced
     UpdateTargetId = "results",
@@ -12,19 +12,21 @@
             <div id=desk class="col-lg-8">
                 <div class="text-center form-control" style="height:auto; width:auto">
 
-                    <h4 id = message>Hello!</h4> 
+                    <h4 id=message>Hello!</h4>
 
 
                     @for (int i = 0; i < 8; i++)
-                    {
-                        for (int j = 0; j < 8; j++)
-                        {
-                            @Html.ChessDeskBuilder(i, j, ViewBag.Random == 0? ChessSide.black : ChessSide.white)
-                        }
-                        <br />
-                    }
+    {
+        for (int j = 0; j < 8; j++)
+        {
+                @Html.ChessDeskBuilder(i, j, ViewBag.Random == 0 ? ChessSide.black : ChessSide.white)
+}
+                <br />
+}
                     <br />
                     <p id="start" class="btn btn-primary">Начать</p>
+                    <input hidden="hidden" name="field" id="ansField">
+                    <input hidden="hidden" name="time" id="ansTime">
                 </div>
             </div>
 
@@ -140,18 +142,21 @@
         $('.answer').click(function (e) {
 
             var resTime = ($.now() - start) / 1000;
+            //@Session["ResultTime"] = resTime;
 
             if ($("#start").text() == e.target.id) {
 
                 $("#message").text('Да! За ' + resTime+ 'сек.');
                 $("#start").text('Начать');
+                $("#ansField").val(e.target.id);
+                $("#ansTime").val(resTime);
             }
             else {
 
                 $("#message").text('Неа! За ' + resTime + 'сек.');
             }  
 
-            $.ajax({
+            @*$.ajax({
                 url: 'Result',
                 type: 'POST',
                 data: {
@@ -159,8 +164,7 @@
                     deskSide: @ViewBag.Random,
                     time: resTime
                 }
-            });
-
+            });*@
         });
     });
 

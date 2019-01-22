@@ -31,6 +31,7 @@ namespace WebUI.Infrastructure.HelperMethods
                 name = charArr[7 - col] + ((row) + 1).ToString();
             }            
             t.MergeAttribute("id", name);
+            t.MergeAttribute("name", "submitButton");
             string style = "width: 45px; height: 45px; border: inherit; border-color:black; ";
             
 

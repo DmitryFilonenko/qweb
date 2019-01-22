@@ -28,6 +28,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult Result(string field, string deskSide, string time)
         {
+            //string buttonValue = Request["submitButton"];
             return PartialView();
         }
     }
