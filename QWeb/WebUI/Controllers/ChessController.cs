@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebUI.Infrastructure.HelperMethods;
+using WebUI.Models.Chess;
+using WebUI.Models.Home.User;
 
 namespace WebUI.Controllers
 {
@@ -27,9 +30,19 @@ namespace WebUI.Controllers
 
         [HttpPost]
         public ActionResult Result(string field, string deskSide, string time)
-        {
-            //string buttonValue = Request["submitButton"];
-            return PartialView();
+        {            
+            ChessResult chessResult = new ChessResult
+            {
+                DeskSide = deskSide,
+                Field = field,
+                Player = UserModel.GetUserLogin(),
+                Result = time                
+            };
+
+            ChessResultModel.AddRecord(chessResult);
+            ChessResultModel model = new ChessResultModel();
+
+            return PartialView(model);
         }
     }
 }

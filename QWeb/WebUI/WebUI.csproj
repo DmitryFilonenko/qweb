@@ -162,6 +162,8 @@
     <Compile Include="Infrastructure\QComands\QUploadFileHandler.cs" />
     <Compile Include="Infrastructure\QDbWaiter\QTaskConroller.cs" />
     <Compile Include="Infrastructure\QLoger.cs" />
+    <Compile Include="Models\Chess\ChessResult.cs" />
+    <Compile Include="Models\Chess\ChessResultModel.cs" />
     <Compile Include="Models\Home\HomeModel.cs" />
     <Compile Include="Models\Home\Paging\PagingInfo.cs" />
     <Compile Include="Models\Home\Paging\PinListViewModel.cs" />
