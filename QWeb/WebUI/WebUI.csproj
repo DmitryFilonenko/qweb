@@ -183,6 +183,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Sql_files\Chess\Lasts.sql" />
+    <Content Include="App_Data\Sql_files\Chess\Leaders.sql" />
     <Content Include="App_Data\Sql_files\Entities\actual_creditors.sql" />
     <Content Include="App_Data\Sql_files\Entities\notes.sql" />
     <Content Include="App_Data\Sql_files\Entities\regs_by_creditor_id.sql" />
@@ -248,6 +250,7 @@
     <Content Include="Views\Priority\PreChange.cshtml" />
     <Content Include="Views\Priority\Change.cshtml" />
     <Content Include="Views\Chess\Chess.cshtml" />
+    <Content Include="Views\Chess\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

@@ -1,0 +1,56 @@
+﻿@model WebUI.Models.Chess.ChessResultModel
+
+
+
+<div class="text-center form-control" style="height:auto; width:auto">
+    <h4>Лидеры:</h4>
+    <table class="table">
+        @foreach (var item in Model.Leaders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeskSide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Field)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Result)
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <h4>Последние попытки:</h4>
+    <table class="table">
+        @foreach (var item in Model.Lasts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeskSide)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Field)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Result)
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+
+
+
+
+
+

@@ -16,8 +16,8 @@ namespace WebUI.Models.Chess
         string pathToLeadersFile = HostingEnvironment.MapPath(@"~/App_Data/Sql_files\Chess\Leaders.sql");
         string pathToLastsFile = HostingEnvironment.MapPath(@"~/App_Data/Sql_files\Chess\Lasts.sql");
 
-        List<ChessResult> Leaders { get; set; }
-        List<ChessResult> Lasts { get; set; }
+        public List<ChessResult> Leaders { get; set; }
+        public List<ChessResult> Lasts { get; set; }
 
         public ChessResultModel()
         {
@@ -28,7 +28,7 @@ namespace WebUI.Models.Chess
         private List<ChessResult> GetData(string path)
         {
             List<ChessResult> list = new List<ChessResult>(); 
-            string query = File.ReadAllText(pathToLeadersFile);
+            string query = File.ReadAllText(path);
             List<string> res = ManagerDbQuery.GetItems(query, 5);
             foreach (var item in res)
             {

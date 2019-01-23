@@ -15,7 +15,8 @@ namespace WebUI.Controllers
         public ActionResult Chess()
         {
             ViewBag.Random = GetRandomNumber(0, 2);
-            return PartialView();
+            ChessResultModel model = new ChessResultModel();
+            return PartialView(model);
         }
 
         private static readonly Random getrandom = new Random();
@@ -29,17 +30,19 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Result(string field, string deskSide, string time)
-        {            
-            ChessResult chessResult = new ChessResult
+        public ActionResult Result(string isOk, string field, string deskSide, string time)
+        {
+            if (isOk == "true")
             {
-                DeskSide = deskSide,
-                Field = field,
-                Player = UserModel.GetUserLogin(),
-                Result = time                
-            };
-
-            ChessResultModel.AddRecord(chessResult);
+                ChessResult chessResult = new ChessResult
+                {
+                    DeskSide = deskSide,
+                    Field = field,
+                    Player = UserModel.GetUserLogin(),
+                    Result = time
+                };
+                ChessResultModel.AddRecord(chessResult);
+            }            
             ChessResultModel model = new ChessResultModel();
 
             return PartialView(model);

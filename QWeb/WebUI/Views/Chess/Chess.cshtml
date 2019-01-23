@@ -1,4 +1,6 @@
-﻿
+﻿@model WebUI.Models.Chess.ChessResultModel
+
+
 
 @using (Ajax.BeginForm("Result", new { deskSide = ViewBag.Random }, new AjaxOptions
 {
@@ -8,104 +10,71 @@
 }))
 {
     <fieldset>
-        <div id=chess>
-            <div id=desk class="col-lg-8">
-                <div class="text-center form-control" style="height:auto; width:auto">
 
-                    <h4 id=message>Hello!</h4>
+            <div class="col-lg-8 text-center form-control" style="height:auto; width:630px">
 
+                <h4 id=message>Hello!</h4>
 
-                    @for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-                @Html.ChessDeskBuilder(i, j, ViewBag.Random == 0 ? ChessSide.black : ChessSide.white)
-}
+                @for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        @Html.ChessDeskBuilder(i, j, ViewBag.Random == 0 ? ChessSide.black : ChessSide.white)
+                    }
+                    <br />
+                }
                 <br />
-}
-                    <br />
-                    <p id="start" class="btn btn-primary">Начать</p>
-                    <input hidden="hidden" name="field" id="ansField">
-                    <input hidden="hidden" name="time" id="ansTime">
-                </div>
-            </div>
-
-            <div id=results class="col-lg-4">
-
-                <div class="text-center form-control" style="height:auto; width:auto">
-
-                    <br />
-
-                    <h4>Рекорды:</h4>
-
-                    <table border="1" class="text-center" style="width:100%">
-
-                        <tr>
-                            <td>Кира</td>
-                            <td>D-4</td>
-                            <td>3 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Кира</td>
-                            <td>D-4</td>
-                            <td>4 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Кира</td>
-                            <td>D-4</td>
-                            <td>5 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Кира</td>
-                            <td>D-4</td>
-                            <td>6 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Кира</td>
-                            <td>D-4</td>
-                            <td>7 сек</td>
-                        </tr>
-                    </table>
-                    <br />
-                </div>
-
+                <p id="start" class="btn btn-primary" style="width:170px">Начать</p>
+                <input hidden="hidden" name="field" id="ansField">
+                <input hidden="hidden" name="time" id="ansTime">
+                <input hidden="hidden" name="isOk" id="ansIsRight">
                 <br /><br />
-
-                <div class="text-center form-control" style="height:auto; width:auto">
-
-                    <h4>Последние попытки:</h4>
-                    <table border="1" class="text-center" style="width:100%">
-
-                        <tr>
-                            <td>Гена</td>
-                            <td>D-7</td>
-                            <td>4 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Сёма</td>
-                            <td>E-2</td>
-                            <td>3,5 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Сёма</td>
-                            <td>E-2</td>
-                            <td>3,5 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Сёма</td>
-                            <td>E-2</td>
-                            <td>3,5 сек</td>
-                        </tr>
-                        <tr>
-                            <td>Сёма</td>
-                            <td>E-2</td>
-                            <td>3,5 сек</td>
-                        </tr>
-                    </table>
-                    <br />
-                </div>
             </div>
+
+            <div id="results" class="col-lg-4 text-center" style="height:auto; width:auto">
+                <h4>Лидеры:</h4>
+                <table class="table">
+                    @foreach (var item in Model.Leaders)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Player)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeskSide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Field)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Result) сек.
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+                <h4>Последние попытки:</h4>
+                <table class="table">
+                    @foreach (var item in Model.Lasts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Player)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeskSide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Field)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Result) сек.
+                            </td>
+                        </tr>
+                    }
+                </table>
         </div>
+
 
         @*<input type="submit" style="width:50px; height:50px; border:inherit; border-color:dimgray; Background:blue" class="btn" />*@
 
@@ -115,12 +84,11 @@
 }
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
     $(document).ready(function () {
-       
+
         var start;
-       // var deskSize = ViewBag.Random;
 
         $("#start").click(function () {
 
@@ -142,31 +110,23 @@
         $('.answer').click(function (e) {
 
             var resTime = ($.now() - start) / 1000;
-            //@Session["ResultTime"] = resTime;
 
             if ($("#start").text() == e.target.id) {
 
-                $("#message").text('Да! За ' + resTime+ 'сек.');
+                $("#message").text('Правильно! За ' + resTime+ 'сек.');
                 $("#start").text('Начать');
                 $("#ansField").val(e.target.id);
                 $("#ansTime").val(resTime);
+                $("#ansIsRight").val('true');
+
             }
             else {
 
                 $("#message").text('Неа! За ' + resTime + 'сек.');
-            }  
-
-            @*$.ajax({
-                url: 'Result',
-                type: 'POST',
-                data: {
-                    field: e.target.id,
-                    deskSide: @ViewBag.Random,
-                    time: resTime
-                }
-            });*@
+                $("#ansIsRight").val('false');
+            }
         });
     });
 
-    </script>
+</script>
 
