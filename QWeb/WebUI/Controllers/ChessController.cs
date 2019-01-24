@@ -39,7 +39,7 @@ namespace WebUI.Controllers
                     DeskSide = deskSide,
                     Field = field,
                     Player = UserModel.GetUserLogin(),
-                    Result = time
+                    Result = time.Contains(".") ? time.Replace(".", ",") : time
                 };
                 ChessResultModel.AddRecord(chessResult);
             }            
