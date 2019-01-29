@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DbLayer;
 using DbLayer.Prop;
+using WebUI.Infrastructure.QComands;
 using WebUI.Models.Home;
 using WebUI.Models.Home.User;
 using WebUI.Models.QEntities;
@@ -13,11 +14,24 @@ using WebUI.Models.QEntities.QPins;
 namespace WebUI.Controllers
 {
     public class HomeController : Controller
-    {
+    {     
+
         public int pageSize = 30;
 
         public ActionResult Index()
         {
+            if (Session["CurrentTasks"] != null)
+            {
+                List<QTaskReleaser> list = Session["CurrentTasks"] as List<QTaskReleaser>;
+                foreach (var item in list)
+                {
+                    if (item.IsNeedToStop)
+                    {
+                        item.StopTask();
+                    }
+                }
+            }
+
             SetConnectionTypeToSession();
 
             QPinBase pinToSeach = new QPinBase();

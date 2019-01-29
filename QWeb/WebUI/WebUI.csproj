@@ -158,6 +158,7 @@
     <Compile Include="Infrastructure\HelperMethods\PagingHelper.cs" />
     <Compile Include="Infrastructure\HelperMethods\SubTasksHelper.cs" />
     <Compile Include="Infrastructure\QComands\IQCommand.cs" />
+    <Compile Include="Infrastructure\QComands\QCurrentTask.cs" />
     <Compile Include="Infrastructure\QComands\QTaskHandler.cs" />
     <Compile Include="Infrastructure\QComands\QUploadFileHandler.cs" />
     <Compile Include="Infrastructure\QDbWaiter\QTaskConroller.cs" />
